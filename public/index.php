@@ -1,8 +1,15 @@
-<html lang="fr-FR">
- <head>
-  <title>Test PHP</title>
- </head>
- <body>
- <?php echo '<p>Bonjour le monde</p>'; ?>
- </body>
-</html>
+<?php
+
+require '../vendor/autoload.php';
+
+use MyWebsite\App;
+
+use function Http\Response\send;
+
+$app = new App();
+
+try {
+    $response = $app->run(\GuzzleHttp\Psr7\ServerRequest::fromGlobals());
+    send($response);
+} catch (Exception $e) {
+}
