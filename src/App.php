@@ -8,8 +8,9 @@ namespace MyWebsite;
 
 use Exception;
 use GuzzleHttp\Psr7\Response;
-use MyWebsite\Utils\Renderer;
+use MyWebsite\Utils\RendererInterface;
 use MyWebsite\Utils\Router;
+use MyWebsite\Utils\TwigRenderer;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -26,7 +27,9 @@ class App
     protected $router;
 
     /**
-     * @var Renderer
+     * A TwigRenderer Interface instance.
+     *
+     * @var RendererInterface
      */
     protected $renderer;
 
@@ -41,8 +44,7 @@ class App
      */
     public function run(ServerRequestInterface $request): ResponseInterface
     {
-        $this->renderer = new Renderer();
-        $this->renderer->addViewPath(sprintf("%s/src/Views", dirname(__DIR__)));
+        $this->renderer = new TwigRenderer(sprintf("%s/src/Views", dirname(__DIR__)));
         $this->renderer->addViewPath('site', sprintf("%s/Views/Site", __DIR__));
         $this->renderer->addViewPath('blog', sprintf("%s/Views/Blog", __DIR__));
         // To reference routes without using modules
@@ -88,7 +90,7 @@ class App
      */
     public function home(ServerRequestInterface $request): string
     {
-        return $this->renderer->render('@site/home');
+        return $this->renderer->renderView('site/home');
     }
 
     /**
@@ -100,7 +102,7 @@ class App
      */
     public function blogHome(ServerRequestInterface $request): string
     {
-        return $this->renderer->render('@blog/blogHome');
+        return $this->renderer->renderView('blog/blogHome');
     }
 
     /**
@@ -112,8 +114,8 @@ class App
      */
     public function show(ServerRequestInterface $request): string
     {
-        return $this->renderer->render(
-            '@blog/show',
+        return $this->renderer->renderView(
+            'blog/show',
             ['slug' => $request->getAttribute('slug')]
         );
     }
