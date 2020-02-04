@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+
+{% block title "Mon Blog" %}
+
+{% block body %}
+
+    <h1>Bienvenue sur le blog</h1>
+
+    <ul>
+        <li><a href="{{ router.generateUri('blog.show', {slug: 'test-69pandastyle'}) }}">Article 1</a></li>
+        <li>Article 1</li>
+        <li>Article 1</li>
+        <li>Article 1</li>
+        <li>Article 1</li>
+        <li>Article 1</li>
+    </ul>
+
+{% endblock %}

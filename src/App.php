@@ -8,7 +8,9 @@ namespace MyWebsite;
 
 use Exception;
 use GuzzleHttp\Psr7\Response;
+use MyWebsite\Utils\RendererInterface;
 use MyWebsite\Utils\Router;
+use MyWebsite\Utils\TwigRenderer;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -25,6 +27,13 @@ class App
     protected $router;
 
     /**
+     * A TwigRenderer Interface instance.
+     *
+     * @var RendererInterface
+     */
+    protected $renderer;
+
+    /**
      * App run.
      *
      * @param ServerRequestInterface $request
@@ -35,11 +44,16 @@ class App
      */
     public function run(ServerRequestInterface $request): ResponseInterface
     {
+        $this->renderer = new TwigRenderer(sprintf("%s/src/Views", dirname(__DIR__)));
+        $this->renderer->addViewPath('site', sprintf("%s/Views/Site", __DIR__));
+        $this->renderer->addViewPath('blog', sprintf("%s/Views/Blog", __DIR__));
         // To reference routes without using modules
         $this->router = new Router();
         $this->router->get('/', [$this, 'home'], 'site.home');
-        $this->router->get('/blog', [$this, 'index'], 'blog.index');
-        $this->router->get('/blog/{slug:[a-z\-]+}', [$this, 'show'], 'blog.show');
+        $this->router->get('/blog', [$this, 'blogHome'], 'blog.home');
+        $this->router->get('/blog/{slug:[a-z\-0-9]+}', [$this, 'show'], 'blog.show');
+
+        $this->renderer->addGlobal('router', $this->router);
 
         $route = $this->router->match($request);
         if (is_null($route)) {
@@ -76,7 +90,7 @@ class App
      */
     public function home(ServerRequestInterface $request): string
     {
-        return '<h1>Bienvenue sur le site</h1>';
+        return $this->renderer->renderView('site/home');
     }
 
     /**
@@ -86,9 +100,9 @@ class App
      *
      * @return string
      */
-    public function index(ServerRequestInterface $request): string
+    public function blogHome(ServerRequestInterface $request): string
     {
-        return '<h1>Bienvenue sur le blog</h1>';
+        return $this->renderer->renderView('blog/blogHome');
     }
 
     /**
@@ -100,9 +114,9 @@ class App
      */
     public function show(ServerRequestInterface $request): string
     {
-        return sprintf(
-            "<h1>Bienvenue sur l'Article %s</h1>",
-            $request->getAttribute('slug')
+        return $this->renderer->renderView(
+            'blog/show',
+            ['slug' => $request->getAttribute('slug')]
         );
     }
 }
