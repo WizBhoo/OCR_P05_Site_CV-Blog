@@ -35,43 +35,64 @@ class Router
     /**
      * Router get.
      *
-     * @param string   $path
-     * @param callable $callableFunction
-     * @param string   $routeName
+     * @param string          $path
+     * @param string|callable $callableFunction
+     * @param string          $routeName
      *
      * @return void
      */
-    public function get(string $path, callable $callableFunction, string $routeName): void
+    public function get(string $path, $callableFunction, string $routeName): void
     {
-        $this->router->addRoute(new ZendRoute($path, $callableFunction, ['GET'], $routeName));
+        $this->router->addRoute(
+            new ZendRoute(
+                $path,
+                $callableFunction,
+                ['GET'],
+                $routeName
+            )
+        );
     }
 
     /**
      * Router post.
      *
-     * @param string   $path
-     * @param callable $callableFunction
-     * @param string   $routeName
+     * @param string          $path
+     * @param string|callable $callableFunction
+     * @param string          $routeName
      *
      * @return void
      */
-    public function post(string $path, callable $callableFunction, string $routeName): void
+    public function post(string $path, $callableFunction, string $routeName): void
     {
-        $this->router->addRoute(new ZendRoute($path, $callableFunction, ['POST'], $routeName));
+        $this->router->addRoute(
+            new ZendRoute(
+                $path,
+                $callableFunction,
+                ['POST'],
+                $routeName
+            )
+        );
     }
 
     /**
      * Router delete.
      *
-     * @param string   $path
-     * @param callable $callableFunction
-     * @param string   $routeName
+     * @param string          $path
+     * @param string|callable $callableFunction
+     * @param string          $routeName
      *
      * @return void
      */
-    public function delete(string $path, callable $callableFunction, string $routeName): void
+    public function delete(string $path, $callableFunction, string $routeName): void
     {
-        $this->router->addRoute(new ZendRoute($path, $callableFunction, ['DELETE'], $routeName));
+        $this->router->addRoute(
+            new ZendRoute(
+                $path,
+                $callableFunction,
+                ['DELETE'],
+                $routeName
+            )
+        );
     }
 
     /**

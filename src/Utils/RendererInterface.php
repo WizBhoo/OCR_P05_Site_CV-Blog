@@ -32,15 +32,4 @@ interface RendererInterface
      * @return string
      */
     public function renderView(string $view, array $params = []): string;
-
-    /**
-     * RendererInterface addGlobal.
-     * Allows to add global var to all views.
-     *
-     * @param string $key
-     * @param $value
-     *
-     * @return void
-     */
-    public function addGlobal(string $key, $value): void;
 }

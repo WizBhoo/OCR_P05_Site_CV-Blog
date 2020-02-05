@@ -6,32 +6,25 @@
 
 namespace MyWebsite;
 
+use DI\ContainerBuilder;
 use Exception;
 use GuzzleHttp\Psr7\Response;
-use MyWebsite\Utils\RendererInterface;
 use MyWebsite\Utils\Router;
-use MyWebsite\Utils\TwigRenderer;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
- * Class App. To load modules
+ * Class App.
  */
 class App
 {
     /**
-     * A Router instance.
+     * A ContainerInterface instance.
      *
-     * @var Router
+     * @var ContainerInterface
      */
-    protected $router;
-
-    /**
-     * A TwigRenderer Interface instance.
-     *
-     * @var RendererInterface
-     */
-    protected $renderer;
+    protected $container;
 
     /**
      * App run.
@@ -44,18 +37,11 @@ class App
      */
     public function run(ServerRequestInterface $request): ResponseInterface
     {
-        $this->renderer = new TwigRenderer(sprintf("%s/src/Views", dirname(__DIR__)));
-        $this->renderer->addViewPath('site', sprintf("%s/Views/Site", __DIR__));
-        $this->renderer->addViewPath('blog', sprintf("%s/Views/Blog", __DIR__));
-        // To reference routes without using modules
-        $this->router = new Router();
-        $this->router->get('/', [$this, 'home'], 'site.home');
-        $this->router->get('/blog', [$this, 'blogHome'], 'blog.home');
-        $this->router->get('/blog/{slug:[a-z\-0-9]+}', [$this, 'show'], 'blog.show');
+        $builder = new ContainerBuilder();
+        $builder->addDefinitions(sprintf("%s/config/config.php", dirname(__DIR__)));
+        $this->container = $builder->build();
 
-        $this->renderer->addGlobal('router', $this->router);
-
-        $route = $this->router->match($request);
+        $route = $this->container->get(Router::class)->match($request);
         if (is_null($route)) {
             return new Response(404, [], '<h1>Erreur 404</h1>');
         }
@@ -69,7 +55,11 @@ class App
             $request
         );
 
-        $response = call_user_func_array($route->getCallback(), [$request]);
+        $callback = $route->getCallback();
+        if (is_string($callback)) {
+            $callback = $this->container->get($callback);
+        }
+        $response = call_user_func_array($callback, [$request]);
         if (is_string($response)) {
             return new Response(200, [], $response);
         } elseif (!$response instanceof ResponseInterface) {
@@ -79,44 +69,5 @@ class App
         }
 
         return $response;
-    }
-
-    /**
-     * Route callable function home.
-     *
-     * @param ServerRequestInterface $request
-     *
-     * @return string
-     */
-    public function home(ServerRequestInterface $request): string
-    {
-        return $this->renderer->renderView('site/home');
-    }
-
-    /**
-     * Route callable function index.
-     *
-     * @param ServerRequestInterface $request
-     *
-     * @return string
-     */
-    public function blogHome(ServerRequestInterface $request): string
-    {
-        return $this->renderer->renderView('blog/blogHome');
-    }
-
-    /**
-     * Route callable function show.
-     *
-     * @param ServerRequestInterface $request
-     *
-     * @return string
-     */
-    public function show(ServerRequestInterface $request): string
-    {
-        return $this->renderer->renderView(
-            'blog/show',
-            ['slug' => $request->getAttribute('slug')]
-        );
     }
 }
