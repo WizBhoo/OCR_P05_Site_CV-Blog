@@ -21,7 +21,7 @@ class Route
     /**
      * Route associated callback.
      *
-     * @var callable
+     * @var string|callable
      */
     protected $callback;
 
@@ -35,11 +35,11 @@ class Route
     /**
      * Route constructor.
      *
-     * @param string   $name
-     * @param callable $callback
-     * @param array    $parameters
+     * @param string          $name
+     * @param string|callable $callback
+     * @param array           $parameters
      */
-    public function __construct(string $name, callable $callback, array $parameters)
+    public function __construct(string $name, $callback, array $parameters)
     {
         $this->name = $name;
         $this->callback = $callback;
@@ -59,9 +59,9 @@ class Route
     /**
      * Route getCallback.
      *
-     * @return callable
+     * @return string|callable
      */
-    public function getCallback(): callable
+    public function getCallback()
     {
         return $this->callback;
     }
