@@ -1,107 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="fr">
+
 <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <title>{% block title "Mon site" %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <style> body { padding-top: 60px; } </style>
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="../img/favicon.png" type="image/png">
+    <title>{% block title "Adrien PIERRARD - CV" %}</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../libs/linericon/style.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../libs/owl-carousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="../css/magnific-popup.css">
+    <link rel="stylesheet" href="../libs/lightbox/simpleLightbox.css">
+    <link rel="stylesheet" href="../libs/nice-select/css/nice-select.css">
+    <link rel="stylesheet" href="../libs/animate-css/animate.css">
+    <link rel="stylesheet" href="../libs/flaticon/flaticon.css">
+    <!-- main css -->
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
-<!-- Navigation -->
-<nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
-            </button>
-            <a class="navbar-brand" href="#page-top">Start Bootstrap</a>
-        </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="hidden">
-                    <a href="#page-top"></a>
-                </li>
-                <li class="page-scroll">
-                    <a href="#portfolio">Portfolio</a>
-                </li>
-                <li class="page-scroll">
-                    <a href="#about">About</a>
-                </li>
-                <li class="page-scroll">
-                    <a href="#contact">Contact</a>
-                </li>
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
-</nav>
-
-<div class="container">
-
-    {% block body %}{% endblock %}
-
-</div>
-
-<footer class="text-center">
-    <div class="footer-above">
-        <div class="container">
-            <div class="row">
-                <div class="footer-col col-md-4">
-                    <h3>Location</h3>
-                    <p>3481 Melrose Place
-                        <br>Beverly Hills, CA 90210</p>
-                </div>
-                <div class="footer-col col-md-4">
-                    <h3>Around the Web</h3>
-                    <ul class="list-inline">
-                        <li>
-                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
+<!--================Header Menu Area =================-->
+<header class="header_area">
+    <div class="main_menu">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <a class="navbar-brand" href="{{ path('site.home') }}"><img src="../img/logo.png" alt=""></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav menu_nav justify-content-end">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ path('site.home') }}">Accueil</a>
                         </li>
-                        <li>
-                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="download/CV_PIERRARD_ADRIEN.pdf" target="_blank">CV</a>
                         </li>
-                        <li>
-                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('site.portfolio') }}">Réalisations</a>
                         </li>
-                        <li>
-                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('blog.home') }}">Blog</a>
                         </li>
-                        <li>
-                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-dribbble"></i></a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('site.contact') }}">Me Contacter</a>
                         </li>
                     </ul>
                 </div>
-                <div class="footer-col col-md-4">
-                    <h3>About Freelancer</h3>
-                    <p>Freelance is a free to use, open source Bootstrap theme created by <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
-                </div>
             </div>
-        </div>
+        </nav>
     </div>
-    <div class="footer-below">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    Copyright &copy; Your Website 2016
+</header>
+<!--================Header Menu Area =================-->
+
+
+    {% block body %}{% endblock %}
+
+
+<!--================ Start Footer Area =================-->
+<footer class="footer_area section_gap">
+    <div class="container">
+        <div class="row footer_inner justify-content-center">
+            <div class="col-lg-6 text-center">
+                <aside class="f_widget social_widget">
+                    <div class="f_logo">
+                        <img src="../img/logo.png" alt="">
+                    </div>
+                    <div class="f_title">
+                        <h4>Follow Me</h4>
+                    </div>
+                    <ul class="list">
+                        <li><a href="https://www.linkedin.com/in/a-pierrard/"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="https://github.com/WizBhoo"><i class="fa fa-github"></i></a></li>
+                        <li><a href="https://twitter.com/WizBhoo"><i class="fa fa-twitter"></i></a></li>
+                    </ul>
+                </aside>
+                <div class="copyright">
+                    <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                 </div>
             </div>
         </div>
     </div>
 </footer>
+<!--================End Footer Area =================-->
 
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/popper.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/stellar.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="libs/lightbox/simpleLightbox.min.js"></script>
+<script src="libs/nice-select/js/jquery.nice-select.min.js"></script>
+<script src="libs/isotope/imagesloaded.pkgd.min.js"></script>
+<script src="libs/isotope/isotope-min.js"></script>
+<script src="libs/owl-carousel/owl.carousel.min.js"></script>
+<script src="js/jquery.ajaxchimp.min.js"></script>
+<script src="js/mail-script.js"></script>
+<!-- contact js -->
+<script src="js/jquery.form.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/contact.js"></script>
+<!--gmaps Js-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+<script src="js/gmaps.min.js"></script>
+<script src="js/theme.js"></script>
 </body>
+
 </html>

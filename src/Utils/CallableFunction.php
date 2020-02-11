@@ -6,6 +6,7 @@
 
 namespace MyWebsite\Utils;
 
+use Exception;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -38,19 +39,28 @@ class CallableFunction
      * @param ServerRequestInterface $request
      *
      * @return string
+     *
+     * @throws Exception
      */
     public function __invoke(ServerRequestInterface $request)
     {
         $path = $request->getUri()->getPath();
         $slug = $request->getAttribute('slug');
-        if ("/" === $path) {
-            return $this->home();
-        }
         if ($slug) {
             return $this->show($slug);
         }
-
-        return $this->blogHome();
+        switch ($path) {
+            case "/":
+                return $this->home();
+            case "/portfolio":
+                return $this->portfolio();
+            case "/contact":
+                return $this->contact();
+            case "/blog":
+                return $this->blogHome();
+            default:
+                throw new Exception('Route not found');
+        }
     }
 
     /**
@@ -61,6 +71,26 @@ class CallableFunction
     public function home(): string
     {
         return $this->renderer->renderView('site/home');
+    }
+
+    /**
+     * Route callable function portfolio.
+     *
+     * @return string
+     */
+    public function portfolio(): string
+    {
+        return $this->renderer->renderView('site/portfolio');
+    }
+
+    /**
+     * Route callable function contact.
+     *
+     * @return string
+     */
+    public function contact(): string
+    {
+        return $this->renderer->renderView('site/contact');
     }
 
     /**

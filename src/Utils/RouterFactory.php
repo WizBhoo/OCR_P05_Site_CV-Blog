@@ -30,6 +30,16 @@ class RouterFactory
             'site.home'
         );
         $router->get(
+            $container->get('portfolio.prefix'),
+            CallableFunction::class,
+            'site.portfolio'
+        );
+        $router->get(
+            $container->get('contact.prefix'),
+            CallableFunction::class,
+            'site.contact'
+        );
+        $router->get(
             $container->get('blog.prefix'),
             CallableFunction::class,
             'blog.home'

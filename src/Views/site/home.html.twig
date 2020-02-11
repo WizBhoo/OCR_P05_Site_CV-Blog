@@ -2,6 +2,256 @@
 
 {% block body %}
 
-    <h1>Bienvenue sur le site !!!</h1>
+    <!--================Home Banner Area =================-->
+    <section class="banner-area owl-carousel" id="home">
+        <div class="single_slide_banner slide_bg1">
+            <div class="container">
+                <div class="row fullscreen d-flex align-items-center">
+                    <div class="banner-content col-lg-12 justify-content-center">
+                        <h1>Adrien PIERRARD</h1>
+                        <h3>Développeur d'Application Web PHP / Symfony</h3>
+                        <a href="download/CV_PIERRARD_ADRIEN.pdf" class="primary-btn" target="_blank">
+                            Voir mon CV
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Home Banner Area =================-->
+
+    <!--================ Start Portfolio Area =================-->
+    <section class="section_gap portfolio_area" id="work">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 text-center">
+                    <div class="main-title">
+                        <h1>Mes Réalisations</h1>
+                        <p>Je vous invite à parcourir les projets menés à bien durant mon parcours de formation.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="projects_fillter">
+                        <ul class="filter list">
+                            <li class="active" data-filter="*">Toutes Categories</li>
+                            <li data-filter=".cms">CMS</li>
+                            <li data-filter=".html-css">HTML/CSS</li>
+                            <li data-filter=".php">PHP</li>
+                            <li data-filter=".symfony">Symfony</li>
+                            <li data-filter=".other">Autres</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="projects_inner row grid">
+                <div class="grid-sizer col-sm-6 col-md-3 col-lg-3"></div>
+                <div class="col-lg-6 col-sm-6 col-sm-12 cms html-css grid-item">
+                    <div class="projects_item">
+                        <img class="img-fluid w-100" src="img/works/work1.jpg" alt="">
+                        <div class="projects_text">
+                            <a href="portfolio-details.html.twig">
+                                <h4>Chalets & Caviar</h4>
+                            </a>
+                            <p>WordPress Training Project</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-sm-12 html-css grid-item">
+                    <div class="projects_item">
+                        <img class="img-fluid w-100" src="img/works/work2.jpg" alt="">
+                        <div class="projects_text">
+                            <a href="portfolio-details.html">
+                                <h4>Festi'Film Plein Air</h4>
+                            </a>
+                            <p>HTML5-CSS3 & Bootstrap 4 Training Project</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 other grid-item">
+                    <div class="projects_item">
+                        <img class="img-fluid w-100" src="img/works/work3.jpg" alt="">
+                        <div class="projects_text">
+                            <a href="portfolio-details.html">
+                                <h4>ExpressFood</h4>
+                            </a>
+                            <p>UML - MySQL Training Project</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-6 php grid-item">
+                    <div class="projects_item">
+                        <img class="img-fluid w-100" src="img/works/work5.jpg" alt="">
+                        <div class="projects_text">
+                            <a href="portfolio-details.html">
+                                <h4>Mon site CV & Blog</h4>
+                            </a>
+                            <p>PHP Training Project</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-6 symfony php grid-item">
+                    <div class="projects_item">
+                        <img class="img-fluid w-100" src="img/works/work4.jpg" alt="">
+                        <div class="projects_text">
+                            <a href="portfolio-details.html">
+                                <h4>SnowTricks</h4>
+                            </a>
+                            <p>Symfony 4 Training Project</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-6 other grid-item">
+                    <div class="projects_item">
+                        <img class="img-fluid w-100" src="img/works/work8.jpg" alt="">
+                        <div class="projects_text">
+                            <a href="portfolio-details.html">
+                                <h4>API</h4>
+                            </a>
+                            <p>API Training Project</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 brand php other grid-item">
+                    <div class="projects_item">
+                        <img class="img-fluid w-100" src="img/works/work6.jpg" alt="">
+                        <div class="projects_text">
+                            <a href="portfolio-details.html">
+                                <h4>Refactoring</h4>
+                            </a>
+                            <p>Refactoring Training Project</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 other grid-item">
+                    <div class="projects_item">
+                        <img class="img-fluid w-100" src="img/works/work7.jpg" alt="">
+                        <div class="projects_text">
+                            <a href="portfolio-details.html">
+                                <h4>Veille Technologique</h4>
+                            </a>
+                            <p>Training Project</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================ End Portfolio Area =================-->
+
+    <!--================ Start About Area =================-->
+    <section class="about-area section_gap gray-bg">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-lg-5 about-left">
+                    <img class="img-fluid" src="img/about-img.png" alt="">
+                </div>
+                <div class="col-lg-6 col-md-12 about-right">
+                    <div class="main-title text-left">
+                        <h1>À propos de moi</h1>
+                    </div>
+                    <div class="mb-50 wow fadeIn" data-wow-duration=".8s">
+                        <p>
+                            inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards
+                            especially in the
+                            workplace. That’s why it’s crucial that, as women, our behavior on the job is beyond reproach. inappropriate
+                            behavior
+                            is often laughed. inappropriate behavior is often laughed off as “boys will be boys,” women face higher.
+                        </p>
+                        <p>That’s why it’s crucial that, as women, our behavior on the job is beyond reproach. inappropriate behavior is
+                            often
+                            laughed.
+                        </p>
+                    </div>
+                    <a href="{{ path('blog.home') }}" class="primary-btn">Visitez mon Blog</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================ End About Area =================-->
+
+    <!--================ Start Testimonial Area =================-->
+    <div class="section_gap testimonial_area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7 text-left">
+                    <div class="active_testimonial owl-carousel" data-slider-id="1">
+                        <!-- single testimonial -->
+                        <div class="single_testimonial">
+                            <div class="testimonial_head">
+                                <img src="img/quote.png" alt="">
+                                <h4>Annie Beauget</h4>
+                                <h3>Project Lead – MSD CHIBRET</h3>
+                                <div class="review">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="testimonial_content">
+                                <p>Adrien shows all competencies that might be of interest for a leading company: highly
+                                    educational background, strong exposure to various fields of what makes a business
+                                    [...], strong results in every project conducted, strong relationship and leadership,
+                                    autonomy, strong client of customer service, hard worker. Devoted and strongly
+                                    engaged to work.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="single_testimonial">
+                            <div class="testimonial_head">
+                                <img src="img/quote.png" alt="">
+                                <h4>Annie Beauget</h4>
+                                <h3>Project Lead – MSD CHIBRET</h3>
+                                <div class="review">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="testimonial_content">
+                                <p>Adrien shows all competencies that might be of interest for a leading company: highly
+                                    educational background, strong exposure to various fields of what makes a business
+                                    [...], strong results in every project conducted, strong relationship and leadership,
+                                    autonomy, strong client of customer service, hard worker. Devoted and strongly
+                                    engaged to work.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="single_testimonial">
+                            <div class="testimonial_head">
+                                <img src="img/quote.png" alt="">
+                                <h4>Annie Beauget</h4>
+                                <h3>Project Lead – MSD CHIBRET</h3>
+                                <div class="review">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="testimonial_content">
+                                <p>Adrien shows all competencies that might be of interest for a leading company: highly
+                                    educational background, strong exposure to various fields of what makes a business
+                                    [...], strong results in every project conducted, strong relationship and leadership,
+                                    autonomy, strong client of customer service, hard worker. Devoted and strongly
+                                    engaged to work.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 offset-lg-1"></div>
+            </div>
+        </div>
+    </div>
+    <!--================ End Testimonial Area =================-->
 
 {% endblock %}

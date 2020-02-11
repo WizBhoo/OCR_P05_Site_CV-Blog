@@ -12,6 +12,8 @@ use function DI\get;
 return [
     //Router config keys
     'site.prefix' => '/',
+    'portfolio.prefix' => '/portfolio',
+    'contact.prefix' => '/contact',
     'blog.prefix' => '/blog',
 
     //Twig config keys
