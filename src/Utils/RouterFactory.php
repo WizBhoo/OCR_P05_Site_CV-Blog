@@ -35,6 +35,11 @@ class RouterFactory
             'site.portfolio'
         );
         $router->get(
+            sprintf("%s/{slug:[a-z\-0-9]+}", $container->get('portfolio.prefix')),
+            CallableFunction::class,
+            'site.project'
+        );
+        $router->get(
             $container->get('contact.prefix'),
             CallableFunction::class,
             'site.contact'

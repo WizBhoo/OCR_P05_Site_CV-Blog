@@ -3,5 +3,5 @@ composer.lock
 .DS_Store
 /public/img/
 /public/download/
-/src/Views/prepros-6.config
+/prepros-6.config
 /src/Utils/ContactProcess.php
