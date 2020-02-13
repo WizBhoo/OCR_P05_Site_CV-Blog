@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title "PIERRARD Adrien - Chalets & Caviar" %}
+{% block title "Adrien PIERRARD - Express Food" %}
 
 {% block body %}
 
@@ -9,7 +9,7 @@
         <div class="banner_inner d-flex align-items-center">
             <div class="container">
                 <div class="banner_content text-right">
-                    <h1>Chalets & Caviar</h1>
+                    <h1>Express Food</h1>
                     <div class="page_link">
                         <a href="{{ path('site.home') }}">Accueil Site</a>
                         <a href="{{ path('site.portfolio') }}">Réalisations</a>
@@ -27,34 +27,29 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="left_img">
-                            <img class="img-fluid" src="../img/works/project1.png" alt="">
+                            <img class="img-fluid" src="../img/works/project3.png" alt="">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="portfolio_right_text mt-30">
-                            <h4>Projet : Chalets & Caviar</h4>
+                            <h4>Projet : Express Food</h4>
                             <p>Ce projet s'est inscrit dans le cadre de mon parcours de formation pour devenir
-                                Développeur d'Application Web PHP / Symfony. L'objectif était d'intégrer un thème
-                                Wordpress pour un client.</p>
+                                Développeur d'Application Web PHP / Symfony. L'objectif était de concevoir la solution
+                                technique d'une application de restauration en ligne.</p>
                             <ul class="list">
-                                <li><span>Réalisation</span>: Décembre 2019</li>
+                                <li><span>Réalisation</span>: Janvier 2020</li>
                                 <li><span>Catégorie</span>: Projet de formation OCR</li>
-                                <li><span>Compétences</span>: WP / HTML5 / CSS3</li>
-                                <li>
-                                    <span>Documents</span>:
-                                    <a href="../download/Doc_utilisation_site_Chalets-Caviar.pdf" target="_blank">
-                                        <i class="fa fa-file-pdf-o"></i> Notice Client
-                                    </a>
-                                </li>
+                                <li><span>Compétences</span>: MySQL</li>
+                                <li><span>Méthodologie</span>: Analyse logiciel UML</li>
                             </ul>
                         </div>
                         <div class="row">
                             <div class="portfolio_right_btn col-xl-8 offset-xl-2 col-md-12 mt-25">
-                                <a href="https://chalets-caviar.adrien-pierrard.fr"
+                                <a href="../download/Schemas_UML_Express_Food.pdf"
                                    class="primary-btn" target="_blank">
-                                    Voir site
+                                    Voir UML
                                 </a>
-                                <a href="../download/project1_eval.pdf"
+                                <a href="../download/project3_eval.pdf"
                                    class="primary-btn" target="_blank">
                                     Voir évaluation
                                 </a>
@@ -63,15 +58,25 @@
                     </div>
                 </div>
                 <h4>Attentes du projet</h4>
-                <p>L’agence immobilière "Chalets et caviar" de Courchevel possède une quinzaine de chalets de luxe
-                    à la vente et une vingtaine en location. Cependant, elle ne possède pas encore de site web pour
-                    promouvoir la vente et la location de ses chalets.
-                    Lors d’une première réunion, la directrice de l’agence exprime les attentes suivantes :<br>
-                    - Un site web WordPress administrable par ses soins.<br>
-                    - Un design clair et épuré mettant en avant la ligne de luxe de l'agence.<br>
-                    - Des catégories distinctes pour la présentation des chalets à vendre et à louer.<br>
-                    - Une page contenant les coordonnées de l'agence avec un formulaire de contact fonctionnel.<br>
-                    - 1 Compte Administrateur (plein accès) et 2 Editeurs (accès restrincts au C.R.U.D des chalets).
+                <p>La toute jeune startup ExpressFood ambitionne de livrer des plats de qualité à domicile en moins
+                    de 20 minutes grâce à un réseau de livreurs à vélo. Chaque jour, ExpressFood prépare 2 plats et
+                    2 desserts à son QG en collaboration avec des chefs expérimentés. Ces plats sont conditionnés à
+                    froid puis transmis à des livreurs à domicile qui "maraudent" ensuite dans les rues en attendant
+                    une livraison. Dès qu'un client a commandé, l'un des livreurs
+                    (qui possède déjà les plats dans un sac) est missionné pour livrer en moins de 20 minutes.
+                    Sur son application, ExpressFood propose à ses clients de commander un ou plusieurs plats et
+                    desserts. Les frais de livraison sont gratuits. Les plats changent chaque jour.
+                    Une fois la commande passée, le client a accès à une page lui indiquant si un livreur a pris sa
+                    commande et le temps estimé avant livraison.<br>
+                    Grâce au langage UML, ExpressFood a besoin que vous conceviez sa base de données.
+                    Il s'agit d'y stocker notamment la liste des clients, des différents plats du jour, des livreurs
+                    avec leur statut et leur position, des commandes passées, etc...<br>
+                    Les livrables demandés sont :<br>
+                    - Les diagrammes de cas d’utilisation et de séquences (création commande, ajout plat du jour,
+                    livraison commande)<br>
+                    - Le diagramme de classes<br>
+                    - Le Modèle Physique de Données - MPD<br>
+                    - La Base De Données MySQL contenant un jeu de données de démo<br>
                 </p>
             </div>
         </div>

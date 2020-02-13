@@ -1,7 +1,8 @@
 /vendor/
 composer.lock
 .DS_Store
-/public/img/
-/public/download/
+/public/img/blog/
+/public/img/elements/
+/public/img/instagram/
 /prepros-6.config
 /src/Utils/ContactProcess.php

@@ -6,6 +6,8 @@
 
 namespace MyWebsite\Utils;
 
+use MyWebsite\Controller\BlogController;
+use MyWebsite\Controller\SiteController;
 use Psr\Container\ContainerInterface;
 
 /**
@@ -26,32 +28,32 @@ class RouterFactory
         // To reference routes
         $router->get(
             $container->get('site.prefix'),
-            CallableFunction::class,
+            SiteController::class,
             'site.home'
         );
         $router->get(
             $container->get('portfolio.prefix'),
-            CallableFunction::class,
+            SiteController::class,
             'site.portfolio'
         );
         $router->get(
             sprintf("%s/{slug:[a-z\-0-9]+}", $container->get('portfolio.prefix')),
-            CallableFunction::class,
+            SiteController::class,
             'site.project'
         );
         $router->get(
             $container->get('contact.prefix'),
-            CallableFunction::class,
+            SiteController::class,
             'site.contact'
         );
         $router->get(
             $container->get('blog.prefix'),
-            CallableFunction::class,
+            BlogController::class,
             'blog.home'
         );
         $router->get(
             sprintf("%s/{slug:[a-z\-0-9]+}", $container->get('blog.prefix')),
-            CallableFunction::class,
+            BlogController::class,
             'blog.show'
         );
 
