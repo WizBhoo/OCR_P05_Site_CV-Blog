@@ -1,0 +1,139 @@
+{% extends 'layout.html.twig' %}
+
+{% block title "Adrien PIERRARD - Mon site CV" %}
+
+{% block body %}
+
+    <!--================ Start portfolio Banner Area =================-->
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="container">
+                <div class="banner_content text-right">
+                    <h1>Mon site CV & Blog</h1>
+                    <div class="page_link">
+                        <a href="{{ path('site.home') }}">Accueil Site</a>
+                        <a href="{{ path('site.portfolio') }}">Réalisations</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================ End Portfolio Banner Area =================-->
+
+    <!--================ Start Portfolio Details Area =================-->
+    <section class="portfolio_details_area section_gap">
+        <div class="container">
+            <div class="portfolio_details_inner">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="left_img">
+                            <img class="img-fluid" src="../img/works/project5.png" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="portfolio_right_text mt-30">
+                            <h4>Projet : Créer mon premier site en PHP</h4>
+                            <p>Ce projet s'est inscrit dans le cadre de mon parcours de formation pour devenir
+                                Développeur d'Application Web PHP / Symfony. L'objectif était de créer mon premier
+                                site en PHP intégrant un blog.</p>
+                            <ul class="list">
+                                <li><span>Réalisation</span>: Février 2020</li>
+                                <li><span>Catégorie</span>: Projet de formation OCR</li>
+                                <li>
+                                    <span>Compétences</span>:
+                                    <i class="fab fa-html5"></i> /
+                                    <i class="fab fa-css3"></i> /
+                                    MySQL /
+                                    <i class="fab fa-php"></i>
+                                </li>
+                                <li><span>Méthodologie</span>: UML / MVC / POO</li>
+                                <li>
+                                    <span>Documents</span>:
+                                    <a href="" target="_blank">
+                                        <i class="fas fa-file-pdf"></i> Livrable en cours...
+                                    </a>
+                                </li>
+                                <li>
+                                    <span>Repository</span>:
+                                    <a href="https://github.com/WizBhoo/OCR_P05_Site_CV-Blog" target="_blank">
+                                        <i class="fab fa-github"></i> GitHub
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="portfolio_right_btn col-xl-8 offset-xl-2 col-md-12 mt-25">
+                                <a href="https://adrien-pierrard.fr"
+                                   class="primary-btn" target="_blank">
+                                    Voir site
+                                </a>
+                                <a href=""
+                                   class="primary-btn" target="_blank">
+                                    à venir...
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4>Contexte</h4>
+                <p>Vous avez besoin de visibilité pour pouvoir convaincre vos futurs employeurs/clients en un seul
+                    regard. Vous êtes développeur PHP, il est donc temps de montrer vos talents au travers d’un blog
+                    à vos couleurs.
+                </p>
+                <h4>Attentes du projet</h4>
+                <p>Le projet est donc de développer votre blog professionnel. Ce site web se décompose en deux grands
+                    groupes de pages : les pages utiles à tous les visiteurs et les pages permettant
+                    d’administrer votre blog.<br>
+                    Voici la liste des pages qui devront être accessibles depuis votre site web :<br>
+                    - la page d'accueil<br>
+                    - la page listant l’ensemble des blog posts et celle affichant un blog post<br>
+                    - les pages permettant d'ajouter / modifier / supprimer un blog post<br>
+                    - les pages de connexion/enregistrement des utilisateurs<br>
+                    Vous développerez une partie administration qui devra être accessible uniquement aux utilisateurs
+                    inscrits et validés. Les pages d’administration seront donc accessibles sur conditions et vous
+                    veillerez à la sécurité de la partie administration.<br>
+                    Sur la page d’accueil, il faudra présenter les informations suivantes : nom et prénom, photo et/ou
+                    logo, une phrase d’accroche, un menu permettant de naviguer parmi l’ensemble des pages du site, un
+                    formulaire de contact par mail fonctionnel, un lien vers votre CV au format PDF et l’ensemble des
+                    liens vers les réseaux sociaux où l’on peut vous suivre (GitHub, LinkedIn, Twitter…).<br>
+                    Sur la page listant tous les blogs posts (du plus récent au plus ancien), il faut afficher les
+                    informations suivantes pour chaque blog post : le titre, la date de dernière modification, le châpo
+                    et un lien vers le blog post.<br>
+                    Sur la page présentant le détail d’un blog post, il faut afficher les informations suivantes :
+                    le titre, le chapô, le contenu, l’auteur, la date de dernière mise à jour, le formulaire permettant
+                    d’ajouter un commentaire (soumis pour validation) et les listes des commentaires validés et
+                    publiés.<br>
+                    Sur la page permettant de modifier un blog post, l’utilisateur a la possibilité de modifier les
+                    champs titre, chapô, auteur et contenu.<br>
+                    Dans le footer menu, il doit figurer un lien pour accéder à l’administration du blog.
+                </p>
+                <h4>Contraintes</h4>
+                <p>Cette fois-ci, tout sera développé par vos soins. Les seules lignes de code qui pourront provenir
+                    d’ailleurs seront celles du thème Bootstrap, que vous prendrez grand soin de choisir.
+                    La présentation, ça compte ! Il est également autorisé d’utiliser une ou plusieurs librairies
+                    externes à condition qu’elles soient intégrées grâce à Composer. Le blog doit être navigable
+                    aisément sur un mobile (téléphone mobile, phablette, tablette…). Sur la partie administration,
+                    vous veillerez à ce que seules les personnes ayant le droit “administrateur” aient l’accès,
+                    les autres utilisateurs pourront uniquement commenter les articles (avec validation avant
+                    publication). Vous vous assurerez qu’il n’y a pas de failles de sécurité (XSS, CSRF, SQL Injection,
+                    session hijacking, upload possible de script PHP…). Votre projet doit être poussé et disponible sur
+                    GitHub. Il est conseillé de travailler avec des pull requests. Dans la mesure où la majorité des
+                    communications concernant les projets sur GitHub se font en anglais, il faut que vos commits
+                    soient en anglais. Vous devrez créer l’ensemble des issues (tickets) correspondant aux tâches que
+                    vous aurez à effectuer pour mener à bien le projet. Veillez à bien valider vos tickets pour vous
+                    assurer que ceux-ci couvrent bien toutes les demandes du projet. Donnez une estimation indicative
+                    en temps ou en points d’effort (si la méthodologie agile vous est familière) et tentez de tenir
+                    cette estimation. L’écriture de ces tickets vous permettra de vous accorder sur un vocabulaire
+                    commun. Il est fortement apprécié qu’ils soient écrits en anglais !
+                </p>
+                <h4>Nota Bene</h4>
+                <p>Votre projet devra être suivi via SymfonyInsight, ou Codacy pour la qualité du code. Vous veillerez
+                    à obtenir une médaille d'argent au minimum (pour SymfonyInsight). En complément, le respect des
+                    PSR est recommandé afin de proposer un code compréhensible et facilement évolutif.
+                </p>
+            </div>
+        </div>
+    </section>
+    <!--================ Start Portfolio Details Area =================-->
+
+{% endblock %}
