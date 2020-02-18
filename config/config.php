@@ -15,6 +15,7 @@ return [
     'portfolio.prefix' => '/portfolio',
     'contact.prefix' => '/contact',
     'blog.prefix' => '/blog',
+    '404.prefix' => '/404',
 
     //Twig config keys
     'default_views.path' => sprintf("%s/src/Views", dirname(__DIR__)),
@@ -28,4 +29,7 @@ return [
 
     Router::class => factory(RouterFactory::class),
     RendererInterface::class => factory(TwigRendererFactory::class),
+    PDO::class => function () {
+        return new PDO('mysql:host=mysql-server.localhost;dbname=monsite', 'root', 'root');
+    },
 ];

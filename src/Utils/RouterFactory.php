@@ -47,6 +47,11 @@ class RouterFactory
             'site.contact'
         );
         $router->get(
+            $container->get('404.prefix'),
+            SiteController::class,
+            'site.404'
+        );
+        $router->get(
             $container->get('blog.prefix'),
             BlogController::class,
             'blog.home'

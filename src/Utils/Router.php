@@ -6,9 +6,11 @@
 
 namespace MyWebsite\Utils;
 
-use MyWebsite\Utils\Route as Route;
+use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Expressive\Router\FastRouteRouter;
+use MyWebsite\Utils\Route as Route;
 use Zend\Expressive\Router\Route as ZendRoute;
 use Zend\Expressive\Router\RouterInterface;
 
@@ -127,5 +129,23 @@ class Router
     public function generateUri(string $routeName, array $params): ?string
     {
         return $this->router->generateUri($routeName, $params);
+    }
+
+    /**
+     * Return a redirection response
+     *
+     * @param string $path
+     * @param array  $params
+     *
+     * @return ResponseInterface
+     */
+    public function redirect(string $path, array $params = []): ResponseInterface
+    {
+        $redirectUri = $this->router->generateUri($path, $params);
+
+        return (new Response())
+            ->withStatus(301)
+            ->withHeader('location', $redirectUri)
+        ;
     }
 }

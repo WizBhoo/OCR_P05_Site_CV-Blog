@@ -6,7 +6,10 @@
 
 namespace MyWebsite\Controller;
 
+use MyWebsite\Repository\PostRepository;
 use MyWebsite\Utils\RendererInterface;
+use MyWebsite\Utils\RouterTrait;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -22,15 +25,26 @@ class BlogController
     protected $renderer;
 
     /**
+     * A PostRepository Instance
+     *
+     * @var PostRepository
+     */
+    private $postRepository;
+
+    use RouterTrait;
+
+    /**
      * CallableFunction constructor.
      *
      * @param RendererInterface $renderer
+     * @param PostRepository    $postRepository
      *
      * @return void
      */
-    public function __construct(RendererInterface $renderer)
+    public function __construct(RendererInterface $renderer, PostRepository $postRepository)
     {
         $this->renderer = $renderer;
+        $this->postRepository = $postRepository;
     }
 
     /**
@@ -42,10 +56,8 @@ class BlogController
      */
     public function __invoke(ServerRequestInterface $request)
     {
-        $path = $request->getUri()->getPath();
-        $slug = $request->getAttribute('slug');
-        if ($slug) {
-            return $this->show($slug);
+        if ($request->getAttribute('slug')) {
+            return $this->show($request);
         }
 
         return $this->blogHome();
@@ -58,21 +70,28 @@ class BlogController
      */
     public function blogHome(): string
     {
-        return $this->renderer->renderView('blog/blogHome');
+        $posts = $this->postRepository->getAll();
+
+        return $this->renderer->renderView('blog/blogHome', compact('posts'));
     }
 
     /**
      * Route callable function show.
      *
-     * @param string $slug
+     * @param ServerRequestInterface $request
      *
-     * @return string
+     * @return ResponseInterface|string
      */
-    public function show(string $slug): string
+    public function show(ServerRequestInterface $request)
     {
+        $post = $this->postRepository->findPost($request->getAttribute('slug'));
+        if (is_null($post)) {
+            return $this->renderer->renderView('site/404');
+        }
+
         return $this->renderer->renderView(
             'blog/show',
-            ['slug' => $slug]
+            ['post' => $post]
         );
     }
 }

@@ -87,8 +87,6 @@ class SiteController
      * @param string $slug
      *
      * @return string
-     *
-     * @throws Exception
      */
     public function project(string $slug): string
     {
@@ -134,17 +132,27 @@ class SiteController
                     ['slug' => $slug]
                 );
             default:
-                throw new Exception('Unexpected value');
+                return $this->error404();
         }
     }
 
     /**
-     * Route callable function contact.
-     *
-     * @return string
-     */
+ * Route callable function contact.
+ *
+ * @return string
+ */
     public function contact(): string
     {
         return $this->renderer->renderView('site/contact');
+    }
+
+    /**
+     * Route callable function 404.
+     *
+     * @return string
+     */
+    public function error404(): string
+    {
+        return $this->renderer->renderView('site/404');
     }
 }
