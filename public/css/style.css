@@ -1161,7 +1161,7 @@ button:focus {
   background: #fafaff;
   border: 1px solid #eee;
   padding: 50px 30px;
-  margin-top: 50px; }
+  margin-top: 20px; }
 @media (max-width: 414px) {
   .comments-area {
     padding: 50px 8px; } }
@@ -1197,22 +1197,15 @@ button:focus {
 .comments-area .comment {
   color: #777777;
   margin-bottom: 0; }
-.comments-area .btn-reply {
-  background-color: #fff;
-  color: #222222;
-  border: 1px solid #eee;
-  padding: 2px 18px;
-  font-size: 12px;
-  display: block;
-  font-weight: 600;
+.comments-area .reply-icon a {
+  color: #00b0f0;
+  font-size: 18px;
   -webkit-transition: all 0.4s ease 0s;
   -moz-transition: all 0.4s ease 0s;
   -o-transition: all 0.4s ease 0s;
   transition: all 0.4s ease 0s; }
-.comments-area .btn-reply:hover {
-  border: transparent;
-  background: #e45447;
-  color: #fff; }
+.comments-area .reply-icon a:hover {
+  color: #000; }
 
 .comment-form {
   background: #fafaff;

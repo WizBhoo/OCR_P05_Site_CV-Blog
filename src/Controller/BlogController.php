@@ -6,6 +6,7 @@
 
 namespace MyWebsite\Controller;
 
+use MyWebsite\Repository\CommentRepository;
 use MyWebsite\Repository\PostRepository;
 use MyWebsite\Utils\RendererInterface;
 use MyWebsite\Utils\RouterTrait;
@@ -29,7 +30,14 @@ class BlogController
      *
      * @var PostRepository
      */
-    private $postRepository;
+    protected $postRepository;
+
+    /**
+     * A CommentRepository Instance
+     *
+     * @var CommentRepository
+     */
+    protected $commentRepository;
 
     use RouterTrait;
 
@@ -38,13 +46,15 @@ class BlogController
      *
      * @param RendererInterface $renderer
      * @param PostRepository    $postRepository
+     * @param CommentRepository $commentRepository
      *
      * @return void
      */
-    public function __construct(RendererInterface $renderer, PostRepository $postRepository)
+    public function __construct(RendererInterface $renderer, PostRepository $postRepository, CommentRepository $commentRepository)
     {
         $this->renderer = $renderer;
         $this->postRepository = $postRepository;
+        $this->commentRepository = $commentRepository;
     }
 
     /**
@@ -84,14 +94,16 @@ class BlogController
      */
     public function show(ServerRequestInterface $request)
     {
-        $post = $this->postRepository->findPost($request->getAttribute('slug'));
+        $slug = $request->getAttribute('slug');
+        $post = $this->postRepository->findPost($slug);
+        $comments = $this->commentRepository->findComments($slug);
         if (is_null($post)) {
             return $this->renderer->renderView('site/404');
         }
 
         return $this->renderer->renderView(
             'blog/show',
-            ['post' => $post]
+            ['post' => $post, 'comments' => $comments]
         );
     }
 }

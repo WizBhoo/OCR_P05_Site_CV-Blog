@@ -12,11 +12,15 @@ namespace MyWebsite\Utils;
 trait RouterTrait
 {
     /**
+     * A Router Instance
+     *
      * @var Router
      */
     protected $router;
 
     /**
+     * Getter router
+     *
      * @return Router
      */
     public function getRouter(): Router
@@ -25,7 +29,11 @@ trait RouterTrait
     }
 
     /**
+     * Setter router
+     *
      * @param Router $router
+     *
+     * @return void
      */
     public function setRouter($router): void
     {

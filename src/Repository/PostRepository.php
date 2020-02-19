@@ -40,22 +40,25 @@ class PostRepository
      */
     public function getAll(): array
     {
-        return $this->pdo
+        $query = $this->pdo
             ->query(
                 'SELECT Posts.id, 
                     slug, 
                     title, 
                     resume, 
-                    DATE_FORMAT(publication_date, \'le %d/%m/%Y à %h:%m\') as publi_date,
-                    DATE_FORMAT(modification_date, \'le %d/%m/%Y à %h:%m\') as modif_date,
-                    last_name,
-                    first_name
+                    publication_date as publiDate,
+                    modification_date as modifDate,
+                    CONCAT(first_name, \' \', last_name) as nameAuthor,
+                    COUNT(Comments.post_id)  as nbrComments
                 FROM Posts
                 INNER JOIN User ON Posts.user_id = User.id
-                ORDER BY publication_date DESC'
-            )
-            ->fetchAll()
-        ;
+                INNER JOIN Comments on Posts.id = Comments.post_id
+                GROUP BY post_id, publiDate
+                ORDER BY publiDate DESC'
+            );
+        $query->setFetchMode(PDO::FETCH_CLASS, Post::class);
+
+        return $query->fetchAll();
     }
 
     /**
@@ -71,17 +74,18 @@ class PostRepository
             ->prepare(
                 'SELECT Posts.id, 
                     slug, 
-                    title, 
+                    title,
                     content,
-                    DATE_FORMAT(publication_date, \'le %d/%m/%Y à %h:%m\') as publi_date,
-                    DATE_FORMAT(modification_date, \'le %d/%m/%Y à %h:%m\') as modif_date,
-                    last_name,
-                    first_name
+                    publication_date as publiDate,
+                    modification_date as modifDate,
+                    CONCAT(first_name, \' \', last_name) as nameAuthor,
+                    COUNT(Comments.post_id) as nbrComments
                 FROM Posts
                 INNER JOIN User ON Posts.user_id = User.id
-                WHERE Posts.slug = ?'
-            )
-        ;
+                INNER JOIN Comments on Posts.id = Comments.post_id
+                WHERE slug = ?
+                GROUP BY post_id'
+            );
         $query->execute([$slug]);
         $query->setFetchMode(PDO::FETCH_CLASS, Post::class);
         if (!$post = $query->fetch()) {

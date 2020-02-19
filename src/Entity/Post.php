@@ -6,27 +6,84 @@
 
 namespace MyWebsite\Entity;
 
+use DateTime;
+use Exception;
+
 /**
  * Class Post.
  */
 class Post
 {
+    /**
+     * Post's id
+     *
+     * @var int
+     */
     protected $id;
 
+    /**
+     * Post's slug
+     *
+     * @var string
+     */
     protected $slug;
 
+    /**
+     * Post's title
+     *
+     * @var string
+     */
     protected $title;
 
+    /**
+     * Post's resume
+     *
+     * @var string
+     */
     protected $resume;
 
+    /**
+     * Post's content
+     *
+     * @var string
+     */
     protected $content;
 
-    protected $publicationDate;
-
-    protected $modificationDate;
+    /**
+     * A DateTime Instance
+     *
+     * @var DateTime
+     */
+    protected $publiDate;
 
     /**
-     * @return mixed
+     * A DateTime Instance
+     *
+     * @var DateTime
+     */
+    protected $modifDate;
+
+    /**
+     * Post constructor.
+     *
+     * @throws Exception
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        if ($this->publiDate) {
+            $this->publiDate = new DateTime($this->publiDate);
+        }
+        if ($this->modifDate) {
+            $this->modifDate = new DateTime($this->modifDate);
+        }
+    }
+
+    /**
+     * Getter id
+     *
+     * @return int
      */
     public function getId()
     {
@@ -34,15 +91,21 @@ class Post
     }
 
     /**
-     * @param mixed $id
+     * Setter id
+     *
+     * @param int $id
+     *
+     * @return void
      */
-    public function setId($id): void
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
 
     /**
-     * @return mixed
+     * Getter slug
+     *
+     * @return string
      */
     public function getSlug()
     {
@@ -50,15 +113,21 @@ class Post
     }
 
     /**
-     * @param mixed $slug
+     * Setter slug
+     *
+     * @param string $slug
+     *
+     * @return void
      */
-    public function setSlug($slug): void
+    public function setSlug(string $slug): void
     {
         $this->slug = $slug;
     }
 
     /**
-     * @return mixed
+     * Getter title
+     *
+     * @return string
      */
     public function getTitle()
     {
@@ -66,15 +135,21 @@ class Post
     }
 
     /**
-     * @param mixed $title
+     * Setter title
+     *
+     * @param string $title
+     *
+     * @return void
      */
-    public function setTitle($title): void
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
     /**
-     * @return mixed
+     * Getter resume
+     *
+     * @return string
      */
     public function getResume()
     {
@@ -82,15 +157,21 @@ class Post
     }
 
     /**
-     * @param mixed $resume
+     * Setter resume
+     *
+     * @param string $resume
+     *
+     * @return void
      */
-    public function setResume($resume): void
+    public function setResume(string $resume): void
     {
         $this->resume = $resume;
     }
 
     /**
-     * @return mixed
+     * Getter content
+     *
+     * @return string
      */
     public function getContent()
     {
@@ -98,42 +179,58 @@ class Post
     }
 
     /**
-     * @param mixed $content
+     * Setter content
+     *
+     * @param string $content
+     *
+     * @return void
      */
-    public function setContent($content): void
+    public function setContent(string $content): void
     {
         $this->content = $content;
     }
 
     /**
-     * @return mixed
+     * Getter publiDate
+     *
+     * @return DateTime
      */
-    public function getPublicationDate()
+    public function getPubliDate()
     {
-        return $this->publicationDate;
+        return $this->publiDate;
     }
 
     /**
-     * @param $publicationDate
+     * Setter publiDate
+     *
+     * @param DateTime $publiDate
+     *
+     * @return void
      */
-    public function setPublicationDate($publicationDate): void
+    public function setPubliDate(DateTime $publiDate): void
     {
-        $this->publicationDate = $publicationDate;
+        $this->publiDate = $publiDate;
     }
 
     /**
-     * @return mixed
+     * Getter modifDate
+     *
+     * @return DateTime
      */
-    public function getModificationDate()
+    public function getModifDate()
     {
-        return $this->modificationDate;
+        return $this->modifDate;
     }
 
     /**
-     * @param $modificationDate
+     * Setter modifDate
+     *
+     * @param DateTime $modifDate
+     *
+     * @return void
      */
-    public function setModificationDate($modificationDate): void
+    public function setModifDate(DateTime $modifDate): void
     {
-        $this->modificationDate = $modificationDate;
+        $this->modifDate = $modifDate;
     }
 }

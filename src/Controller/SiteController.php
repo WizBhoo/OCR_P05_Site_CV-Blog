@@ -137,10 +137,10 @@ class SiteController
     }
 
     /**
- * Route callable function contact.
- *
- * @return string
- */
+     * Route callable function contact.
+     *
+     * @return string
+     */
     public function contact(): string
     {
         return $this->renderer->renderView('site/contact');
