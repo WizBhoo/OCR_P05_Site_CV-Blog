@@ -7,33 +7,13 @@
 namespace MyWebsite\Controller;
 
 use Exception;
-use MyWebsite\Utils\RendererInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Class SiteController.
  */
-class SiteController
+class SiteController extends AbstractController
 {
-    /**
-     * A RendererInterface Instance
-     *
-     * @var RendererInterface
-     */
-    protected $renderer;
-
-    /**
-     * CallableFunction constructor.
-     *
-     * @param RendererInterface $renderer
-     *
-     * @return void
-     */
-    public function __construct(RendererInterface $renderer)
-    {
-        $this->renderer = $renderer;
-    }
-
     /**
      * SiteController __invoke.
      *
@@ -43,7 +23,7 @@ class SiteController
      *
      * @throws Exception
      */
-    public function __invoke(ServerRequestInterface $request)
+    public function __invoke(ServerRequestInterface $request): string
     {
         $path = $request->getUri()->getPath();
         $slug = $request->getAttribute('slug');
@@ -144,15 +124,5 @@ class SiteController
     public function contact(): string
     {
         return $this->renderer->renderView('site/contact');
-    }
-
-    /**
-     * Route callable function 404.
-     *
-     * @return string
-     */
-    public function error404(): string
-    {
-        return $this->renderer->renderView('site/404');
     }
 }

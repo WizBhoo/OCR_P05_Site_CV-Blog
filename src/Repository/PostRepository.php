@@ -25,8 +25,6 @@ class PostRepository
      * PostRepository constructor.
      *
      * @param PDO $pdo
-     *
-     * @return void
      */
     public function __construct(PDO $pdo)
     {
@@ -45,16 +43,16 @@ class PostRepository
                 'SELECT Posts.id, 
                     slug, 
                     title, 
-                    resume, 
-                    publication_date as publiDate,
-                    modification_date as modifDate,
+                    extract, 
+                    publication_date as publishedAt,
+                    modification_date as updatedAt,
                     CONCAT(first_name, \' \', last_name) as nameAuthor,
                     COUNT(Comments.post_id)  as nbrComments
                 FROM Posts
                 INNER JOIN User ON Posts.user_id = User.id
                 INNER JOIN Comments on Posts.id = Comments.post_id
-                GROUP BY post_id, publiDate
-                ORDER BY publiDate DESC'
+                GROUP BY post_id, publishedAt
+                ORDER BY publishedAt DESC'
             );
         $query->setFetchMode(PDO::FETCH_CLASS, Post::class);
 
@@ -76,8 +74,8 @@ class PostRepository
                     slug, 
                     title,
                     content,
-                    publication_date as publiDate,
-                    modification_date as modifDate,
+                    publication_date as publishedAt,
+                    modification_date as updatedAt,
                     CONCAT(first_name, \' \', last_name) as nameAuthor,
                     COUNT(Comments.post_id) as nbrComments
                 FROM Posts

@@ -6,57 +6,14 @@
 
 namespace MyWebsite\Controller;
 
-use MyWebsite\Repository\CommentRepository;
-use MyWebsite\Repository\PostRepository;
-use MyWebsite\Utils\RendererInterface;
-use MyWebsite\Utils\RouterTrait;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Class BlogController.
  */
-class BlogController
+class BlogController extends AbstractController
 {
-    /**
-     * A RendererInterface Instance
-     *
-     * @var RendererInterface
-     */
-    protected $renderer;
-
-    /**
-     * A PostRepository Instance
-     *
-     * @var PostRepository
-     */
-    protected $postRepository;
-
-    /**
-     * A CommentRepository Instance
-     *
-     * @var CommentRepository
-     */
-    protected $commentRepository;
-
-    use RouterTrait;
-
-    /**
-     * CallableFunction constructor.
-     *
-     * @param RendererInterface $renderer
-     * @param PostRepository    $postRepository
-     * @param CommentRepository $commentRepository
-     *
-     * @return void
-     */
-    public function __construct(RendererInterface $renderer, PostRepository $postRepository, CommentRepository $commentRepository)
-    {
-        $this->renderer = $renderer;
-        $this->postRepository = $postRepository;
-        $this->commentRepository = $commentRepository;
-    }
-
     /**
      * CallableFunction __invoke.
      *

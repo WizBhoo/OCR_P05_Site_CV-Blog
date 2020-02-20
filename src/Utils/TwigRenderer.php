@@ -10,7 +10,6 @@ use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
-use Twig\Loader\FilesystemLoader;
 
 /**
  * Class TwigRenderer.
@@ -28,8 +27,6 @@ class TwigRenderer implements RendererInterface
      * TwigRenderer constructor.
      *
      * @param Environment $twig
-     *
-     * @return void
      */
     public function __construct(Environment $twig)
     {

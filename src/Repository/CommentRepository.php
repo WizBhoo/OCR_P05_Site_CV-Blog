@@ -25,8 +25,6 @@ class CommentRepository
      * PostRepository constructor.
      *
      * @param PDO $pdo
-     *
-     * @return void
      */
     public function __construct(PDO $pdo)
     {

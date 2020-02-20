@@ -25,8 +25,6 @@ class RouterTwigExtension extends AbstractExtension
      * RouterTwigExtension constructor.
      *
      * @param Router $router
-     *
-     * @return void
      */
     public function __construct(Router $router)
     {

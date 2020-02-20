@@ -36,11 +36,11 @@ class Post
     protected $title;
 
     /**
-     * Post's resume
+     * Post's extract
      *
      * @var string
      */
-    protected $resume;
+    protected $extract;
 
     /**
      * Post's content
@@ -54,29 +54,27 @@ class Post
      *
      * @var DateTime
      */
-    protected $publiDate;
+    protected $publishedAt;
 
     /**
      * A DateTime Instance
      *
      * @var DateTime
      */
-    protected $modifDate;
+    protected $updatedAt;
 
     /**
      * Post constructor.
      *
      * @throws Exception
-     *
-     * @return void
      */
     public function __construct()
     {
-        if ($this->publiDate) {
-            $this->publiDate = new DateTime($this->publiDate);
+        if ($this->publishedAt) {
+            $this->publishedAt = new DateTime($this->publishedAt);
         }
-        if ($this->modifDate) {
-            $this->modifDate = new DateTime($this->modifDate);
+        if ($this->updatedAt) {
+            $this->updatedAt = new DateTime($this->updatedAt);
         }
     }
 
@@ -85,7 +83,7 @@ class Post
      *
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -107,7 +105,7 @@ class Post
      *
      * @return string
      */
-    public function getSlug()
+    public function getSlug(): string
     {
         return $this->slug;
     }
@@ -129,7 +127,7 @@ class Post
      *
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -147,25 +145,25 @@ class Post
     }
 
     /**
-     * Getter resume
+     * Getter extract
      *
      * @return string
      */
-    public function getResume()
+    public function getExtract(): string
     {
-        return $this->resume;
+        return $this->extract;
     }
 
     /**
-     * Setter resume
+     * Setter extract
      *
-     * @param string $resume
+     * @param string $extract
      *
      * @return void
      */
-    public function setResume(string $resume): void
+    public function setExtract(string $extract): void
     {
-        $this->resume = $resume;
+        $this->extract = $extract;
     }
 
     /**
@@ -173,7 +171,7 @@ class Post
      *
      * @return string
      */
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }
@@ -191,46 +189,46 @@ class Post
     }
 
     /**
-     * Getter publiDate
+     * Getter publishedAt
      *
      * @return DateTime
      */
-    public function getPubliDate()
+    public function getPublishedAt(): DateTime
     {
-        return $this->publiDate;
+        return $this->publishedAt;
     }
 
     /**
-     * Setter publiDate
+     * Setter publishedAt
      *
-     * @param DateTime $publiDate
+     * @param DateTime $publishedAt
      *
      * @return void
      */
-    public function setPubliDate(DateTime $publiDate): void
+    public function setPublishedAt(DateTime $publishedAt): void
     {
-        $this->publiDate = $publiDate;
+        $this->publishedAt = $publishedAt;
     }
 
     /**
-     * Getter modifDate
+     * Getter updatedAt
      *
      * @return DateTime
      */
-    public function getModifDate()
+    public function getUpdatedAt(): DateTime
     {
-        return $this->modifDate;
+        return $this->updatedAt;
     }
 
     /**
-     * Setter modifDate
+     * Setter updatedAt
      *
-     * @param DateTime $modifDate
+     * @param DateTime $updatedAt
      *
      * @return void
      */
-    public function setModifDate(DateTime $modifDate): void
+    public function setUpdatedAt(DateTime $updatedAt): void
     {
-        $this->modifDate = $modifDate;
+        $this->updatedAt = $updatedAt;
     }
 }

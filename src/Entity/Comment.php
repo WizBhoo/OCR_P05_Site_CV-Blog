@@ -46,8 +46,6 @@ class Comment
      * Comment constructor.
      *
      * @throws Exception
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -61,7 +59,7 @@ class Comment
      *
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -69,11 +67,11 @@ class Comment
     /**
      * Setter id
      *
-     * @param $id
+     * @param int $id
      *
      * @return void
      */
-    public function setId($id): void
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
@@ -83,7 +81,7 @@ class Comment
      *
      * @return string
      */
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }
@@ -91,11 +89,11 @@ class Comment
     /**
      * Setter content
      *
-     * @param $content
+     * @param string $content
      *
      * @return void
      */
-    public function setContent($content): void
+    public function setContent(string $content): void
     {
         $this->content = $content;
     }
@@ -105,7 +103,7 @@ class Comment
      *
      * @return DateTime
      */
-    public function getDate()
+    public function getDate(): DateTime
     {
         return $this->date;
     }
@@ -113,11 +111,11 @@ class Comment
     /**
      * Setter date
      *
-     * @param $date
+     * @param DateTime $date
      *
      * @return void
      */
-    public function setDate($date): void
+    public function setDate(DateTime $date): void
     {
         $this->date = $date;
     }
@@ -127,7 +125,7 @@ class Comment
      *
      * @return bool
      */
-    public function getCommentStatus()
+    public function getCommentStatus(): bool
     {
         return $this->commentStatus;
     }
@@ -135,11 +133,11 @@ class Comment
     /**
      * Setter status
      *
-     * @param $commentStatus
+     * @param bool $commentStatus
      *
      * @return void
      */
-    public function setCommentStatus($commentStatus): void
+    public function setCommentStatus(bool $commentStatus): void
     {
         $this->commentStatus = $commentStatus;
     }
