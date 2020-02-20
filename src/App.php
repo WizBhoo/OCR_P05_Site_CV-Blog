@@ -42,6 +42,13 @@ class App
         $builder->addDefinitions(sprintf("%s/config/config.php", dirname(__DIR__)));
         $this->container = $builder->build();
 
+        $parsedBody = $request->getParsedBody();
+        if (array_key_exists('_METHOD', $parsedBody)
+            && in_array($parsedBody['_METHOD'], ['DELETE', 'PUT'])
+        ) {
+            $request = $request->withMethod($parsedBody['_METHOD']);
+        }
+
         $route = $this->container->get(Router::class)->match($request);
         if (is_null($route)) {
             return new Response(

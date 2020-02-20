@@ -15,6 +15,45 @@ use Psr\Http\Message\ServerRequestInterface;
 class BlogController extends AbstractController
 {
     /**
+     * A RendererInterface Instance
+     *
+     * @var RendererInterface
+     */
+    protected $renderer;
+
+    /**
+     * A PostRepository Instance
+     *
+     * @var PostRepository
+     */
+    protected $postRepository;
+
+    /**
+     * A CommentRepository Instance
+     *
+     * @var CommentRepository
+     */
+    protected $commentRepository;
+
+    use RouterTrait;
+
+    /**
+     * CallableFunction constructor.
+     *
+     * @param RendererInterface $renderer
+     * @param PostRepository    $postRepository
+     * @param CommentRepository $commentRepository
+     *
+     * @return void
+     */
+    public function __construct(RendererInterface $renderer, PostRepository $postRepository, CommentRepository $commentRepository)
+    {
+        $this->renderer = $renderer;
+        $this->postRepository = $postRepository;
+        $this->commentRepository = $commentRepository;
+    }
+
+    /**
      * CallableFunction __invoke.
      *
      * @param ServerRequestInterface $request

@@ -1,0 +1,97 @@
+{% extends 'adminLayout.html.twig' %}
+
+{% block title "Modification d'un Article" %}
+
+{% block body %}
+
+    <div class="main-content">
+        <div class="section__content section__content--p30">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="overview-wrap">
+                            <h1 class="title-1">Edition de l'Article</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                {{ item.title }}
+                            </div>
+                            <form action="{{ path('admin.post.edit', {slug: item.slug}) }}"
+                                  method="post" enctype="multipart/form-data" class="form-horizontal">
+                                <div class="card-body card-block">
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="slug" class="form-control-label">Slug</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input type="text" name="slug" value="{{ item.slug }}" id="slug" disabled="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="title" class="form-control-label">Titre</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input type="text" name="title" value="{{ item.title }}" id="title" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="author" class="form-control-label">Auteur</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input type="text" name="author" value="{{ item.nameAuthor }}" id="author" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="publiDate" class="form-control-label">Date de création</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input type="text" name="publiDate" value="{{ item.publiDate.format('d/m/Y à H:i') }}" id="publiDate" disabled="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="modifDate" class="form-control-label">Date de modification</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input type="text" name="modifDate" value="{{ item.modifDate.format('d/m/Y à H:i') }}" id="modifDate" disabled="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="resume" class="form-control-label">Extrait</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <textarea name="resume" id="resume" rows="3" class="form-control">{{ item.resume }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="content" class="form-control-label">Contenu</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <textarea name="content" id="content" rows="9" class="form-control">{{ item.content }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-dot-circle-o"></i> Enregistrer
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

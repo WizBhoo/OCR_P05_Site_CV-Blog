@@ -26,7 +26,7 @@ class RouterFactory
     public function __invoke(ContainerInterface $container): Router
     {
         $router = new Router();
-        // To reference routes
+        // To reference GET routes
         $router->get(
             $container->get('site.prefix'),
             SiteController::class,
@@ -66,6 +66,41 @@ class RouterFactory
             sprintf("%s/dashboard", $container->get('admin.prefix')),
             AdminController::class,
             'admin.dashboard'
+        );
+        $router->get(
+            sprintf("%s/posts", $container->get('admin.prefix')),
+            AdminController::class,
+            'admin.posts'
+        );
+        $router->get(
+            sprintf("%s/post/new", $container->get('admin.prefix')),
+            AdminController::class,
+            'admin.post.create'
+        );
+        $router->get(
+            sprintf("%s/post/{slug:[a-z\-0-9]+}", $container->get('admin.prefix')),
+            AdminController::class,
+            'admin.post.edit'
+        );
+        $router->get(
+            sprintf("%s/404", $container->get('admin.prefix')),
+            AdminController::class,
+            'admin.404'
+        );
+        // To reference POST routes
+        $router->post(
+            sprintf("%s/post/new", $container->get('admin.prefix')),
+            AdminController::class
+        );
+        $router->post(
+            sprintf("%s/post/{slug:[a-z\-0-9]+}", $container->get('admin.prefix')),
+            AdminController::class
+        );
+        // To reference DELETE routes
+        $router->delete(
+            sprintf("%s/post/{slug:[a-z\-0-9]+}", $container->get('admin.prefix')),
+            AdminController::class,
+            'admin.post.delete'
         );
 
         return $router;
