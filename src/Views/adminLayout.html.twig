@@ -191,9 +191,33 @@
             </div>
         </aside>
         <!-- END HEADER DESKTOP-->
+        <div class="main-content">
+            <div class="section__content section__content--p30">
+                <div class="container-fluid">
+                    {% if flash('success') %}
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <div class="au-alert-success">
+                            {{ flash('success') }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
 
-        {% block body %}{% endblock %}
+                    {% if flash('error') %}
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <div class="au-alert-danger">
+                                    {{ flash('error') }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
 
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div>
         <!-- FOOTER AREA -->
         <footer>
             <div class="container-fluid">

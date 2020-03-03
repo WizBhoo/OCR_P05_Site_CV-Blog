@@ -146,6 +146,6 @@ class Router
 
         return (new Response())
             ->withStatus(301)
-            ->withHeader('location', $redirectUri);
+            ->withHeader('Location', $redirectUri);
     }
 }

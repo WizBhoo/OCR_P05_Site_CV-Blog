@@ -14,6 +14,42 @@ use Psr\Http\Message\ServerRequestInterface;
 class AdminController extends AbstractController
 {
     /**
+     * A Router Instance
+     *
+     * @var Router
+     */
+    protected $router;
+    /**
+     * A RendererInterface Instance
+     *
+     * @var RendererInterface
+     */
+    protected $renderer;
+
+    /**
+     * A PostRepository Instance
+     *
+     * @var PostRepository
+     */
+    protected $postRepository;
+
+    /**
+     * CallableFunction constructor.
+     *
+     * @param RendererInterface $renderer
+     * @param Router            $router
+     * @param PostRepository    $postRepository
+     *
+     * @return void
+     */
+    public function __construct(RendererInterface $renderer, Router $router, PostRepository $postRepository)
+    {
+        $this->renderer = $renderer;
+        $this->router = $router;
+        $this->postRepository = $postRepository;
+    }
+
+    /**
      * AdminController __invoke.
      *
      * @param ServerRequestInterface $request
@@ -78,6 +114,7 @@ class AdminController extends AbstractController
         if ($request->getMethod() === 'POST') {
             $params = $request->getParsedBody();
             $this->postRepository->insertPost($params);
+            $this->flash->success('L\'article a bien été créé');
 
             return $this->router->redirect('admin.posts');
         }
@@ -100,6 +137,7 @@ class AdminController extends AbstractController
         if ($request->getMethod() === 'POST') {
             $params = $request->getParsedBody();
             $this->postRepository->updatePost($slug, $params);
+            $this->flash->success('L\'article a bien été modifié');
 
             return $this->router->redirect('admin.posts');
         }
@@ -124,6 +162,7 @@ class AdminController extends AbstractController
     public function deletePost(ServerRequestInterface $request)
     {
         $this->postRepository->deletePost($request->getAttribute('slug'));
+        $this->flash->success('L\'article a bien été supprimé');
 
         return $this->router->redirect('admin.posts');
     }

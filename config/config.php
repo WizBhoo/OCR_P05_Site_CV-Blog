@@ -1,10 +1,13 @@
 <?php
 
+use MyWebsite\Utils\FlashTwigExtension;
 use MyWebsite\Utils\ConnectDb;
 use MyWebsite\Utils\Router;
 use MyWebsite\Utils\RouterFactory;
 use MyWebsite\Utils\RendererInterface;
 use MyWebsite\Utils\RouterTwigExtension;
+use MyWebsite\Utils\Session\PHPSession;
+use MyWebsite\Utils\Session\SessionInterface;
 use MyWebsite\Utils\TwigRendererFactory;
 
 use function DI\factory;
@@ -28,9 +31,11 @@ return [
     //Twig extensions
     'twig.extensions' => [
         get(RouterTwigExtension::class),
+        get(FlashTwigExtension::class),
     ],
 
     Router::class => factory(RouterFactory::class),
     RendererInterface::class => factory(TwigRendererFactory::class),
+    SessionInterface::class => get(PHPSession::class),
     PDO::class => ConnectDb::getInstance()->getConnection(),
 ];
