@@ -6,6 +6,8 @@
 
 namespace MyWebsite\Controller;
 
+use Exception;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -113,13 +115,21 @@ class AdminController extends AbstractController
     {
         if ($request->getMethod() === 'POST') {
             $params = $request->getParsedBody();
-            $this->postRepository->insertPost($params);
-            $this->flash->success('L\'article a bien été créé');
+            $validator = $this->getValidator($request);
+            if ($validator->isValid()) {
+                $this->postRepository->insertPost($params);
+                $this->flash->success('L\'article a bien été créé');
 
-            return $this->router->redirect('admin.posts');
+                return $this->router->redirect('admin.posts');
+            }
+            $item = $params;
+            $errors = $validator->getErrors();
         }
 
-        return $this->renderer->renderView('admin/createPost');
+        return $this->renderer->renderView(
+            'admin/createPost',
+            ['item' => $item, 'errors' => $errors]
+        );
     }
 
     /**
@@ -136,10 +146,19 @@ class AdminController extends AbstractController
 
         if ($request->getMethod() === 'POST') {
             $params = $request->getParsedBody();
-            $this->postRepository->updatePost($slug, $params);
-            $this->flash->success('L\'article a bien été modifié');
+            $validator = $this->getValidator($request);
+            if ($validator->isValid()) {
+                $this->postRepository->updatePost($slug, $params);
+                $this->flash->success('L\'article a bien été modifié');
 
-            return $this->router->redirect('admin.posts');
+                return $this->router->redirect('admin.posts');
+            }
+            $errors = $validator->getErrors();
+            $params['slug'] = $item->getSlug();
+            $params['nameAuthor'] = $item->nameAuthor;
+            $params['publiDate'] = $item->getPubliDate();
+            $params['modifDate'] = $item->getModifDate();
+            $item = $params;
         }
 
         if (is_null($item)) {
@@ -148,7 +167,7 @@ class AdminController extends AbstractController
 
         return $this->renderer->renderView(
             'admin/editPost',
-            ['item' => $item]
+            ['item' => $item, 'errors' => $errors]
         );
     }
 
@@ -165,5 +184,22 @@ class AdminController extends AbstractController
         $this->flash->success('L\'article a bien été supprimé');
 
         return $this->router->redirect('admin.posts');
+    }
+
+    /**
+     * Validator instance with defined rules
+     *
+     * @param ServerRequestInterface $request
+     *
+     * @return Validator
+     */
+    public function getValidator(ServerRequestInterface $request): Validator
+    {
+        return (new Validator($request->getParsedBody()))
+            ->required('title', 'resume', 'content')
+            ->length('title', 2, 50)
+            ->length('resume', 10, 255)
+            ->length('content', 10)
+            ->slug('slug');
     }
 }

@@ -5148,13 +5148,13 @@ section {
 }
 
 .au-alert-success {
-    background: #00ad5f;
+    background: #C6DC58;
     border-color: #d9f1e3;
     border-left-color: #00ad5f;
 }
 
 .au-alert-danger {
-    background: #ff182b;
+    background: #fc9999;
     border-color: #d9f1e3;
     border-left-color: #ff182b;
 }

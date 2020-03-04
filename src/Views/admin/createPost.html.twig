@@ -20,50 +20,21 @@
                 <form action="{{ path('admin.post.create') }}"
                       method="post" enctype="multipart/form-data" class="form-horizontal">
                     <div class="card-body card-block">
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="slug" class="form-control-label">Slug</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" name="slug" value="{{ item.slug }}" id="slug" class="form-control">
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="title" class="form-control-label">Titre</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" name="title" value="{{ item.title }}" id="title" class="form-control">
-                            </div>
-                        </div>
+                        {{ field('slug', item.slug, "Slug") }}
+                        {{ field('title', item.title, "Titre") }}
                         <div class="row form-group">
                             <div class="col col-md-3">
                                 <label for="user_id" class=" form-control-label">Auteur</label>
                             </div>
                             <div class="col-12 col-md-9">
                                 <select name="user_id" id="user_id" class="form-control">
-                                    <option value="0">Selectionner un Auteur</option>
                                     <option value="1">Adrien PIERRARD</option>
                                     <option value="3">Yann LUCAS</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="resume" class="form-control-label">Extrait</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <textarea name="resume" id="resume" rows="3" class="form-control">{{ item.resume }}</textarea>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="content" class="form-control-label">Contenu</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <textarea name="content" id="content" rows="9" class="form-control">{{ item.content }}</textarea>
-                            </div>
-                        </div>
+                        {{ field('resume', item.resume, "Extrait", {type: 'textarea'}) }}
+                        {{ field('content', item.content, "Contenu", {type: 'textarea'}) }}
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary btn-sm">

@@ -206,7 +206,7 @@ button:focus {
 .header_area .navbar .nav .nav-item .nav-link {
   font: 500 12px/100px "Roboto", sans-serif;
   text-transform: capitalize;
-  color: #000;
+  color: #fff;
   padding: 0;
   display: inline-block;
   font-size: 16px; }
@@ -333,7 +333,7 @@ button:focus {
 
 .banner-content {
   text-align: left; }
-@media (max-width: 1680px) {
+@media (max-width: 1920px) {
   .banner-content {
     text-align: center; } }
 @media (max-width: 680px) {
@@ -361,7 +361,7 @@ button:focus {
   font-size: 30px;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
-  color: #000;
+  color: #fff;
   margin-bottom: 30px; }
 @media (max-width: 991px) {
   .banner-content h3 {

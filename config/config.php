@@ -1,6 +1,7 @@
 <?php
 
 use MyWebsite\Utils\FlashTwigExtension;
+use MyWebsite\Utils\FormTwigExtension;
 use MyWebsite\Utils\ConnectDb;
 use MyWebsite\Utils\Router;
 use MyWebsite\Utils\RouterFactory;
@@ -32,6 +33,7 @@ return [
     'twig.extensions' => [
         get(RouterTwigExtension::class),
         get(FlashTwigExtension::class),
+        get(FormTwigExtension::class),
     ],
 
     Router::class => factory(RouterFactory::class),

@@ -20,62 +20,13 @@
                 <form action="{{ path('admin.post.edit', {slug: item.slug}) }}"
                       method="post" enctype="multipart/form-data" class="form-horizontal">
                     <div class="card-body card-block">
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="slug" class="form-control-label">Slug</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" name="slug" value="{{ item.slug }}" id="slug" disabled="" class="form-control">
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="title" class="form-control-label">Titre</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" name="title" value="{{ item.title }}" id="title" class="form-control">
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="author" class="form-control-label">Auteur</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" name="author" value="{{ item.nameAuthor }}" id="author" class="form-control">
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="publiDate" class="form-control-label">Date de création</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" name="publiDate" value="{{ item.publiDate.format('d/m/Y à H:i') }}" id="publiDate" disabled="" class="form-control">
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="modifDate" class="form-control-label">Date de modification</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" name="modifDate" value="{{ item.modifDate.format('d/m/Y à H:i') }}" id="modifDate" disabled="" class="form-control">
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="resume" class="form-control-label">Extrait</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <textarea name="resume" id="resume" rows="3" class="form-control">{{ item.resume }}</textarea>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="content" class="form-control-label">Contenu</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <textarea name="content" id="content" rows="9" class="form-control">{{ item.content }}</textarea>
-                            </div>
-                        </div>
+                        {{ field('slug', item.slug, "Slug", {disabled: 'disabled'}) }}
+                        {{ field('title', item.title, "Titre") }}
+                        {{ field('author', item.nameAuthor, "Auteur", {disabled: 'disabled'}) }}
+                        {{ field('publiDate', item.publiDate, "Date de création", {disabled: 'disabled'}) }}
+                        {{ field('modifDate', item.modifDate, "Date de modification", {disabled: 'disabled'}) }}
+                        {{ field('resume', item.resume, "Extrait", {type: 'textarea'}) }}
+                        {{ field('content', item.content, "Contenu", {type: 'textarea'}) }}
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary btn-sm">
