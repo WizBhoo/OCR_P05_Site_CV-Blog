@@ -15,6 +15,13 @@ use Psr\Http\Message\ServerRequestInterface;
 class BlogController extends AbstractController
 {
     /**
+     * A Router Instance
+     *
+     * @var Router
+     */
+    protected $router;
+
+    /**
      * A RendererInterface Instance
      *
      * @var RendererInterface
@@ -35,22 +42,22 @@ class BlogController extends AbstractController
      */
     protected $commentRepository;
 
-    use RouterTrait;
-
     /**
      * CallableFunction constructor.
      *
      * @param RendererInterface $renderer
+     * @param Router            $router
      * @param PostRepository    $postRepository
      * @param CommentRepository $commentRepository
-     *
-     * @return void
+     * @param FlashService      $flash
      */
-    public function __construct(RendererInterface $renderer, PostRepository $postRepository, CommentRepository $commentRepository)
+    public function __construct(RendererInterface $renderer, Router $router, PostRepository $postRepository, CommentRepository $commentRepository, FlashService $flash)
     {
         $this->renderer = $renderer;
+        $this->router = $router;
         $this->postRepository = $postRepository;
         $this->commentRepository = $commentRepository;
+        $this->flash = $flash;
     }
 
     /**
@@ -95,6 +102,14 @@ class BlogController extends AbstractController
         $comments = $this->commentRepository->findComments($slug);
         if (is_null($post)) {
             return $this->renderer->renderView('site/404');
+        }
+        if ($request->getMethod() === 'POST') {
+            $params = $request->getParsedBody();
+            $params['id'] = $post->getId();
+            $this->commentRepository->insertComment($params);
+            $this->flash->commentSuccess('Votre commentaire a bien été envoyé pour validation');
+
+            return $this->router->redirect('blog.home');
         }
 
         return $this->renderer->renderView(

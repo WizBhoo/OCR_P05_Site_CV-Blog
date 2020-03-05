@@ -60,7 +60,7 @@
                                 <div class="user justify-content-between d-flex">
                                     <div class="desc">
                                         <h5><a href="#">{{ comment.nameAuthor }}</a></h5>
-                                        <p class="date">Le {{ comment.date.format('d/m/Y à H:i') }}</p>
+                                        <p class="date">Le {{ comment.commentDate.format('d/m/Y à H:i') }}</p>
                                         <p class="comment text-justify">
                                             {{ comment.content | nl2br }}
                                         </p>
@@ -72,26 +72,20 @@
                     </div>
                     <div class="comment-form">
                         <h4>Laisser un commentaire</h4>
-                        <form>
-                            <div class="form-group form-inline">
-                                <div class="form-group col-lg-6 col-md-6 name">
-                                    <input type="text" class="form-control" id="name" placeholder="Enter Name" onfocus="this.placeholder = ''"
-                                           onblur="this.placeholder = 'Enter Name'">
-                                </div>
-                                <div class="form-group col-lg-6 col-md-6 email">
-                                    <input type="email" class="form-control" id="email" placeholder="Enter email address"
-                                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'">
-                                </div>
-                            </div>
+                        <form action="{{ path('blog.show') }}"
+                              method="post" enctype="multipart/form-data" class="form-horizontal">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="subject" placeholder="Subject" onfocus="this.placeholder = ''"
-                                       onblur="this.placeholder = 'Subject'">
+                                <label for="content" class="form-control-label">
+                                    Votre commentaire sera validé par l'administrateur avant d'être publié.
+                                </label>
+                                <textarea class="form-control mb-10" rows="5" id="content" name="content"
+                                          placeholder="Commentaire..." onfocus="this.placeholder = ''"
+                                          onblur="this.placeholder = 'Commentaire...'" required=""></textarea>
+                                <small class="form-text text-muted">{{ errors }}</small>
                             </div>
-                            <div class="form-group">
-                                <textarea class="form-control mb-10" rows="5" name="message" placeholder="Messege"
-                                          onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
-                            </div>
-                            <a href="#" class="primary-btn primary_btn"><span>Post Comment</span></a>
+                            <button type="submit" class="primary-btn primary_btn">
+                                <span>Commenter</span>
+                            </button>
                         </form>
                     </div>
                 </div>

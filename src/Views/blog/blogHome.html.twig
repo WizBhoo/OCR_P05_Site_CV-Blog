@@ -23,6 +23,15 @@
     <!--================Blog Area =================-->
     <section class="section_gap blog_area">
         <div class="container">
+            {% if flash('commentSuccess') %}
+                <div class="row justify-content-center">
+                    <div class="col-md-6 text-center">
+                        <div class="alert-success">
+                            {{ flash('commentSuccess') }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center">
                     <div class="main-title">

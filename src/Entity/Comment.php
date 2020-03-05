@@ -33,7 +33,7 @@ class Comment
      *
      * @var DateTime
      */
-    protected $date;
+    protected $commentDate;
 
     /**
      * Comment's status (1 = True; 0 = False)
@@ -49,8 +49,8 @@ class Comment
      */
     public function __construct()
     {
-        if ($this->date) {
-            $this->date = new DateTime($this->date);
+        if ($this->commentDate) {
+            $this->commentDate = new DateTime($this->commentDate);
         }
     }
 
@@ -99,25 +99,25 @@ class Comment
     }
 
     /**
-     * Getter date
+     * Getter commentDate
      *
      * @return DateTime
      */
-    public function getDate(): DateTime
+    public function getCommentDate(): DateTime
     {
-        return $this->date;
+        return $this->commentDate;
     }
 
     /**
-     * Setter date
+     * Setter commentDate
      *
-     * @param DateTime $date
+     * @param DateTime $commentDate
      *
      * @return void
      */
-    public function setDate(DateTime $date): void
+    public function setCommentDate(DateTime $commentDate): void
     {
-        $this->date = $date;
+        $this->commentDate = $commentDate;
     }
 
     /**

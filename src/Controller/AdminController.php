@@ -41,8 +41,7 @@ class AdminController extends AbstractController
      * @param RendererInterface $renderer
      * @param Router            $router
      * @param PostRepository    $postRepository
-     *
-     * @return void
+     * @param FlashService      $flash
      */
     public function __construct(RendererInterface $renderer, Router $router, PostRepository $postRepository)
     {
@@ -64,19 +63,28 @@ class AdminController extends AbstractController
     {
         $path = $request->getUri()->getPath();
         $slug = $request->getAttribute('slug');
+        $id = $request->getAttribute('id');
         switch ($path) {
             case '/apiadmin/dashboard':
                 return $this->dashboard();
             case '/apiadmin/posts':
                 return $this->adminPosts();
+            case '/apiadmin/post/new':
+                return $this->createPost($request);
             case sprintf('/apiadmin/post/%s', $slug):
                 if ($request->getMethod() === 'DELETE') {
                     return $this->deletePost($request);
                 }
 
                 return $this->editPost($request);
-            case sprintf('/apiadmin/post/new'):
-                return $this->createPost($request);
+            case sprintf('/apiadmin/comment/%s', $id):
+                if ($request->getMethod() === 'DELETE') {
+                    return $this->deleteComment($request);
+                }
+
+                return $this->editComment($request);
+            case '/apiadmin/comments':
+                return $this->adminComments();
             default:
                 throw new Exception('Route not found');
         }
@@ -102,6 +110,18 @@ class AdminController extends AbstractController
         $items = $this->postRepository->getAll();
 
         return $this->renderer->renderView('admin/adminPosts', compact('items'));
+    }
+
+    /**
+     * Route callable function adminComments.
+     *
+     * @return string
+     */
+    public function adminComments(): string
+    {
+        $items = $this->commentRepository->findUnapproved();
+
+        return $this->renderer->renderView('admin/adminComments', compact('items'));
     }
 
     /**
@@ -172,6 +192,21 @@ class AdminController extends AbstractController
     }
 
     /**
+     * Route callable function editComment
+     *
+     * @param ServerRequestInterface $request
+     *
+     * @return ResponseInterface
+     */
+    public function editComment(ServerRequestInterface $request)
+    {
+        $this->commentRepository->updateComment($request->getAttribute('id'));
+        $this->flash->success('Le commentaire a bien été approuvé et publié');
+
+        return $this->router->redirect('admin.comments');
+    }
+
+    /**
      * Route callable function deletePost
      *
      * @param ServerRequestInterface $request
@@ -187,6 +222,21 @@ class AdminController extends AbstractController
     }
 
     /**
+     * Route callable function deleteComment
+     *
+     * @param ServerRequestInterface $request
+     *
+     * @return ResponseInterface
+     */
+    public function deleteComment(ServerRequestInterface $request)
+    {
+        $this->commentRepository->deleteComment($request->getAttribute('id'));
+        $this->flash->success('Le commentaire a bien été supprimé');
+
+        return $this->router->redirect('admin.comments');
+    }
+
+    /**
      * Validator instance with defined rules
      *
      * @param ServerRequestInterface $request
@@ -196,9 +246,9 @@ class AdminController extends AbstractController
     public function getValidator(ServerRequestInterface $request): Validator
     {
         return (new Validator($request->getParsedBody()))
-            ->required('title', 'resume', 'content')
+            ->required('title', 'extract', 'content')
             ->length('title', 2, 50)
-            ->length('resume', 10, 255)
+            ->length('extract', 10, 255)
             ->length('content', 10)
             ->slug('slug');
     }

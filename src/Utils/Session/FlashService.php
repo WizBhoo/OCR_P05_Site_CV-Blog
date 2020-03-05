@@ -57,6 +57,20 @@ class FlashService
     }
 
     /**
+     * Show flash success message
+     *
+     * @param string $message
+     *
+     * @return void
+     */
+    public function commentSuccess(string $message): void
+    {
+        $flash = $this->session->get(self::SESSION_KEY, []);
+        $flash['commentSuccess'] = $message;
+        $this->session->set(self::SESSION_KEY, $flash);
+    }
+
+    /**
      * Show flash error message
      *
      * @param string $message

@@ -64,7 +64,7 @@
                                     <i class="fas fa-copy"></i>Articles</a>
                             </li>
                             <li>
-                                <a href="">
+                                <a href="{{ path('admin.comments') }}">
                                     <i class="fas fa-comments"></i>Comments</a>
                             </li>
                         </ul>
@@ -159,7 +159,7 @@
                                         <i class="fas fa-copy"></i>Articles</a>
                                 </li>
                                 <li>
-                                    <a href="">
+                                    <a href="{{ path('admin.comments') }}">
                                         <i class="fas fa-comments"></i>Comments</a>
                                 </li>
                             </ul>
@@ -195,8 +195,8 @@
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
                     {% if flash('success') %}
-                    <div class="row">
-                        <div class="col-md-12 text-center">
+                    <div class="row justify-content-center">
+                        <div class="col-md-4 text-center">
                             <div class="au-alert-success">
                             {{ flash('success') }}
                             </div>

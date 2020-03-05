@@ -47,7 +47,7 @@ class PostRepository
                     publication_date as publishedAt,
                     modification_date as updatedAt,
                     CONCAT(first_name, \' \', last_name) as nameAuthor,
-                    COUNT(post_id) as nbrComments
+                    COUNT(status_comment IS TRUE OR NULL) as nbrComments
                 FROM Posts
                 INNER JOIN User ON Posts.user_id = User.id
                 LEFT JOIN Comments on Posts.id = Comments.post_id
@@ -73,12 +73,12 @@ class PostRepository
                 'SELECT Posts.id, 
                     slug, 
                     title,
-                    resume,
+                    extract,
                     content,
                     publication_date as publishedAt,
                     modification_date as updatedAt,
                     CONCAT(first_name, \' \', last_name) as nameAuthor,
-                    COUNT(Comments.post_id) as nbrComments
+                    COUNT(status_comment IS TRUE OR NULL) as nbrComments
                 FROM Posts
                 INNER JOIN User ON Posts.user_id = User.id
                 LEFT JOIN Comments on Posts.id = Comments.post_id
@@ -108,7 +108,7 @@ class PostRepository
             SET user_id = :user_id,
                 slug = :slug,
                 title = :title,
-                resume = :resume,
+                extract = :extract,
                 content = :content'
         );
 
@@ -130,7 +130,7 @@ class PostRepository
             'UPDATE Posts
             SET slug = :slug,
                 title = :title,
-                resume = :resume,
+                extract = :extract,
                 content = :content,
                 modification_date = now()
             WHERE Posts.slug = :slug'
