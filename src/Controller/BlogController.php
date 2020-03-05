@@ -15,57 +15,11 @@ use Psr\Http\Message\ServerRequestInterface;
 class BlogController extends AbstractController
 {
     /**
-     * A Router Instance
-     *
-     * @var Router
-     */
-    protected $router;
-
-    /**
-     * A RendererInterface Instance
-     *
-     * @var RendererInterface
-     */
-    protected $renderer;
-
-    /**
-     * A PostRepository Instance
-     *
-     * @var PostRepository
-     */
-    protected $postRepository;
-
-    /**
-     * A CommentRepository Instance
-     *
-     * @var CommentRepository
-     */
-    protected $commentRepository;
-
-    /**
-     * CallableFunction constructor.
-     *
-     * @param RendererInterface $renderer
-     * @param Router            $router
-     * @param PostRepository    $postRepository
-     * @param CommentRepository $commentRepository
-     * @param FlashService      $flash
-     */
-    public function __construct(RendererInterface $renderer, Router $router, PostRepository $postRepository, CommentRepository $commentRepository, FlashService $flash)
-    {
-        $this->renderer = $renderer;
-        $this->router = $router;
-        $this->postRepository = $postRepository;
-        $this->commentRepository = $commentRepository;
-        $this->flash = $flash;
-    }
-
-    /**
      * CallableFunction __invoke.
      *
      * @param ServerRequestInterface $request
      *
-     * @return string
+     * @return ResponseInterface|string
      */
     public function __invoke(ServerRequestInterface $request)
     {
@@ -85,7 +39,10 @@ class BlogController extends AbstractController
     {
         $posts = $this->postRepository->getAll();
 
-        return $this->renderer->renderView('blog/blogHome', compact('posts'));
+        return $this->renderer->renderView(
+            'blog/blogHome',
+            $params = $this->formParams(['posts' => $posts])
+        );
     }
 
     /**
@@ -114,7 +71,7 @@ class BlogController extends AbstractController
 
         return $this->renderer->renderView(
             'blog/show',
-            ['post' => $post, 'comments' => $comments]
+            $params = $this->formParams(['post' => $post, 'comments' => $comments])
         );
     }
 }

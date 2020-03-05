@@ -10,6 +10,7 @@ use MyWebsite\Repository\CommentRepository;
 use MyWebsite\Repository\PostRepository;
 use MyWebsite\Utils\RendererInterface;
 use MyWebsite\Utils\Router;
+use MyWebsite\Utils\Session\FlashService;
 
 /**
  * Class AbstractController.
@@ -45,19 +46,28 @@ abstract class AbstractController
     protected $commentRepository;
 
     /**
+     * A FlashService Instance
+     *
+     * @var FlashService
+     */
+    protected $flash;
+
+    /**
      * AbstractController constructor.
      *
      * @param RendererInterface $renderer
      * @param Router            $router
      * @param PostRepository    $postRepository
      * @param CommentRepository $commentRepository
+     * @param FlashService      $flash
      */
-    public function __construct(RendererInterface $renderer, Router $router, PostRepository $postRepository, CommentRepository $commentRepository)
+    public function __construct(RendererInterface $renderer, Router $router, PostRepository $postRepository, CommentRepository $commentRepository, FlashService $flash)
     {
         $this->renderer = $renderer;
         $this->router = $router;
         $this->postRepository = $postRepository;
         $this->commentRepository = $commentRepository;
+        $this->flash = $flash;
     }
 
     /**
@@ -65,8 +75,22 @@ abstract class AbstractController
      *
      * @return string
      */
-    public function error404(): string
+    protected function error404(): string
     {
         return $this->renderer->renderView('site/404');
+    }
+
+    /**
+     * Allow to manage params sending to View
+     *
+     * @param array $params
+     *
+     * @return array
+     */
+    protected function formParams(array $params): array
+    {
+        $params['authors'] = $this->postRepository->findListAuthors();
+
+        return $params;
     }
 }

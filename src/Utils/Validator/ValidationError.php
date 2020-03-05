@@ -65,7 +65,7 @@ class ValidationError
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $params = array_merge(
             [$this->messages[$this->rule], $this->key],

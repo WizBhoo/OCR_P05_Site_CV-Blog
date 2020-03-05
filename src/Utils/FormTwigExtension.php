@@ -61,6 +61,8 @@ class FormTwigExtension extends AbstractExtension
         }
         if ('textarea' === $type) {
             $input = $this->textarea($value, $attributes);
+        } elseif (array_key_exists('options', $options)) {
+            $input = $this->select($value, $options['options'], $attributes);
         } else {
             $input = $this->input($value, $attributes, $disabled);
         }
@@ -112,6 +114,38 @@ class FormTwigExtension extends AbstractExtension
     }
 
     /**
+     * Generate a select
+     *
+     * @param string|null $value
+     * @param array       $options
+     * @param array       $attributes
+     *
+     * @return string
+     */
+    protected function select(?string $value, array $options, array $attributes): string
+    {
+        $htmlOptions = array_reduce(
+            array_keys($options),
+            function (string $html, string $key) use ($options, $value) {
+                $params = ['value' => $key, 'selected' => $key === $value];
+
+                return sprintf(
+                    "%s<option %s>%s</option>",
+                    $html,
+                    $this->getHtmlFromArray($params),
+                    $options[$key]
+                );
+            },
+            ""
+        );
+
+        return sprintf(
+            "<select %s>$htmlOptions</select>",
+            $this->getHtmlFromArray($attributes)
+        );
+    }
+
+    /**
      * Generate HTML following errors in context
      *
      * @param $context
@@ -119,7 +153,7 @@ class FormTwigExtension extends AbstractExtension
      *
      * @return string
      */
-    protected function getErrorHTML($context, $key)
+    protected function getErrorHTML($context, $key): string
     {
         $error = $context['errors'][$key] ?? false;
         if ($error) {
@@ -132,7 +166,7 @@ class FormTwigExtension extends AbstractExtension
     /**
      * Verify if value has to be converted
      *
-     * @param $value
+     * @param mixed $value
      *
      * @return string
      */
@@ -152,17 +186,17 @@ class FormTwigExtension extends AbstractExtension
      *
      * @return string
      */
-    protected function getHtmlFromArray(array $attributes)
+    protected function getHtmlFromArray(array $attributes): string
     {
-        return implode(
-            ' ',
-            array_map(
-                function ($key, $value) {
-                    return "$key=\"$value\"";
-                },
-                array_keys($attributes),
-                $attributes
-            )
-        );
+        $htmlParts = [];
+        foreach ($attributes as $key => $value) {
+            if (true === $value) {
+                $htmlParts[] = (string) $key;
+            } elseif (false !== $value) {
+                $htmlParts[] = "$key=\"$value\"";
+            }
+        }
+
+        return implode(' ', $htmlParts);
     }
 }

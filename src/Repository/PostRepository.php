@@ -6,6 +6,7 @@
 
 namespace MyWebsite\Repository;
 
+use Cocur\Slugify\Slugify;
 use MyWebsite\Entity\Post;
 use PDO;
 
@@ -51,8 +52,8 @@ class PostRepository
                 FROM Posts
                 INNER JOIN User ON Posts.user_id = User.id
                 LEFT JOIN Comments on Posts.id = Comments.post_id
-                GROUP BY Posts.id, publiDate
-                ORDER BY publiDate DESC'
+                GROUP BY Posts.id, publishedAt
+                ORDER BY publishedAt DESC'
             );
         $query->setFetchMode(PDO::FETCH_CLASS, Post::class);
 
@@ -77,6 +78,7 @@ class PostRepository
                     content,
                     publication_date as publishedAt,
                     modification_date as updatedAt,
+                    Posts.user_id,
                     CONCAT(first_name, \' \', last_name) as nameAuthor,
                     COUNT(status_comment IS TRUE OR NULL) as nbrComments
                 FROM Posts
@@ -95,6 +97,29 @@ class PostRepository
     }
 
     /**
+     * To get a list of authors
+     *
+     * @return array
+     */
+    public function findListAuthors(): array
+    {
+        $results = $this->pdo
+            ->query(
+                'SELECT id,
+                    CONCAT(first_name, \' \', last_name)
+                FROM User
+                WHERE account_type = \'admin\''
+            )
+            ->fetchAll(PDO::FETCH_NUM);
+        $list = [];
+        foreach ($results as $result) {
+            $list[$result[0]] = $result[1];
+        }
+
+        return $list;
+    }
+
+    /**
      * To insert a BlogPost in Database
      *
      * @param array $params
@@ -103,6 +128,8 @@ class PostRepository
      */
     public function insertPost(array $params): bool
     {
+        $slugify = new Slugify();
+        $params['slug'] = $slugify->slugify($params['title']);
         $statement = $this->pdo->prepare(
             'INSERT INTO Posts
             SET user_id = :user_id,
@@ -126,9 +153,12 @@ class PostRepository
     public function updatePost(string $slug, array $params): bool
     {
         $params['slug'] = $slug;
+        $slugify = new Slugify();
+        $params['newSlug'] = $slugify->slugify($params['title']);
         $statement = $this->pdo->prepare(
             'UPDATE Posts
-            SET slug = :slug,
+            SET user_id = :user_id,
+                slug = :newSlug,
                 title = :title,
                 extract = :extract,
                 content = :content,

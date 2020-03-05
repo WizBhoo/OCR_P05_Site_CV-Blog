@@ -47,11 +47,11 @@ class FlashTwigExtension extends AbstractExtension
     /**
      * FlashTwigExtension getFlash.
      *
-     * @param $type
+     * @param string $type
      *
      * @return string|null
      */
-    public function getFlash($type): ?string
+    public function getFlash(string $type): ?string
     {
         return $this->flashService->get($type);
     }

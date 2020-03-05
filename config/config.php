@@ -1,8 +1,8 @@
 <?php
 
+use MyWebsite\Utils\ConnectDb;
 use MyWebsite\Utils\FlashTwigExtension;
 use MyWebsite\Utils\FormTwigExtension;
-use MyWebsite\Utils\ConnectDb;
 use MyWebsite\Utils\Router;
 use MyWebsite\Utils\RouterFactory;
 use MyWebsite\Utils\RendererInterface;

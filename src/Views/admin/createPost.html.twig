@@ -20,19 +20,8 @@
                 <form action="{{ path('admin.post.create') }}"
                       method="post" enctype="multipart/form-data" class="form-horizontal">
                     <div class="card-body card-block">
-                        {{ field('slug', item.slug, "Slug") }}
                         {{ field('title', item.title, "Titre") }}
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="user_id" class=" form-control-label">Auteur</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <select name="user_id" id="user_id" class="form-control">
-                                    <option value="1">Adrien PIERRARD</option>
-                                    <option value="3">Yann LUCAS</option>
-                                </select>
-                            </div>
-                        </div>
+                        {{ field('user_id', item.user_id, "Auteur", {options: authors}) }}
                         {{ field('extract', item.extract, "Extrait", {type: 'textarea'}) }}
                         {{ field('content', item.content, "Contenu", {type: 'textarea'}) }}
                     </div>

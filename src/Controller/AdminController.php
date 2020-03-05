@@ -7,6 +7,7 @@
 namespace MyWebsite\Controller;
 
 use Exception;
+use MyWebsite\Utils\Validator\Validator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -16,46 +17,11 @@ use Psr\Http\Message\ServerRequestInterface;
 class AdminController extends AbstractController
 {
     /**
-     * A Router Instance
-     *
-     * @var Router
-     */
-    protected $router;
-    /**
-     * A RendererInterface Instance
-     *
-     * @var RendererInterface
-     */
-    protected $renderer;
-
-    /**
-     * A PostRepository Instance
-     *
-     * @var PostRepository
-     */
-    protected $postRepository;
-
-    /**
-     * CallableFunction constructor.
-     *
-     * @param RendererInterface $renderer
-     * @param Router            $router
-     * @param PostRepository    $postRepository
-     * @param FlashService      $flash
-     */
-    public function __construct(RendererInterface $renderer, Router $router, PostRepository $postRepository)
-    {
-        $this->renderer = $renderer;
-        $this->router = $router;
-        $this->postRepository = $postRepository;
-    }
-
-    /**
      * AdminController __invoke.
      *
      * @param ServerRequestInterface $request
      *
-     * @return string
+     * @return ResponseInterface|string
      *
      * @throws Exception
      */
@@ -109,7 +75,10 @@ class AdminController extends AbstractController
     {
         $items = $this->postRepository->getAll();
 
-        return $this->renderer->renderView('admin/adminPosts', compact('items'));
+        return $this->renderer->renderView(
+            'admin/adminPosts',
+            $params = $this->formParams(['items' => $items])
+        );
     }
 
     /**
@@ -119,9 +88,12 @@ class AdminController extends AbstractController
      */
     public function adminComments(): string
     {
-        $items = $this->commentRepository->findUnapproved();
+        $items = $this->commentRepository->findAllComment();
 
-        return $this->renderer->renderView('admin/adminComments', compact('items'));
+        return $this->renderer->renderView(
+            'admin/adminComments',
+            $params = $this->formParams(['items' => $items])
+        );
     }
 
     /**
@@ -148,7 +120,7 @@ class AdminController extends AbstractController
 
         return $this->renderer->renderView(
             'admin/createPost',
-            ['item' => $item, 'errors' => $errors]
+            $params = $this->formParams(['item' => $item, 'errors' => $errors])
         );
     }
 
@@ -175,9 +147,8 @@ class AdminController extends AbstractController
             }
             $errors = $validator->getErrors();
             $params['slug'] = $item->getSlug();
-            $params['nameAuthor'] = $item->nameAuthor;
-            $params['publiDate'] = $item->getPubliDate();
-            $params['modifDate'] = $item->getModifDate();
+            $params['publishedAt'] = $item->getPublishedAt();
+            $params['updatedAt'] = $item->getUpdatedAt();
             $item = $params;
         }
 
@@ -187,7 +158,7 @@ class AdminController extends AbstractController
 
         return $this->renderer->renderView(
             'admin/editPost',
-            ['item' => $item, 'errors' => $errors]
+            $params = $this->formParams(['item' => $item, 'errors' => $errors])
         );
     }
 
@@ -198,7 +169,7 @@ class AdminController extends AbstractController
      *
      * @return ResponseInterface
      */
-    public function editComment(ServerRequestInterface $request)
+    public function editComment(ServerRequestInterface $request): ResponseInterface
     {
         $this->commentRepository->updateComment($request->getAttribute('id'));
         $this->flash->success('Le commentaire a bien été approuvé et publié');
@@ -213,7 +184,7 @@ class AdminController extends AbstractController
      *
      * @return ResponseInterface
      */
-    public function deletePost(ServerRequestInterface $request)
+    public function deletePost(ServerRequestInterface $request): ResponseInterface
     {
         $this->postRepository->deletePost($request->getAttribute('slug'));
         $this->flash->success('L\'article a bien été supprimé');
@@ -228,7 +199,7 @@ class AdminController extends AbstractController
      *
      * @return ResponseInterface
      */
-    public function deleteComment(ServerRequestInterface $request)
+    public function deleteComment(ServerRequestInterface $request): ResponseInterface
     {
         $this->commentRepository->deleteComment($request->getAttribute('id'));
         $this->flash->success('Le commentaire a bien été supprimé');
@@ -249,7 +220,6 @@ class AdminController extends AbstractController
             ->required('title', 'extract', 'content')
             ->length('title', 2, 50)
             ->length('extract', 10, 255)
-            ->length('content', 10)
-            ->slug('slug');
+            ->length('content', 10);
     }
 }

@@ -6,6 +6,8 @@
 
 namespace MyWebsite\Utils\Validator;
 
+use MyWebsite\Repository\PostRepository;
+
 /**
  * Class Validator.
  */
@@ -136,24 +138,6 @@ class Validator
             && $length > $max
         ) {
             $this->addError($key, 'maxLength', [$max]);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Slug validation
-     *
-     * @param string $key
-     *
-     * @return Validator
-     */
-    public function slug(string $key): self
-    {
-        $value = $this->getValue($key);
-        $pattern = '/^[a-z0-9]+(-[a-z0-9]+)*$/';
-        if (!is_null($value) && !preg_match($pattern, $value)) {
-            $this->addError($key, 'slug');
         }
 
         return $this;

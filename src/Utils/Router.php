@@ -121,12 +121,12 @@ class Router
     /**
      * Router generateUri.
      *
-     * @param string $routeName
-     * @param array  $params
+     * @param string     $routeName
+     * @param array|null $params
      *
      * @return string|null
      */
-    public function generateUri(string $routeName, array $params): ?string
+    public function generateUri(string $routeName, ?array $params): ?string
     {
         return $this->router->generateUri($routeName, $params);
     }

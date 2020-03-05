@@ -32,7 +32,7 @@ class CommentRepository
     }
 
     /**
-     * To get all validated Comments link to a BlogPost
+     * To get all Comments link to a BlogPost
      *
      * @param string $slug
      *
@@ -45,14 +45,14 @@ class CommentRepository
                 'SELECT Comments.id,
                     slug,
                     content_comment as content, 
-                    date_comment as commentDate,
+                    date_comment as commentedAt,
                     status_comment as commentStatus,
                     CONCAT(first_name, \' \', last_name) as nameAuthor
                 FROM Comments
                 INNER JOIN Posts ON Comments.post_id = Posts.id
                 INNER JOIN User ON Comments.user_id = User.id
-                WHERE slug = ? AND status_comment IS TRUE
-                ORDER BY commentDate'
+                WHERE slug = ?
+                ORDER BY commentedAt'
             );
         $query->execute([$slug]);
         $query->setFetchMode(PDO::FETCH_CLASS, Comment::class);
@@ -64,24 +64,24 @@ class CommentRepository
     }
 
     /**
-     * To get all unapproved Comments
+     * To get all Comments
      *
      * @return Comment[]
      */
-    public function findUnapproved(): array
+    public function findAllComment(): array
     {
         $query = $this->pdo
             ->query(
                 'SELECT Comments.id,
                 content_comment as content,
-                date_comment as commentDate,
+                date_comment as commentedAt,
                 CONCAT(first_name, \' \', last_name) as commentBy,
-                title as onArticle
+                title as onArticle,
+                status_comment as commentStatus
                 FROM Comments
                 INNER JOIN User ON Comments.user_id = User.id
                 INNER JOIN Posts on Comments.post_id = Posts.id
-                WHERE status_comment IS FALSE
-                ORDER BY commentDate DESC'
+                ORDER BY onArticle DESC, commentedAt DESC'
             );
         $query->setFetchMode(PDO::FETCH_CLASS, Comment::class);
 

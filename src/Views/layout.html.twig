@@ -56,13 +56,13 @@
                         <li class="nav-item">
                             <a class="nav-link" href="../../download/CV_PIERRARD_ADRIEN.pdf" target="_blank">CV</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {{ is_subpath('site.portfolio') ? 'active' }}">
                             <a class="nav-link" href="{{ path('site.portfolio') }}">Réalisations</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {{ is_subpath('blog.home') ? 'active' }}">
                             <a class="nav-link" href="{{ path('blog.home') }}">Blog</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {{ is_subpath('site.contact') ? 'active' }}">
                             <a class="nav-link" href="{{ path('site.contact') }}">Me Contacter</a>
                         </li>
                     </ul>

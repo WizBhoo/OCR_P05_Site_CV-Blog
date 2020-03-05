@@ -6,8 +6,15 @@
 
     <div class="row">
         <div class="col-md-12">
+            <div class="overview-wrap">
+                <h1 class="title-1">Modération des Commentaires</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
             <!-- DATA TABLE -->
-            <h3 class="title-5 m-b-35">Modération des Commentaires</h3>
+            <h3 class="title-5 m-b-35">En attente de modération</h3>
             <div class="table-responsive table-responsive-data2">
                 <table class="table table-data2">
                     <thead>
@@ -22,11 +29,12 @@
                     </thead>
                     <tbody>
                     {% for item in items %}
+                        {% if not item.commentStatus %}
                         <tr class="tr-shadow">
                             <td>{{ item.id }}</td>
                             <td>{{ item.commentBy }}</td>
                             <td>{{ item.onArticle }}</td>
-                            <td>{{ item.commentDate.format('d/m/Y à H:i') }}</td>
+                            <td>{{ item.commentedAt.format('d/m/Y à H:i') }}</td>
                             <td>{{ item.content }}</td>
                             <td>
                                 <div class="table-data-feature">
@@ -52,6 +60,55 @@
                             </td>
                         </tr>
                         <tr class="spacer"></tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- END DATA TABLE -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- DATA TABLE -->
+            <h3 class="title-5 m-b-35">Liste de tous les commentaires</h3>
+            <div class="table-responsive table-responsive-data2">
+                <table class="table table-data2">
+                    <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Auteur</th>
+                        <th>Article lié</th>
+                        <th>Date</th>
+                        <th>Commentaire</th>
+                        <th class="action">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in items %}
+                        {% if item.commentStatus %}
+                        <tr class="tr-shadow">
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.commentBy }}</td>
+                            <td>{{ item.onArticle }}</td>
+                            <td>{{ item.commentedAt.format('d/m/Y à H:i') }}</td>
+                            <td>{{ item.content }}</td>
+                            <td>
+                                <div class="table-data-feature">
+                                    <form action="{{ path('admin.comment.delete', {id: item.id}) }}"
+                                          method="POST"
+                                          onsubmit="return confirm('Es tu sûr de vouloir le Supprimer ?')">
+                                        <input type="hidden" name="_METHOD" value="DELETE">
+                                        <button class="item" data-toggle="tooltip"
+                                                data-placement="top" title="Supprimer">
+                                            <i class="zmdi zmdi-delete"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="spacer"></tr>
+                        {% endif %}
                     {% endfor %}
                     </tbody>
                 </table>

@@ -55,12 +55,13 @@
                     <div class="comments-area">
                         <h4>Commenté {{ post.nbrComments }} fois</h4>
                         {% for comment in comments %}
+                            {% if comment.commentStatus %}
                         <div class="comment-list">
                             <div class="single-comment justify-content-between d-flex">
                                 <div class="user justify-content-between d-flex">
                                     <div class="desc">
                                         <h5><a href="#">{{ comment.nameAuthor }}</a></h5>
-                                        <p class="date">Le {{ comment.commentDate.format('d/m/Y à H:i') }}</p>
+                                        <p class="date">Le {{ comment.commentedAt.format('d/m/Y à H:i') }}</p>
                                         <p class="comment text-justify">
                                             {{ comment.content | nl2br }}
                                         </p>
@@ -68,6 +69,7 @@
                                 </div>
                             </div>
                         </div>
+                            {% endif %}
                         {% endfor %}
                     </div>
                     <div class="comment-form">
