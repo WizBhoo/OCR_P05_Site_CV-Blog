@@ -6,33 +6,14 @@
 
 namespace MyWebsite\Controller;
 
-use MyWebsite\Utils\RendererInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Class BlogController.
  */
-class BlogController
+class BlogController extends AbstractController
 {
-    /**
-     * A RendererInterface Instance
-     *
-     * @var RendererInterface
-     */
-    protected $renderer;
-
-    /**
-     * CallableFunction constructor.
-     *
-     * @param RendererInterface $renderer
-     *
-     * @return void
-     */
-    public function __construct(RendererInterface $renderer)
-    {
-        $this->renderer = $renderer;
-    }
-
     /**
      * CallableFunction __invoke.
      *
@@ -42,10 +23,8 @@ class BlogController
      */
     public function __invoke(ServerRequestInterface $request)
     {
-        $path = $request->getUri()->getPath();
-        $slug = $request->getAttribute('slug');
-        if ($slug) {
-            return $this->show($slug);
+        if ($request->getAttribute('slug')) {
+            return $this->show($request);
         }
 
         return $this->blogHome();
@@ -58,21 +37,30 @@ class BlogController
      */
     public function blogHome(): string
     {
-        return $this->renderer->renderView('blog/blogHome');
+        $posts = $this->postRepository->getAll();
+
+        return $this->renderer->renderView('blog/blogHome', compact('posts'));
     }
 
     /**
      * Route callable function show.
      *
-     * @param string $slug
+     * @param ServerRequestInterface $request
      *
-     * @return string
+     * @return ResponseInterface|string
      */
-    public function show(string $slug): string
+    public function show(ServerRequestInterface $request)
     {
+        $slug = $request->getAttribute('slug');
+        $post = $this->postRepository->findPost($slug);
+        $comments = $this->commentRepository->findComments($slug);
+        if (is_null($post)) {
+            return $this->renderer->renderView('site/404');
+        }
+
         return $this->renderer->renderView(
             'blog/show',
-            ['slug' => $slug]
+            ['post' => $post, 'comments' => $comments]
         );
     }
 }

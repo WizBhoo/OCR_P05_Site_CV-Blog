@@ -6,6 +6,7 @@
 
 namespace MyWebsite\Utils;
 
+use MyWebsite\Controller\AdminController;
 use MyWebsite\Controller\BlogController;
 use MyWebsite\Controller\SiteController;
 use Psr\Container\ContainerInterface;
@@ -47,6 +48,11 @@ class RouterFactory
             'site.contact'
         );
         $router->get(
+            $container->get('404.prefix'),
+            SiteController::class,
+            'site.404'
+        );
+        $router->get(
             $container->get('blog.prefix'),
             BlogController::class,
             'blog.home'
@@ -55,6 +61,11 @@ class RouterFactory
             sprintf("%s/{slug:[a-z\-0-9]+}", $container->get('blog.prefix')),
             BlogController::class,
             'blog.show'
+        );
+        $router->get(
+            sprintf("%s/dashboard", $container->get('admin.prefix')),
+            AdminController::class,
+            'admin.dashboard'
         );
 
         return $router;

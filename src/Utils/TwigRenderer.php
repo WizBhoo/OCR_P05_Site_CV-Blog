@@ -10,7 +10,6 @@ use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
-use Twig\Loader\FilesystemLoader;
 
 /**
  * Class TwigRenderer.
@@ -25,23 +24,12 @@ class TwigRenderer implements RendererInterface
     protected $twig;
 
     /**
-     * A Twig Loader instance.
-     *
-     * @var FilesystemLoader
-     */
-    protected $loader;
-
-    /**
      * TwigRenderer constructor.
      *
-     * @param FilesystemLoader $loader
-     * @param Environment      $twig
-     *
-     * @return void
+     * @param Environment $twig
      */
-    public function __construct(FilesystemLoader $loader, Environment $twig)
+    public function __construct(Environment $twig)
     {
-        $this->loader = $loader;
         $this->twig = $twig;
     }
 
@@ -51,7 +39,7 @@ class TwigRenderer implements RendererInterface
     public function addViewPath(string $namespace, ?string $path = null): void
     {
         try {
-            $this->loader->addPath($path, $namespace);
+            $this->twig->getLoader()->addPath($path, $namespace);
         } catch (LoaderError $e) {
         }
     }

@@ -1161,7 +1161,7 @@ button:focus {
   background: #fafaff;
   border: 1px solid #eee;
   padding: 50px 30px;
-  margin-top: 50px; }
+  margin-top: 20px; }
 @media (max-width: 414px) {
   .comments-area {
     padding: 50px 8px; } }
@@ -1197,22 +1197,15 @@ button:focus {
 .comments-area .comment {
   color: #777777;
   margin-bottom: 0; }
-.comments-area .btn-reply {
-  background-color: #fff;
-  color: #222222;
-  border: 1px solid #eee;
-  padding: 2px 18px;
-  font-size: 12px;
-  display: block;
-  font-weight: 600;
+.comments-area .reply-icon a {
+  color: #00b0f0;
+  font-size: 18px;
   -webkit-transition: all 0.4s ease 0s;
   -moz-transition: all 0.4s ease 0s;
   -o-transition: all 0.4s ease 0s;
   transition: all 0.4s ease 0s; }
-.comments-area .btn-reply:hover {
-  border: transparent;
-  background: #e45447;
-  color: #fff; }
+.comments-area .reply-icon a:hover {
+  color: #000; }
 
 .comment-form {
   background: #fafaff;
@@ -2859,7 +2852,7 @@ h6 {
 ============================================================================================ */
 #notfound {
   position: relative;
-  height: 100vh; }
+  height: 75vh; }
 #notfound .notfound {
   position: absolute;
   left: 50%;
@@ -2878,17 +2871,16 @@ h6 {
 .notfound .notfound-404 h1 {
   font-family: 'Montserrat', sans-serif;
   font-size: 230px;
-  margin: 0px;
+  margin: 0;
   font-weight: 900;
   position: absolute;
   left: 50%;
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
+  background: url('../img/404.jpg') no-repeat center;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: cover;
-  background: url('../img/404.jpg') no-repeat center; }
+  -webkit-text-fill-color: transparent; }
 .notfound h2 {
   font-family: 'Montserrat', sans-serif;
   color: #000;
@@ -2908,17 +2900,19 @@ h6 {
   font-size: 14px;
   text-decoration: none;
   text-transform: uppercase;
-  background: #0046d5;
+  background: #00b0f0;
   display: inline-block;
   padding: 15px 30px;
   border-radius: 40px;
   color: #fff;
   font-weight: 700;
-  -webkit-box-shadow: 0px 4px 15px -5px #0046d5;
-  box-shadow: 0px 4px 15px -5px #0046d5; }
-@media only screen and (max-width: 767px) {
+  -webkit-box-shadow: 0 4px 15px -5px #00b0f0;
+  box-shadow: 0 4px 15px -5px #00b0f0; }
+@media (max-width: 812px) {
+  #notfound {
+    height: 100vh; }
   .notfound .notfound-404 {
-    height: 142px;}
+    height: 142px; }
   .notfound .notfound-404 h1 {
     font-size: 112px; } }
 /* End 404 css

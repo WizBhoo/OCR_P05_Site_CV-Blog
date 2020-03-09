@@ -7,33 +7,13 @@
 namespace MyWebsite\Controller;
 
 use Exception;
-use MyWebsite\Utils\RendererInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Class SiteController.
  */
-class SiteController
+class SiteController extends AbstractController
 {
-    /**
-     * A RendererInterface Instance
-     *
-     * @var RendererInterface
-     */
-    protected $renderer;
-
-    /**
-     * CallableFunction constructor.
-     *
-     * @param RendererInterface $renderer
-     *
-     * @return void
-     */
-    public function __construct(RendererInterface $renderer)
-    {
-        $this->renderer = $renderer;
-    }
-
     /**
      * SiteController __invoke.
      *
@@ -43,7 +23,7 @@ class SiteController
      *
      * @throws Exception
      */
-    public function __invoke(ServerRequestInterface $request)
+    public function __invoke(ServerRequestInterface $request): string
     {
         $path = $request->getUri()->getPath();
         $slug = $request->getAttribute('slug');
@@ -87,8 +67,6 @@ class SiteController
      * @param string $slug
      *
      * @return string
-     *
-     * @throws Exception
      */
     public function project(string $slug): string
     {
@@ -134,7 +112,7 @@ class SiteController
                     ['slug' => $slug]
                 );
             default:
-                throw new Exception('Unexpected value');
+                return $this->error404();
         }
     }
 

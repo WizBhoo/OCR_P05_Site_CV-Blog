@@ -9,6 +9,7 @@ namespace MyWebsite;
 use DI\ContainerBuilder;
 use Exception;
 use GuzzleHttp\Psr7\Response;
+use MyWebsite\Utils\RendererInterface;
 use MyWebsite\Utils\Router;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -43,7 +44,11 @@ class App
 
         $route = $this->container->get(Router::class)->match($request);
         if (is_null($route)) {
-            return new Response(404, [], '<h1>Erreur 404</h1>');
+            return new Response(
+                404,
+                [],
+                $this->container->get(RendererInterface::class)->renderView('site/404')
+            );
         }
         // To add attributes to the request.
         $params = $route->getParams();

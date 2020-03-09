@@ -31,9 +31,10 @@ class TwigRendererFactory
                 $twig->addExtension($extension);
             }
         }
-        $renderer = new TwigRenderer($loader, $twig);
+        $renderer = new TwigRenderer($twig);
         $renderer->addViewPath('site', $container->get('site_views.path'));
         $renderer->addViewPath('blog', $container->get('blog_views.path'));
+        $renderer->addViewPath('admin', $container->get('admin_views.path'));
 
         return $renderer;
     }
