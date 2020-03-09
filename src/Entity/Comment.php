@@ -115,7 +115,7 @@ class Comment
      *
      * @return void
      */
-    public function setCommentDate(DateTime $commentedAt): void
+    public function setCommentedAt(DateTime $commentedAt): void
     {
         $this->commentedAt = $commentedAt;
     }

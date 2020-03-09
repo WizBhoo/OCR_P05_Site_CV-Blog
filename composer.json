@@ -20,5 +20,8 @@
         "php-di/php-di": "^6.0",
         "ext-pdo": "*",
         "cocur/slugify": "^4.0"
+    },
+    "require-dev": {
+        "middlewares/whoops": "^0.4.1"
     }
 }

@@ -34,7 +34,7 @@ class FormTwigExtension extends AbstractExtension
     /**
      * Generate field's HTML code
      *
-     * @param array       $context Context de la vue Twig
+     * @param array       $context Twig view context
      * @param string      $key     Field's Key
      * @param mixed       $value   Filed's value
      * @param string|null $label   Label to use
