@@ -28,6 +28,7 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {% set token_input = csrf_input() %}
                     {% for item in items %}
                         {% if not item.commentStatus %}
                         <tr class="tr-shadow">
@@ -46,6 +47,7 @@
                                                 data-placement="top" title="Approuver">
                                             <i class="zmdi zmdi-check-circle"></i>
                                         </button>
+                                        {{ token_input | raw }}
                                     </form>
                                     <form action="{{ path('admin.comment.delete', {id: item.id}) }}"
                                           method="POST"
@@ -55,6 +57,7 @@
                                                 data-placement="top" title="Supprimer">
                                             <i class="zmdi zmdi-delete"></i>
                                         </button>
+                                        {{ token_input | raw }}
                                     </form>
                                 </div>
                             </td>
@@ -85,6 +88,7 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {% set token_input = csrf_input() %}
                     {% for item in items %}
                         {% if item.commentStatus %}
                         <tr class="tr-shadow">
@@ -103,6 +107,7 @@
                                                 data-placement="top" title="Supprimer">
                                             <i class="zmdi zmdi-delete"></i>
                                         </button>
+                                        {{ token_input | raw }}
                                     </form>
                                 </div>
                             </td>

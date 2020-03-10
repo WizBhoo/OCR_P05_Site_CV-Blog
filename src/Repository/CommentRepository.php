@@ -81,7 +81,7 @@ class CommentRepository
                 FROM Comments
                 INNER JOIN User ON Comments.user_id = User.id
                 INNER JOIN Posts on Comments.post_id = Posts.id
-                ORDER BY onArticle DESC, commentedAt DESC'
+                ORDER BY commentedAt DESC, onArticle'
             );
         $query->setFetchMode(PDO::FETCH_CLASS, Comment::class);
 

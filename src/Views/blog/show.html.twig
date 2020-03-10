@@ -76,6 +76,7 @@
                         <h4>Laisser un commentaire</h4>
                         <form action="{{ path('blog.show') }}"
                               method="post" enctype="multipart/form-data" class="form-horizontal">
+                            {{ csrf_input() }}
                             <div class="form-group">
                                 <label for="content" class="form-control-label">
                                     Votre commentaire sera validé par l'administrateur avant d'être publié.

@@ -10,6 +10,7 @@ use ArrayAccess;
 use Exception;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use MyWebsite\Utils\Exception\CsrfInvalidException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TypeError;
@@ -20,21 +21,29 @@ use TypeError;
 class CsrfMiddleware implements MiddlewareInterface
 {
     /**
+     * A csrf key
+     *
      * @var string
      */
     protected $formKey;
 
     /**
+     * A csrf key in session
+     *
      * @var string
      */
     protected $sessionKey;
 
     /**
+     * A limit of csrf token in session
+     *
      * @var int
      */
     protected $limit;
 
     /**
+     * A session in ArrayAccess
+     *
      * @var ArrayAccess
      */
     protected $session;
@@ -47,7 +56,7 @@ class CsrfMiddleware implements MiddlewareInterface
      * @param string      $formKey
      * @param string      $sessionKey
      */
-    public function __construct(&$session, int $limit = 50, string $formKey = '_csrf', string $sessionKey = 'csrf')
+    public function __construct(ArrayAccess &$session, int $limit = 50, string $formKey = '_csrf', string $sessionKey = 'csrf')
     {
         $this->validSession($session);
         $this->session = &$session;
@@ -57,11 +66,14 @@ class CsrfMiddleware implements MiddlewareInterface
     }
 
     /**
-     * @inheritDoc
+     * Process CSRF check on request before sending response
+     *
+     * @param ServerRequestInterface $request
+     * @param DelegateInterface      $delegate
      *
      * @return ResponseInterface
      *
-     * @throws Exception
+     * @throws CsrfInvalidException
      */
     public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
     {
@@ -71,12 +83,12 @@ class CsrfMiddleware implements MiddlewareInterface
                 $this->reject();
             } else {
                 $csrfList = $this->session[$this->sessionKey] ?? [];
-                if (in_array($params[$this->formKey], $csrfList)) {
-                    $this->useToken($params[$this->formKey]);
-                    $delegate->process($request);
-                } else {
+                if (!in_array($params[$this->formKey], $csrfList)) {
                     $this->reject();
                 }
+                $this->useToken($params[$this->formKey]);
+
+                return $delegate->process($request);
             }
         }
 
@@ -84,6 +96,7 @@ class CsrfMiddleware implements MiddlewareInterface
     }
 
     /**
+     * Generate a token in session
      *
      * @return string
      *
@@ -111,16 +124,20 @@ class CsrfMiddleware implements MiddlewareInterface
     }
 
     /**
+     * Show exception if CSRF check failed
+     *
      * @return void
      *
-     * @throws Exception
+     * @throws CsrfInvalidException
      */
     private function reject(): void
     {
-        throw new Exception();
+        throw new CsrfInvalidException();
     }
 
     /**
+     * Delete token used from csrf token list in session
+     *
      * @param string $token
      *
      * @return void
@@ -134,6 +151,8 @@ class CsrfMiddleware implements MiddlewareInterface
     }
 
     /**
+     * limit token's number in session
+     *
      * @return void
      */
     private function limitTokens(): void
@@ -146,6 +165,8 @@ class CsrfMiddleware implements MiddlewareInterface
     }
 
     /**
+     * Check if session is valid
+     *
      * @param $session
      */
     private function validSession($session)

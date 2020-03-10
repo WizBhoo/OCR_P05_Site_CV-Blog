@@ -19,6 +19,7 @@
                 </div>
                 <form action="{{ path('admin.post.edit', {slug: item.slug}) }}"
                       method="post" enctype="multipart/form-data" class="form-horizontal">
+                    {{ csrf_input() }}
                     <div class="card-body card-block">
                         {{ field('slug', item.slug, "Slug", {disabled: 'disabled'}) }}
                         {{ field('title', item.title, "Titre") }}

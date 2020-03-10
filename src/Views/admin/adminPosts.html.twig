@@ -29,6 +29,7 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {% set token_input = csrf_input() %}
                     {% for item in items %}
                         <tr class="tr-shadow">
                             <td>{{ item.title }}</td>
@@ -51,6 +52,7 @@
                                                 data-placement="top" title="Supprimer">
                                             <i class="zmdi zmdi-delete"></i>
                                         </button>
+                                        {{ token_input | raw }}
                                     </form>
                                 </div>
                             </td>

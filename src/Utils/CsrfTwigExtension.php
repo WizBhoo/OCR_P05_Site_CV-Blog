@@ -17,6 +17,8 @@ use Twig\TwigFunction;
 class CsrfTwigExtension extends AbstractExtension
 {
     /**
+     * A CsrfMiddleware instance
+     *
      * @var CsrfMiddleware
      */
     protected $csrfMiddleware;
@@ -48,12 +50,13 @@ class CsrfTwigExtension extends AbstractExtension
     }
 
     /**
+     * Generate a csrf input
      *
      * @return string
      *
      * @throws Exception
      */
-    public function csrfInput()
+    public function csrfInput(): string
     {
         return sprintf(
             "<input type=\"hidden\" name=\"%s\" value=\"%s\"/>",

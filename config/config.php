@@ -1,8 +1,10 @@
 <?php
 
 use MyWebsite\Utils\ConnectDb;
+use MyWebsite\Utils\CsrfTwigExtension;
 use MyWebsite\Utils\FlashTwigExtension;
 use MyWebsite\Utils\FormTwigExtension;
+use MyWebsite\Utils\Middleware\CsrfMiddleware;
 use MyWebsite\Utils\Router;
 use MyWebsite\Utils\RouterFactory;
 use MyWebsite\Utils\RendererInterface;
@@ -11,6 +13,7 @@ use MyWebsite\Utils\Session\PHPSession;
 use MyWebsite\Utils\Session\SessionInterface;
 use MyWebsite\Utils\TwigRendererFactory;
 
+use function DI\create;
 use function DI\factory;
 use function DI\get;
 
@@ -34,10 +37,12 @@ return [
         get(RouterTwigExtension::class),
         get(FlashTwigExtension::class),
         get(FormTwigExtension::class),
+        get(CsrfTwigExtension::class),
     ],
 
+    SessionInterface::class => get(PHPSession::class),
+    CsrfMiddleware::class => create()->constructor(get(SessionInterface::class)),
     Router::class => factory(RouterFactory::class),
     RendererInterface::class => factory(TwigRendererFactory::class),
-    SessionInterface::class => get(PHPSession::class),
     PDO::class => ConnectDb::getInstance()->getConnection(),
 ];

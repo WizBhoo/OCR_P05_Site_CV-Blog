@@ -107,6 +107,7 @@ class AdminController extends AbstractController
     {
         if ($request->getMethod() === 'POST') {
             $params = $request->getParsedBody();
+            unset($params['_csrf']);
             $validator = $this->getValidator($request);
             if ($validator->isValid()) {
                 $this->postRepository->insertPost($params);
@@ -138,6 +139,7 @@ class AdminController extends AbstractController
 
         if ($request->getMethod() === 'POST') {
             $params = $request->getParsedBody();
+            unset($params['_csrf']);
             $validator = $this->getValidator($request);
             if ($validator->isValid()) {
                 $this->postRepository->updatePost($slug, $params);
