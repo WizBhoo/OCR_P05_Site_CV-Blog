@@ -42,11 +42,11 @@ class PostRepository
         $query = $this->pdo
             ->query(
                 'SELECT Posts.id, 
-                    slug, 
-                    title, 
-                    extract, 
-                    publication_date as publishedAt,
-                    modification_date as updatedAt,
+                    slug,
+                    title,
+                    extract,
+                    DATE_FORMAT(publication_date, \'%d/%m/%Y à %H:%i\') as publishedAt,
+                    DATE_FORMAT(modification_date, \'%d/%m/%Y à %H:%i\') as updatedAt,
                     CONCAT(first_name, \' \', last_name) as nameAuthor,
                     COUNT(status_comment IS TRUE OR NULL) as nbrComments
                 FROM Posts
@@ -76,8 +76,8 @@ class PostRepository
                     title,
                     extract,
                     content,
-                    publication_date as publishedAt,
-                    modification_date as updatedAt,
+                    DATE_FORMAT(publication_date, \'%d/%m/%Y à %H:%i\') as publishedAt,
+                    DATE_FORMAT(modification_date, \'%d/%m/%Y à %H:%i\') as updatedAt,
                     Posts.user_id,
                     CONCAT(first_name, \' \', last_name) as nameAuthor,
                     COUNT(status_comment IS TRUE OR NULL) as nbrComments

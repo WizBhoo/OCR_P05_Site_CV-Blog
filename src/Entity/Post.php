@@ -64,21 +64,6 @@ class Post
     protected $updatedAt;
 
     /**
-     * Post constructor.
-     *
-     * @throws Exception
-     */
-    public function __construct()
-    {
-        if ($this->publishedAt) {
-            $this->publishedAt = new DateTime($this->publishedAt);
-        }
-        if ($this->updatedAt) {
-            $this->updatedAt = new DateTime($this->updatedAt);
-        }
-    }
-
-    /**
      * Getter id
      *
      * @return int
@@ -191,9 +176,9 @@ class Post
     /**
      * Getter publishedAt
      *
-     * @return DateTime
+     * @return string|DateTime
      */
-    public function getPublishedAt(): DateTime
+    public function getPublishedAt()
     {
         return $this->publishedAt;
     }
@@ -201,21 +186,25 @@ class Post
     /**
      * Setter publishedAt
      *
-     * @param DateTime $publishedAt
+     * @param $datetime
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function setPublishedAt(DateTime $publishedAt): void
+    public function setPublishedAt($datetime): void
     {
-        $this->publishedAt = $publishedAt;
+        if (is_string($datetime)) {
+            $this->publishedAt = new DateTime($datetime);
+        }
     }
 
     /**
      * Getter updatedAt
      *
-     * @return DateTime
+     * @return string|DateTime
      */
-    public function getUpdatedAt(): DateTime
+    public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
@@ -223,12 +212,16 @@ class Post
     /**
      * Setter updatedAt
      *
-     * @param DateTime $updatedAt
+     * @param $datetime
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function setUpdatedAt(DateTime $updatedAt): void
+    public function setUpdatedAt($datetime): void
     {
-        $this->updatedAt = $updatedAt;
+        if (is_string($datetime)) {
+            $this->updatedAt = new DateTime($datetime);
+        }
     }
 }

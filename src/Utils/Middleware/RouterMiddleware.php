@@ -31,7 +31,6 @@ class RouterMiddleware
         $this->router = $router;
     }
 
-
     /**
      * Match route and Add params to request
      *

@@ -13,5 +13,4 @@ use Exception;
  */
 class CsrfInvalidException extends Exception
 {
-
 }

@@ -106,7 +106,7 @@ class App implements DelegateInterface
             return $middleware->process($request, $this);
         }
 
-        throw new Exception('Aucun middleware n\'a intercepté cette requête');
+        throw new Exception('No middleware intercepted this request');
     }
 
     /**
@@ -139,6 +139,7 @@ class App implements DelegateInterface
             try {
                 $this->container = $builder->build();
             } catch (Exception $e) {
+                $e->getMessage();
             }
         }
 

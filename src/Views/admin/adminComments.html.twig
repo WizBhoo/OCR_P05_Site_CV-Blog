@@ -31,38 +31,38 @@
                     {% set token_input = csrf_input() %}
                     {% for item in items %}
                         {% if not item.commentStatus %}
-                        <tr class="tr-shadow">
-                            <td>{{ item.id }}</td>
-                            <td>{{ item.commentBy }}</td>
-                            <td>{{ item.onArticle }}</td>
-                            <td>{{ item.commentedAt.format('d/m/Y à H:i') }}</td>
-                            <td>{{ item.content }}</td>
-                            <td>
-                                <div class="table-data-feature">
-                                    <form action="{{ path('admin.comment.edit', {id: item.id}) }}"
-                                          method="POST"
-                                          onsubmit="return confirm('Es tu sûr de vouloir l\'Approuver ?')">
-                                        <input type="hidden" name="_METHOD" value="POST">
-                                        <button class="item" data-toggle="tooltip"
-                                                data-placement="top" title="Approuver">
-                                            <i class="zmdi zmdi-check-circle"></i>
-                                        </button>
-                                        {{ token_input | raw }}
-                                    </form>
-                                    <form action="{{ path('admin.comment.delete', {id: item.id}) }}"
-                                          method="POST"
-                                          onsubmit="return confirm('Es tu sûr de vouloir le Supprimer ?')">
-                                        <input type="hidden" name="_METHOD" value="DELETE">
-                                        <button class="item" data-toggle="tooltip"
-                                                data-placement="top" title="Supprimer">
-                                            <i class="zmdi zmdi-delete"></i>
-                                        </button>
-                                        {{ token_input | raw }}
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="spacer"></tr>
+                            <tr class="tr-shadow">
+                                <td>{{ item.id }}</td>
+                                <td>{{ item.commentBy }}</td>
+                                <td>{{ item.onArticle }}</td>
+                                <td>{{ item.commentedAt }}</td>
+                                <td>{{ item.content }}</td>
+                                <td>
+                                    <div class="table-data-feature">
+                                        <form action="{{ path('admin.comment.edit', {id: item.id}) }}"
+                                              method="POST"
+                                              onsubmit="return confirm('Es tu sûr de vouloir l\'Approuver ?')">
+                                            <input type="hidden" name="_METHOD" value="POST">
+                                            <button class="item" data-toggle="tooltip"
+                                                    data-placement="top" title="Approuver">
+                                                <i class="zmdi zmdi-check-circle"></i>
+                                            </button>
+                                            {{ token_input | raw }}
+                                        </form>
+                                        <form action="{{ path('admin.comment.delete', {id: item.id}) }}"
+                                              method="POST"
+                                              onsubmit="return confirm('Es tu sûr de vouloir le Supprimer ?')">
+                                            <input type="hidden" name="_METHOD" value="DELETE">
+                                            <button class="item" data-toggle="tooltip"
+                                                    data-placement="top" title="Supprimer">
+                                                <i class="zmdi zmdi-delete"></i>
+                                            </button>
+                                            {{ token_input | raw }}
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="spacer"></tr>
                         {% endif %}
                     {% endfor %}
                     </tbody>
@@ -91,28 +91,28 @@
                     {% set token_input = csrf_input() %}
                     {% for item in items %}
                         {% if item.commentStatus %}
-                        <tr class="tr-shadow">
-                            <td>{{ item.id }}</td>
-                            <td>{{ item.commentBy }}</td>
-                            <td>{{ item.onArticle }}</td>
-                            <td>{{ item.commentedAt.format('d/m/Y à H:i') }}</td>
-                            <td>{{ item.content }}</td>
-                            <td>
-                                <div class="table-data-feature">
-                                    <form action="{{ path('admin.comment.delete', {id: item.id}) }}"
-                                          method="POST"
-                                          onsubmit="return confirm('Es tu sûr de vouloir le Supprimer ?')">
-                                        <input type="hidden" name="_METHOD" value="DELETE">
-                                        <button class="item" data-toggle="tooltip"
-                                                data-placement="top" title="Supprimer">
-                                            <i class="zmdi zmdi-delete"></i>
-                                        </button>
-                                        {{ token_input | raw }}
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="spacer"></tr>
+                            <tr class="tr-shadow">
+                                <td>{{ item.id }}</td>
+                                <td>{{ item.commentBy }}</td>
+                                <td>{{ item.onArticle }}</td>
+                                <td>{{ item.commentedAt }}</td>
+                                <td>{{ item.content }}</td>
+                                <td>
+                                    <div class="table-data-feature">
+                                        <form action="{{ path('admin.comment.delete', {id: item.id}) }}"
+                                              method="POST"
+                                              onsubmit="return confirm('Es tu sûr de vouloir le Supprimer ?')">
+                                            <input type="hidden" name="_METHOD" value="DELETE">
+                                            <button class="item" data-toggle="tooltip"
+                                                    data-placement="top" title="Supprimer">
+                                                <i class="zmdi zmdi-delete"></i>
+                                            </button>
+                                            {{ token_input | raw }}
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="spacer"></tr>
                         {% endif %}
                     {% endfor %}
                     </tbody>

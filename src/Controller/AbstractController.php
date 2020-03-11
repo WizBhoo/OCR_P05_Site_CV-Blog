@@ -79,18 +79,4 @@ abstract class AbstractController
     {
         return $this->renderer->renderView('site/404');
     }
-
-    /**
-     * Allow to manage params sending to View
-     *
-     * @param array $params
-     *
-     * @return array
-     */
-    protected function formParams(array $params): array
-    {
-        $params['authors'] = $this->postRepository->findListAuthors();
-
-        return $params;
-    }
 }

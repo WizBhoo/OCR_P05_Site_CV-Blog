@@ -75,4 +75,18 @@ class BlogController extends AbstractController
             $params = $this->formParams(['post' => $post, 'comments' => $comments])
         );
     }
+
+    /**
+     * Allow to manage params sending to View
+     *
+     * @param array $params
+     *
+     * @return array
+     */
+    protected function formParams(array $params): array
+    {
+        $params['authors'] = $this->postRepository->findListAuthors();
+
+        return $params;
+    }
 }
