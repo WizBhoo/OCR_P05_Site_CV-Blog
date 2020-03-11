@@ -222,4 +222,18 @@ class AdminController extends AbstractController
             ->length('extract', 10, 255)
             ->length('content', 10);
     }
+
+    /**
+     * Allow to manage params sending to View
+     *
+     * @param array $params
+     *
+     * @return array
+     */
+    protected function formParams(array $params): array
+    {
+        $params['authors'] = $this->postRepository->findListAuthors();
+
+        return $params;
+    }
 }
