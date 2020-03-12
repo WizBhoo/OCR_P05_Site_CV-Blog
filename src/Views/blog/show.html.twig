@@ -26,7 +26,9 @@
                     <div class="single-post row">
                         <div class="col-lg-12">
                             <div class="feature-img">
-                                <img class="img-fluid" src="../img/blog/feature-img1.jpg" alt="">
+                                {% if post.image %}
+                                    <img class="img-fluid" src="{{ post.imageUrl }}" alt="{{ post.image }}">
+                                {% endif %}
                             </div>
                         </div>
                         <div class="col-lg-4  col-md-4">

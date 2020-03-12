@@ -64,14 +64,11 @@ class Post
     protected $updatedAt;
 
     /**
-     * Getter id
+     * Post's image
      *
-     * @return int
+     * @var string
      */
-    public function getId(): int
-    {
-        return $this->id;
-    }
+    protected $image;
 
     /**
      * Setter id
@@ -88,9 +85,9 @@ class Post
     /**
      * Getter slug
      *
-     * @return string
+     * @return string|null
      */
-    public function getSlug(): string
+    public function getSlug(): ?string
     {
         return $this->slug;
     }
@@ -110,9 +107,9 @@ class Post
     /**
      * Getter title
      *
-     * @return string
+     * @return string|null
      */
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -132,9 +129,9 @@ class Post
     /**
      * Getter extract
      *
-     * @return string
+     * @return string|null
      */
-    public function getExtract(): string
+    public function getExtract(): ?string
     {
         return $this->extract;
     }
@@ -154,9 +151,9 @@ class Post
     /**
      * Getter content
      *
-     * @return string
+     * @return string|null
      */
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
@@ -223,5 +220,49 @@ class Post
         if (is_string($datetime)) {
             $this->updatedAt = new DateTime($datetime);
         }
+    }
+
+    /**
+     * Getter image
+     *
+     * @return string|null
+     */
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    /**
+     * Setter image
+     *
+     * @param string $image
+     *
+     * @return void
+     */
+    public function setImage(string $image): void
+    {
+        $this->image = $image;
+    }
+
+    /**
+     * Get a thumbnail image
+     *
+     * @return string
+     */
+    public function getThumb(): string
+    {
+        ['filename' => $filename, 'extension' => $extension] = pathinfo($this->image);
+
+        return sprintf("/img/blog/%s_thumb.%s", $filename, $extension);
+    }
+
+    /**
+     * Get original image
+     *
+     * @return string
+     */
+    public function getImageUrl(): string
+    {
+        return sprintf("/img/blog/%s", $this->image);
     }
 }

@@ -16,16 +16,19 @@
             <div class="card">
                 <div class="card-header">
                     {{ item.title }}
+                    {% if item.image %}
+                        <img src="{{ item.thumb }}" alt="{{ item.image }}" style="width:40%;">
+                    {% endif %}
                 </div>
                 <form action="{{ path('admin.post.edit', {slug: item.slug}) }}"
                       method="post" enctype="multipart/form-data" class="form-horizontal">
                     {{ csrf_input() }}
                     <div class="card-body card-block">
-                        {{ field('slug', item.slug, "Slug", {disabled: 'disabled'}) }}
                         {{ field('title', item.title, "Titre") }}
                         {{ field('user_id', item.user_id, "Auteur", {options: authors}) }}
                         {{ field('publiDate', item.publishedAt, "Date de création", {disabled: 'disabled'}) }}
                         {{ field('modifDate', item.updatedAt, "Date de modification", {disabled: 'disabled'}) }}
+                        {{ field('image', item.image, "Image", {type: 'file'}) }}
                         {{ field('extract', item.extract, "Extrait", {type: 'textarea'}) }}
                         {{ field('content', item.content, "Contenu", {type: 'textarea'}) }}
                     </div>
