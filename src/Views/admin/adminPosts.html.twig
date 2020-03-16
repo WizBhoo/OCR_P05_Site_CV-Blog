@@ -29,11 +29,12 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {% set token_input = csrf_input() %}
                     {% for item in items %}
                         <tr class="tr-shadow">
                             <td>{{ item.title }}</td>
                             <td>{{ item.nameAuthor }}</td>
-                            <td>{{ item.updatedAt.format('d/m/Y à H:i') }}</td>
+                            <td>{{ item.updatedAt|date("d/m/Y à H:i") }}</td>
                             <td>{{ item.nbrComments }}</td>
                             <td>
                                 <div class="table-data-feature">
@@ -51,6 +52,7 @@
                                                 data-placement="top" title="Supprimer">
                                             <i class="zmdi zmdi-delete"></i>
                                         </button>
+                                        {{ token_input | raw }}
                                     </form>
                                 </div>
                             </td>

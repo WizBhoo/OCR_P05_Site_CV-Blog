@@ -63,6 +63,7 @@ class BlogController extends AbstractController
         if ($request->getMethod() === 'POST') {
             $params = $request->getParsedBody();
             $params['id'] = $post->getId();
+            unset($params['_csrf']);
             $this->commentRepository->insertComment($params);
             $this->flash->commentSuccess('Votre commentaire a bien été envoyé pour validation');
 

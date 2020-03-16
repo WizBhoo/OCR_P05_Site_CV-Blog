@@ -19,9 +19,11 @@
                 </div>
                 <form action="{{ path('admin.post.create') }}"
                       method="post" enctype="multipart/form-data" class="form-horizontal">
+                    {{ csrf_input() }}
                     <div class="card-body card-block">
                         {{ field('title', item.title, "Titre") }}
                         {{ field('user_id', item.user_id, "Auteur", {options: authors}) }}
+                        {{ field('image', item.image, "Image", {type: 'file'}) }}
                         {{ field('extract', item.extract, "Extrait", {type: 'textarea'}) }}
                         {{ field('content', item.content, "Contenu", {type: 'textarea'}) }}
                     </div>

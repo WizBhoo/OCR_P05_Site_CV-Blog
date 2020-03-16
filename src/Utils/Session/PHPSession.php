@@ -6,10 +6,12 @@
 
 namespace MyWebsite\Utils\Session;
 
+use ArrayAccess;
+
 /**
  * Class PHPSession.
  */
-class PHPSession implements SessionInterface
+class PHPSession implements SessionInterface, ArrayAccess
 {
     /**
      * Ensure that the Session has been started
@@ -52,5 +54,39 @@ class PHPSession implements SessionInterface
     {
         $this->ensureStarted();
         unset($_SESSION[$key]);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetExists($offset)
+    {
+        $this->ensureStarted();
+
+        return array_key_exists($offset, $_SESSION);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetGet($offset)
+    {
+        return $this->get($offset);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetSet($offset, $value)
+    {
+        return $this->set($offset, $value);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetUnset($offset)
+    {
+        $this->delete($offset);
     }
 }

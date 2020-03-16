@@ -34,7 +34,7 @@ class FormTwigExtension extends AbstractExtension
     /**
      * Generate field's HTML code
      *
-     * @param array       $context Context de la vue Twig
+     * @param array       $context Twig view context
      * @param string      $key     Field's Key
      * @param mixed       $value   Filed's value
      * @param string|null $label   Label to use
@@ -61,6 +61,8 @@ class FormTwigExtension extends AbstractExtension
         }
         if ('textarea' === $type) {
             $input = $this->textarea($value, $attributes);
+        } elseif ('file' === $type) {
+            $input = $this->file($attributes);
         } elseif (array_key_exists('options', $options)) {
             $input = $this->select($value, $options['options'], $attributes);
         } else {
@@ -81,7 +83,7 @@ class FormTwigExtension extends AbstractExtension
     }
 
     /**
-     * Generate an input
+     * Generate a text input
      *
      * @param string|null $value
      * @param array       $attributes
@@ -93,6 +95,21 @@ class FormTwigExtension extends AbstractExtension
     {
         return sprintf(
             "<input type=\"text\" %s value=\"{$value}\" {$disabled}>",
+            $this->getHtmlFromArray($attributes)
+        );
+    }
+
+    /**
+     * Generate a file input
+     *
+     * @param array $attributes
+     *
+     * @return string
+     */
+    protected function file(array $attributes)
+    {
+        return sprintf(
+            "<input type=\"file\" %s>",
             $this->getHtmlFromArray($attributes)
         );
     }

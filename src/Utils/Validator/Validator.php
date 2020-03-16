@@ -6,8 +6,6 @@
 
 namespace MyWebsite\Utils\Validator;
 
-use MyWebsite\Repository\PostRepository;
-
 /**
  * Class Validator.
  */
@@ -26,6 +24,16 @@ class Validator
      * @var array
      */
     protected $errors;
+
+    /**
+     * Constant MIME_TYPES
+     *
+     * @var array
+     */
+    protected const MIME_TYPES = [
+        'jpg' => 'image/jpeg',
+        'png' => 'image/png',
+    ];
 
     /**
      * Validator constructor.
@@ -113,7 +121,7 @@ class Validator
      * @param int|null $min
      * @param int|null $max
      *
-     * @return $this
+     * @return Validator
      */
     public function length(string $key, ?int $min, ?int $max = null): self
     {
@@ -138,6 +146,51 @@ class Validator
             && $length > $max
         ) {
             $this->addError($key, 'maxLength', [$max]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Verify if file is well uploaded
+     *
+     * @param string $key
+     *
+     * @return Validator
+     */
+    public function uploaded(string $key): self
+    {
+        $file = $this->getValue($key);
+        if (null === $file || UPLOAD_ERR_OK !== $file->getError()) {
+            $this->addError($key, 'uploaded');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Verify file's format
+     *
+     * @param string $key
+     * @param array  $extensions
+     *
+     * @return Validator
+     */
+    public function extension(string $key, array $extensions): self
+    {
+        $file = $this->getValue($key);
+        if (null !== $file && UPLOAD_ERR_OK === $file->getError()) {
+            $type = $file->getClientMediaType();
+            $extension = mb_strtolower(
+                pathinfo(
+                    $file->getClientFilename(),
+                    PATHINFO_EXTENSION
+                )
+            );
+            $expectedType = self::MIME_TYPES[$extension] ?? null;
+            if (!in_array($extension, $extensions) || $expectedType !== $type) {
+                $this->addError($key, 'filetype', [join(',', $extensions)]);
+            }
         }
 
         return $this;
