@@ -26,8 +26,8 @@
                     <div class="card-body card-block">
                         {{ field('title', item.title, "Titre") }}
                         {{ field('user_id', item.user_id, "Auteur", {options: authors}) }}
-                        {{ field('publiDate', item.publishedAt, "Date de création", {disabled: 'disabled'}) }}
-                        {{ field('modifDate', item.updatedAt, "Date de modification", {disabled: 'disabled'}) }}
+                        {{ field('publiDate', item.publishedAt|date("d/m/Y à H:i"), "Date de création", {disabled: 'disabled'}) }}
+                        {{ field('modifDate', item.updatedAt|date("d/m/Y à H:i"), "Date de modification", {disabled: 'disabled'}) }}
                         {{ field('image', item.image, "Image", {type: 'file'}) }}
                         {{ field('extract', item.extract, "Extrait", {type: 'textarea'}) }}
                         {{ field('content', item.content, "Contenu", {type: 'textarea'}) }}

@@ -50,7 +50,7 @@
                                 <div class="blog_info text-right">
                                     <ul class="blog_meta list">
                                         <li><a href="#">{{ post.nameAuthor }}<i class="lnr lnr-user"></i></a></li>
-                                        <li><a href="#">Modifié le {{ post.updatedAt }}<i class="lnr lnr-calendar-full"></i></a></li>
+                                        <li><a href="#">Modifié le {{ post.updatedAt|date("d/m/Y à H:i") }}<i class="lnr lnr-calendar-full"></i></a></li>
                                         <li><a href="#">Commenté {{ post.nbrComments }} fois<i class="lnr lnr-bubble"></i></a></li>
                                     </ul>
                                 </div>

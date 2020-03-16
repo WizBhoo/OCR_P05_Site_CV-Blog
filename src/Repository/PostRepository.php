@@ -45,8 +45,8 @@ class PostRepository
                     slug,
                     title,
                     extract,
-                    DATE_FORMAT(publication_date, \'%d/%m/%Y à %H:%i\') as publishedAt,
-                    DATE_FORMAT(modification_date, \'%d/%m/%Y à %H:%i\') as updatedAt,
+                    publication_date as publishedAt,
+                    modification_date as updatedAt,
                     CONCAT(first_name, \' \', last_name) as nameAuthor,
                     COUNT(status_comment IS TRUE OR NULL) as nbrComments
                 FROM Posts
@@ -77,8 +77,8 @@ class PostRepository
                     image,
                     extract,
                     content,
-                    DATE_FORMAT(publication_date, \'%d/%m/%Y à %H:%i\') as publishedAt,
-                    DATE_FORMAT(modification_date, \'%d/%m/%Y à %H:%i\') as updatedAt,
+                    publication_date as publishedAt,
+                    modification_date as updatedAt,
                     Posts.user_id,
                     CONCAT(first_name, \' \', last_name) as nameAuthor,
                     COUNT(status_comment IS TRUE OR NULL) as nbrComments
