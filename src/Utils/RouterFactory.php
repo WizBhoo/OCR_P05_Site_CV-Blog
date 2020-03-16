@@ -8,6 +8,9 @@ namespace MyWebsite\Utils;
 
 use MyWebsite\Controller\AdminController;
 use MyWebsite\Controller\BlogController;
+use MyWebsite\Controller\LoginAttemptController;
+use MyWebsite\Controller\LoginController;
+use MyWebsite\Controller\LogoutController;
 use MyWebsite\Controller\SiteController;
 use Psr\Container\ContainerInterface;
 
@@ -63,6 +66,11 @@ class RouterFactory
             'blog.show'
         );
         $router->get(
+            $container->get('auth.login'),
+            LoginController::class,
+            'auth.login'
+        );
+        $router->get(
             sprintf("%s/dashboard", $container->get('admin.prefix')),
             AdminController::class,
             'admin.dashboard'
@@ -93,6 +101,15 @@ class RouterFactory
             'admin.404'
         );
         // To reference POST routes
+        $router->post(
+            $container->get('auth.login'),
+            LoginAttemptController::class
+        );
+        $router->post(
+            $container->get('auth.logout'),
+            LogoutController::class,
+            'auth.logout'
+        );
         $router->post(
             sprintf("%s/post/new", $container->get('admin.prefix')),
             AdminController::class

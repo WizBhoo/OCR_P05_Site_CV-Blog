@@ -8,10 +8,12 @@ namespace MyWebsite\Controller;
 
 use MyWebsite\Repository\CommentRepository;
 use MyWebsite\Repository\PostRepository;
+use MyWebsite\Repository\UserRepository;
+use MyWebsite\Utils\Auth\DatabaseAuth;
 use MyWebsite\Utils\PostUpload;
 use MyWebsite\Utils\RendererInterface;
 use MyWebsite\Utils\Router;
-use MyWebsite\Utils\Session\FlashService;
+use MyWebsite\Utils\Session\SessionInterface;
 
 /**
  * Class AbstractController.
@@ -47,18 +49,32 @@ abstract class AbstractController
     protected $commentRepository;
 
     /**
-     * A FlashService Instance
-     *
-     * @var FlashService
-     */
-    protected $flash;
-
-    /**
      * A PostUpload Instance
      *
      * @var PostUpload
      */
     protected $postUpload;
+
+    /**
+     * A UserRepository Instance
+     *
+     * @var UserRepository
+     */
+    protected $userRepository;
+
+    /**
+     * A DatabaseAuth Instance
+     *
+     * @var DatabaseAuth
+     */
+    protected $auth;
+
+    /**
+     * A SessionInterface Injection
+     *
+     * @var SessionInterface
+     */
+    protected $session;
 
     /**
      * AbstractController constructor.
@@ -67,17 +83,21 @@ abstract class AbstractController
      * @param Router            $router
      * @param PostRepository    $postRepository
      * @param CommentRepository $commentRepository
-     * @param FlashService      $flash
      * @param PostUpload        $postUpload
+     * @param UserRepository    $userRepository
+     * @param DatabaseAuth      $auth
+     * @param SessionInterface  $session
      */
-    public function __construct(RendererInterface $renderer, Router $router, PostRepository $postRepository, CommentRepository $commentRepository, FlashService $flash, PostUpload $postUpload)
+    public function __construct(RendererInterface $renderer, Router $router, PostRepository $postRepository, CommentRepository $commentRepository, PostUpload $postUpload, UserRepository $userRepository, DatabaseAuth $auth, SessionInterface $session)
     {
         $this->renderer = $renderer;
         $this->router = $router;
         $this->postRepository = $postRepository;
         $this->commentRepository = $commentRepository;
-        $this->flash = $flash;
         $this->postUpload = $postUpload;
+        $this->userRepository = $userRepository;
+        $this->auth = $auth;
+        $this->session = $session;
     }
 
     /**

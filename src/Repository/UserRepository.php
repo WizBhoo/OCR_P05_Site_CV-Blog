@@ -1,0 +1,87 @@
+<?php
+
+/**
+ * (c) Adrien PIERRARD
+ */
+
+namespace MyWebsite\Repository;
+
+use MyWebsite\Entity\User;
+use PDO;
+
+/**
+ * Class UserRepository.
+ */
+class UserRepository
+{
+    /**
+     * A PDO Instance
+     *
+     * @var PDO
+     */
+    protected $pdo;
+
+    /**
+     * UserRepository constructor.
+     *
+     * @param PDO $pdo
+     */
+    public function __construct(PDO $pdo)
+    {
+        $this->pdo = $pdo;
+    }
+
+    /**
+     * To get a User from his email
+     *
+     * @param string $email
+     *
+     * @return User|null
+     */
+    public function findUser(string $email): ?User
+    {
+        $query = $this->pdo
+            ->prepare(
+                'SELECT User.id,
+                CONCAT(first_name, \' \', last_name) as userName,
+                email,
+                password
+                FROM User
+                WHERE email = ?'
+            );
+        $query->execute([$email]);
+        $query->setFetchMode(PDO::FETCH_CLASS, User::class);
+        if (!$user = $query->fetch()) {
+            return null;
+        }
+
+        return $user;
+    }
+
+    /**
+     * To get a User from his id in DB
+     *
+     * @param int $id
+     *
+     * @return User|null
+     */
+    public function findUserById(int $id): ?User
+    {
+        $query = $this->pdo
+            ->prepare(
+                'SELECT User.id,
+                CONCAT(first_name, \' \', last_name) as userName,
+                email,
+                password
+                FROM User
+                WHERE id = ?'
+            );
+        $query->execute([$id]);
+        $query->setFetchMode(PDO::FETCH_CLASS, User::class);
+        if (!$user = $query->fetch()) {
+            return null;
+        }
+
+        return $user;
+    }
+}

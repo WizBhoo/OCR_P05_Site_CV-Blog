@@ -8,6 +8,7 @@ namespace MyWebsite\Controller;
 
 use Exception;
 use MyWebsite\Entity\Post;
+use MyWebsite\Utils\Session\FlashService;
 use MyWebsite\Utils\Validator\Validator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -111,7 +112,8 @@ class AdminController extends AbstractController
             $validator = $this->getValidator($request);
             if ($validator->isValid()) {
                 $this->postRepository->insertPost($this->getParams($request, $item));
-                $this->flash->success('L\'article a bien été créé');
+                (new FlashService($this->session))
+                    ->success('L\'article a bien été créé');
 
                 return $this->router->redirect('admin.posts');
             }
@@ -141,7 +143,8 @@ class AdminController extends AbstractController
             $validator = $this->getValidator($request);
             if ($validator->isValid()) {
                 $this->postRepository->updatePost($slug, $this->getParams($request, $item));
-                $this->flash->success('L\'article a bien été modifié');
+                (new FlashService($this->session))
+                    ->success('L\'article a bien été modifié');
 
                 return $this->router->redirect('admin.posts');
             }
@@ -173,7 +176,8 @@ class AdminController extends AbstractController
     public function editComment(ServerRequestInterface $request): ResponseInterface
     {
         $this->commentRepository->updateComment($request->getAttribute('id'));
-        $this->flash->success('Le commentaire a bien été approuvé et publié');
+        (new FlashService($this->session))
+            ->success('Le commentaire a bien été approuvé et publié');
 
         return $this->router->redirect('admin.comments');
     }
@@ -190,7 +194,8 @@ class AdminController extends AbstractController
         $post = $this->postRepository->findPost($request->getAttribute('slug'));
         $this->postUpload->delete($post->getImage());
         $this->postRepository->deletePost($request->getAttribute('slug'));
-        $this->flash->success('L\'article a bien été supprimé');
+        (new FlashService($this->session))
+            ->success('L\'article a bien été supprimé');
 
         return $this->router->redirect('admin.posts');
     }
@@ -205,7 +210,8 @@ class AdminController extends AbstractController
     public function deleteComment(ServerRequestInterface $request): ResponseInterface
     {
         $this->commentRepository->deleteComment($request->getAttribute('id'));
-        $this->flash->success('Le commentaire a bien été supprimé');
+        (new FlashService($this->session))
+            ->success('Le commentaire a bien été supprimé');
 
         return $this->router->redirect('admin.comments');
     }

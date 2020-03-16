@@ -46,8 +46,13 @@
                 <div class="image img-cir img-120">
                     <img src="../../img/avatar_api.png" alt="Adrien PIERRARD" />
                 </div>
-                <h4 class="name">Adrien PIERRARD</h4>
-                <a href="#">Sign out</a>
+                <h4 class="name">{{ current_user().userName }}</h4>
+                <form class="sign-out" method="post" action="{{ path('auth.logout') }}">
+                    {{ csrf_input() }}
+                    <button class="sign-out">
+                        Sign out
+                    </button>
+                </form>
             </div>
             <nav class="navbar-sidebar2">
                 <ul class="list-unstyled navbar__list">
@@ -141,8 +146,13 @@
                     <div class="image img-cir img-120">
                         <img src="../../img/avatar_api.png" alt="Adrien PIERRARD" />
                     </div>
-                    <h4 class="name">Adrien PIERRARD</h4>
-                    <a href="#">Sign out</a>
+                    <h4 class="name">{{ current_user().userName }}</h4>
+                    <form class="sign-out" method="post" action="{{ path('auth.logout') }}">
+                        {{ csrf_input() }}
+                        <button class="btn btn-primary btn-sm">
+                            Sign out
+                        </button>
+                    </form>
                 </div>
                 <nav class="navbar-sidebar2">
                     <ul class="list-unstyled navbar__list">

@@ -6,10 +6,12 @@
 
 namespace MyWebsite\Entity;
 
+use MyWebsite\Utils\Auth\UserInterface;
+
 /**
  * Class User.
  */
-class User
+class User implements UserInterface
 {
     /**
      * User's id
@@ -212,5 +214,15 @@ class User
     public function setAccountStatus(bool $accountStatus): void
     {
         $this->accountStatus = $accountStatus;
+    }
+
+    /**
+     * Getter roles
+     *
+     * @return string[]
+     */
+    public function getRoles(): array
+    {
+        return [];
     }
 }

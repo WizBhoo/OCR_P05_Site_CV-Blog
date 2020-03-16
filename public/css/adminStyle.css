@@ -69,8 +69,14 @@ input, textarea {
 }
 
 button {
-    border: none;
-    background: none;
+    border: none !important;
+    background: none !important;
+    font-size: 14px !important;
+    color: #999 !important;
+}
+
+button:hover {
+    color: #666 !important;
 }
 
 img {
@@ -324,7 +330,7 @@ section {
 @media (max-width: 991px) {
     .main-content {
         padding-top: 50px;
-	padding-bottom: 100px;
+        padding-bottom: 100px;
     }
 }
 
@@ -1433,7 +1439,7 @@ section {
 }
 
 .account-item > .content > a:after {
-    font-family: "Material-Design-Iconic-Font";
+    font-family: "Material-Design-Iconic-Font", sans-serif;
     font-weight: 500;
     content: '\f2f9';
     display: inline-block;
