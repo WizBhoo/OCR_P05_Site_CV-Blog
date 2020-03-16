@@ -19,7 +19,7 @@ class BlogController extends AbstractController
      *
      * @param ServerRequestInterface $request
      *
-     * @return string
+     * @return ResponseInterface|string
      */
     public function __invoke(ServerRequestInterface $request)
     {
@@ -39,7 +39,10 @@ class BlogController extends AbstractController
     {
         $posts = $this->postRepository->getAll();
 
-        return $this->renderer->renderView('blog/blogHome', compact('posts'));
+        return $this->renderer->renderView(
+            'blog/blogHome',
+            $params = $this->formParams(['posts' => $posts])
+        );
     }
 
     /**
@@ -57,10 +60,33 @@ class BlogController extends AbstractController
         if (is_null($post)) {
             return $this->renderer->renderView('site/404');
         }
+        if ($request->getMethod() === 'POST') {
+            $params = $request->getParsedBody();
+            $params['id'] = $post->getId();
+            unset($params['_csrf']);
+            $this->commentRepository->insertComment($params);
+            $this->flash->commentSuccess('Votre commentaire a bien été envoyé pour validation');
+
+            return $this->router->redirect('blog.home');
+        }
 
         return $this->renderer->renderView(
             'blog/show',
-            ['post' => $post, 'comments' => $comments]
+            $params = $this->formParams(['post' => $post, 'comments' => $comments])
         );
+    }
+
+    /**
+     * Allow to manage params sending to View
+     *
+     * @param array $params
+     *
+     * @return array
+     */
+    protected function formParams(array $params): array
+    {
+        $params['authors'] = $this->postRepository->findListAuthors();
+
+        return $params;
     }
 }

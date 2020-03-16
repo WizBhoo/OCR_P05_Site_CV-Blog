@@ -1,0 +1,41 @@
+{% extends 'adminLayout.html.twig' %}
+
+{% block title "Ajouter un Article" %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="overview-wrap">
+                <h1 class="title-1">Ajouter un Article</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    {{ item.title }}
+                </div>
+                <form action="{{ path('admin.post.create') }}"
+                      method="post" enctype="multipart/form-data" class="form-horizontal">
+                    {{ csrf_input() }}
+                    <div class="card-body card-block">
+                        {{ field('title', item.title, "Titre") }}
+                        {{ field('user_id', item.user_id, "Auteur", {options: authors}) }}
+                        {{ field('image', item.image, "Image", {type: 'file'}) }}
+                        {{ field('extract', item.extract, "Extrait", {type: 'textarea'}) }}
+                        {{ field('content', item.content, "Contenu", {type: 'textarea'}) }}
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="fa fa-dot-circle-o"></i> Créer
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

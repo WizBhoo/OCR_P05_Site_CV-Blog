@@ -39,11 +39,11 @@ class Router
      *
      * @param string          $path
      * @param string|callable $callableFunction
-     * @param string          $routeName
+     * @param string|null     $routeName
      *
      * @return void
      */
-    public function get(string $path, $callableFunction, string $routeName): void
+    public function get(string $path, $callableFunction, ?string $routeName = null): void
     {
         $this->router->addRoute(
             new ZendRoute(
@@ -60,11 +60,11 @@ class Router
      *
      * @param string          $path
      * @param string|callable $callableFunction
-     * @param string          $routeName
+     * @param string|null     $routeName
      *
      * @return void
      */
-    public function post(string $path, $callableFunction, string $routeName): void
+    public function post(string $path, $callableFunction, ?string $routeName = null): void
     {
         $this->router->addRoute(
             new ZendRoute(
@@ -81,11 +81,11 @@ class Router
      *
      * @param string          $path
      * @param string|callable $callableFunction
-     * @param string          $routeName
+     * @param string|null     $routeName
      *
      * @return void
      */
-    public function delete(string $path, $callableFunction, string $routeName): void
+    public function delete(string $path, $callableFunction, ?string $routeName = null): void
     {
         $this->router->addRoute(
             new ZendRoute(
@@ -121,12 +121,12 @@ class Router
     /**
      * Router generateUri.
      *
-     * @param string $routeName
-     * @param array  $params
+     * @param string     $routeName
+     * @param array|null $params
      *
      * @return string|null
      */
-    public function generateUri(string $routeName, array $params): ?string
+    public function generateUri(string $routeName, ?array $params): ?string
     {
         return $this->router->generateUri($routeName, $params);
     }
@@ -141,10 +141,11 @@ class Router
      */
     public function redirect(string $path, array $params = []): ResponseInterface
     {
-        $redirectUri = $this->router->generateUri($path, $params);
+
+        $redirectUri = $this->generateUri($path, $params);
 
         return (new Response())
             ->withStatus(301)
-            ->withHeader('location', $redirectUri);
+            ->withHeader('Location', $redirectUri);
     }
 }

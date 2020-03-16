@@ -64,29 +64,11 @@ class Post
     protected $updatedAt;
 
     /**
-     * Post constructor.
+     * Post's image
      *
-     * @throws Exception
+     * @var string
      */
-    public function __construct()
-    {
-        if ($this->publishedAt) {
-            $this->publishedAt = new DateTime($this->publishedAt);
-        }
-        if ($this->updatedAt) {
-            $this->updatedAt = new DateTime($this->updatedAt);
-        }
-    }
-
-    /**
-     * Getter id
-     *
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
+    protected $image;
 
     /**
      * Setter id
@@ -103,9 +85,9 @@ class Post
     /**
      * Getter slug
      *
-     * @return string
+     * @return string|null
      */
-    public function getSlug(): string
+    public function getSlug(): ?string
     {
         return $this->slug;
     }
@@ -125,9 +107,9 @@ class Post
     /**
      * Getter title
      *
-     * @return string
+     * @return string|null
      */
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -147,9 +129,9 @@ class Post
     /**
      * Getter extract
      *
-     * @return string
+     * @return string|null
      */
-    public function getExtract(): string
+    public function getExtract(): ?string
     {
         return $this->extract;
     }
@@ -169,9 +151,9 @@ class Post
     /**
      * Getter content
      *
-     * @return string
+     * @return string|null
      */
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
@@ -191,9 +173,9 @@ class Post
     /**
      * Getter publishedAt
      *
-     * @return DateTime
+     * @return string|DateTime
      */
-    public function getPublishedAt(): DateTime
+    public function getPublishedAt()
     {
         return $this->publishedAt;
     }
@@ -201,21 +183,25 @@ class Post
     /**
      * Setter publishedAt
      *
-     * @param DateTime $publishedAt
+     * @param $datetime
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function setPublishedAt(DateTime $publishedAt): void
+    public function setPublishedAt($datetime): void
     {
-        $this->publishedAt = $publishedAt;
+        if (is_string($datetime)) {
+            $this->publishedAt = new DateTime($datetime);
+        }
     }
 
     /**
      * Getter updatedAt
      *
-     * @return DateTime
+     * @return string|DateTime
      */
-    public function getUpdatedAt(): DateTime
+    public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
@@ -223,12 +209,60 @@ class Post
     /**
      * Setter updatedAt
      *
-     * @param DateTime $updatedAt
+     * @param $datetime
+     *
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function setUpdatedAt($datetime): void
+    {
+        if (is_string($datetime)) {
+            $this->updatedAt = new DateTime($datetime);
+        }
+    }
+
+    /**
+     * Getter image
+     *
+     * @return string|null
+     */
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    /**
+     * Setter image
+     *
+     * @param string $image
      *
      * @return void
      */
-    public function setUpdatedAt(DateTime $updatedAt): void
+    public function setImage(string $image): void
     {
-        $this->updatedAt = $updatedAt;
+        $this->image = $image;
+    }
+
+    /**
+     * Get a thumbnail image
+     *
+     * @return string
+     */
+    public function getThumb(): string
+    {
+        ['filename' => $filename, 'extension' => $extension] = pathinfo($this->image);
+
+        return sprintf("/img/blog/%s_thumb.%s", $filename, $extension);
+    }
+
+    /**
+     * Get original image
+     *
+     * @return string
+     */
+    public function getImageUrl(): string
+    {
+        return sprintf("/img/blog/%s", $this->image);
     }
 }

@@ -33,7 +33,7 @@ class Comment
      *
      * @var DateTime
      */
-    protected $date;
+    protected $commentedAt;
 
     /**
      * Comment's status (1 = True; 0 = False)
@@ -41,18 +41,6 @@ class Comment
      * @var bool
      */
     protected $commentStatus;
-
-    /**
-     * Comment constructor.
-     *
-     * @throws Exception
-     */
-    public function __construct()
-    {
-        if ($this->date) {
-            $this->date = new DateTime($this->date);
-        }
-    }
 
     /**
      * Getter id
@@ -99,25 +87,29 @@ class Comment
     }
 
     /**
-     * Getter date
+     * Getter commentedAt
      *
-     * @return DateTime
+     * @return string|DateTime
      */
-    public function getDate(): DateTime
+    public function getCommentedAt()
     {
-        return $this->date;
+        return $this->commentedAt;
     }
 
     /**
-     * Setter date
+     * Setter commentedAt
      *
-     * @param DateTime $date
+     * @param $datetime
      *
      * @return void
+     *
+     * @throws Exception
      */
-    public function setDate(DateTime $date): void
+    public function setCommentedAt($datetime): void
     {
-        $this->date = $date;
+        if (is_string($datetime)) {
+            $this->commentedAt = new DateTime($datetime);
+        }
     }
 
     /**
