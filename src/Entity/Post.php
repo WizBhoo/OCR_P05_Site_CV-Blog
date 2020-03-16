@@ -71,6 +71,16 @@ class Post
     protected $image;
 
     /**
+     * Getter id
+     *
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
      * Setter id
      *
      * @param int $id

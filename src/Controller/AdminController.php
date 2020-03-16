@@ -147,6 +147,7 @@ class AdminController extends AbstractController
             }
             $errors = $validator->getErrors();
             $params = $request->getParsedBody();
+            $params['slug'] = $item->getSlug();
             $params['publishedAt'] = $item->getPublishedAt();
             $params['updatedAt'] = $item->getUpdatedAt();
             $item = $params;
@@ -254,20 +255,6 @@ class AdminController extends AbstractController
         $params = array_filter($params, function ($key) {
             return in_array($key, ['slug', 'title', 'user_id', 'extract', 'content', 'publishedAt', 'updatedAt', 'image']);
         }, ARRAY_FILTER_USE_KEY);
-
-        return $params;
-    }
-
-    /**
-     * Allow to manage params sending to View
-     *
-     * @param array $params
-     *
-     * @return array
-     */
-    protected function formParams(array $params): array
-    {
-        $params['authors'] = $this->postRepository->findListAuthors();
 
         return $params;
     }
