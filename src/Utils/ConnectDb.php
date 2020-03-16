@@ -18,42 +18,42 @@ class ConnectDb
      *
      * @var null
      */
-    private static $instance = null;
+    protected static $instance = null;
 
     /**
      * A PDO Instance connection to db
      *
      * @var PDO
      */
-    private $conn;
+    protected $conn;
 
     /**
      * MySQL Host Name
      *
      * @var string
      */
-    private $host = 'mysql-server.localhost';
+    protected $host = 'mysql-server.localhost';
 
     /**
      * MySQL db username
      *
      * @var string
      */
-    private $user = 'root';
+    protected $user = 'root';
 
     /**
      * MySQL db pass
      *
      * @var string
      */
-    private $pass = 'root';
+    protected $pass = 'root';
 
     /**
      * MySQL dbname
      *
      * @var string
      */
-    private $name = 'monsite';
+    protected $name = 'monsite';
 
     /**
      * ConnectDb constructor.

@@ -45,15 +45,15 @@ class PostRepository
                     slug,
                     title,
                     extract,
-                    DATE_FORMAT(publication_date, \'%d/%m/%Y à %H:%i\') as publishedAt,
-                    DATE_FORMAT(modification_date, \'%d/%m/%Y à %H:%i\') as updatedAt,
+                    publication_date as publishedAt,
+                    modification_date as updatedAt,
                     CONCAT(first_name, \' \', last_name) as nameAuthor,
                     COUNT(status_comment IS TRUE OR NULL) as nbrComments
                 FROM Posts
                 INNER JOIN User ON Posts.user_id = User.id
                 LEFT JOIN Comments on Posts.id = Comments.post_id
                 GROUP BY Posts.id, publishedAt
-                ORDER BY publishedAt DESC'
+                ORDER BY Posts.id DESC, publishedAt DESC'
             );
         $query->setFetchMode(PDO::FETCH_CLASS, Post::class);
 
@@ -74,10 +74,11 @@ class PostRepository
                 'SELECT Posts.id, 
                     slug, 
                     title,
+                    image,
                     extract,
                     content,
-                    DATE_FORMAT(publication_date, \'%d/%m/%Y à %H:%i\') as publishedAt,
-                    DATE_FORMAT(modification_date, \'%d/%m/%Y à %H:%i\') as updatedAt,
+                    publication_date as publishedAt,
+                    modification_date as updatedAt,
                     Posts.user_id,
                     CONCAT(first_name, \' \', last_name) as nameAuthor,
                     COUNT(status_comment IS TRUE OR NULL) as nbrComments
@@ -136,7 +137,8 @@ class PostRepository
                 slug = :slug,
                 title = :title,
                 extract = :extract,
-                content = :content'
+                content = :content,
+                image = :image'
         );
 
         return $statement->execute($params);
@@ -162,7 +164,8 @@ class PostRepository
                 title = :title,
                 extract = :extract,
                 content = :content,
-                modification_date = now()
+                modification_date = now(),
+                image = :image
             WHERE Posts.slug = :slug'
         );
 

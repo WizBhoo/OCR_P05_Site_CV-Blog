@@ -7,6 +7,7 @@
 namespace MyWebsite\Controller;
 
 use Exception;
+use MyWebsite\Entity\Post;
 use MyWebsite\Utils\Validator\Validator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -105,17 +106,16 @@ class AdminController extends AbstractController
      */
     public function createPost(ServerRequestInterface $request)
     {
+        $item = new Post();
         if ($request->getMethod() === 'POST') {
-            $params = $request->getParsedBody();
-            unset($params['_csrf']);
             $validator = $this->getValidator($request);
             if ($validator->isValid()) {
-                $this->postRepository->insertPost($params);
+                $this->postRepository->insertPost($this->getParams($request, $item));
                 $this->flash->success('L\'article a bien été créé');
 
                 return $this->router->redirect('admin.posts');
             }
-            $item = $params;
+            $item = $request->getParsedBody();
             $errors = $validator->getErrors();
         }
 
@@ -138,17 +138,15 @@ class AdminController extends AbstractController
         $item = $this->postRepository->findPost($slug);
 
         if ($request->getMethod() === 'POST') {
-            $params = $request->getParsedBody();
-            unset($params['_csrf']);
             $validator = $this->getValidator($request);
             if ($validator->isValid()) {
-                $this->postRepository->updatePost($slug, $params);
+                $this->postRepository->updatePost($slug, $this->getParams($request, $item));
                 $this->flash->success('L\'article a bien été modifié');
 
                 return $this->router->redirect('admin.posts');
             }
             $errors = $validator->getErrors();
-            $params['slug'] = $item->getSlug();
+            $params = $request->getParsedBody();
             $params['publishedAt'] = $item->getPublishedAt();
             $params['updatedAt'] = $item->getUpdatedAt();
             $item = $params;
@@ -188,6 +186,8 @@ class AdminController extends AbstractController
      */
     public function deletePost(ServerRequestInterface $request): ResponseInterface
     {
+        $post = $this->postRepository->findPost($request->getAttribute('slug'));
+        $this->postUpload->delete($post->getImage());
         $this->postRepository->deletePost($request->getAttribute('slug'));
         $this->flash->success('L\'article a bien été supprimé');
 
@@ -218,11 +218,44 @@ class AdminController extends AbstractController
      */
     public function getValidator(ServerRequestInterface $request): Validator
     {
-        return (new Validator($request->getParsedBody()))
+        $params = array_merge($request->getParsedBody(), $request->getUploadedFiles());
+        $validator = (new Validator($params))
             ->required('title', 'extract', 'content')
             ->length('title', 2, 50)
             ->length('extract', 10, 255)
-            ->length('content', 10);
+            ->length('content', 10)
+            ->extension('image', ['jpg', 'png'])
+        ;
+
+        if (is_null($request->getAttribute('slug'))) {
+            $validator->uploaded('image');
+        }
+
+        return $validator;
+    }
+
+    /**
+     * Retrieve params from request formatted in array
+     *
+     * @param ServerRequestInterface $request
+     * @param Post                   $post
+     *
+     * @return array
+     */
+    protected function getParams(ServerRequestInterface $request, Post $post): array
+    {
+        $params = array_merge($request->getParsedBody(), $request->getUploadedFiles());
+        $image = $this->postUpload->upload($params['image'], $post->getImage());
+        if ($image) {
+            $params['image'] = $image;
+        } else {
+            $params['image'] = $post->getImage();
+        }
+        $params = array_filter($params, function ($key) {
+            return in_array($key, ['slug', 'title', 'user_id', 'extract', 'content', 'publishedAt', 'updatedAt', 'image']);
+        }, ARRAY_FILTER_USE_KEY);
+
+        return $params;
     }
 
     /**

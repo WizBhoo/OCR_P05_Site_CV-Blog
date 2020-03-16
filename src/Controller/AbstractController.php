@@ -8,6 +8,7 @@ namespace MyWebsite\Controller;
 
 use MyWebsite\Repository\CommentRepository;
 use MyWebsite\Repository\PostRepository;
+use MyWebsite\Utils\PostUpload;
 use MyWebsite\Utils\RendererInterface;
 use MyWebsite\Utils\Router;
 use MyWebsite\Utils\Session\FlashService;
@@ -53,6 +54,13 @@ abstract class AbstractController
     protected $flash;
 
     /**
+     * A PostUpload Instance
+     *
+     * @var PostUpload
+     */
+    protected $postUpload;
+
+    /**
      * AbstractController constructor.
      *
      * @param RendererInterface $renderer
@@ -60,14 +68,16 @@ abstract class AbstractController
      * @param PostRepository    $postRepository
      * @param CommentRepository $commentRepository
      * @param FlashService      $flash
+     * @param PostUpload        $postUpload
      */
-    public function __construct(RendererInterface $renderer, Router $router, PostRepository $postRepository, CommentRepository $commentRepository, FlashService $flash)
+    public function __construct(RendererInterface $renderer, Router $router, PostRepository $postRepository, CommentRepository $commentRepository, FlashService $flash, PostUpload $postUpload)
     {
         $this->renderer = $renderer;
         $this->router = $router;
         $this->postRepository = $postRepository;
         $this->commentRepository = $commentRepository;
         $this->flash = $flash;
+        $this->postUpload = $postUpload;
     }
 
     /**

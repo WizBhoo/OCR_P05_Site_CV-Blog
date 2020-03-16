@@ -39,11 +39,13 @@ class ValidationError
      */
     protected $messages = [
         'required' => 'Le champs %s est requis.',
-        'minLength' => 'Le champs %s doit contenir plus de %d caractères',
-        'maxLength' => 'Le champs %s doit contenir moins de %d caractères',
-        'betweenLength' => 'Le champs %s doit contenir entre %d et %d caractères',
-        'dateTime' => 'Le champs %s doit être une date valide (%s)',
+        'minLength' => 'Le champs %s doit contenir plus de %d caractères.',
+        'maxLength' => 'Le champs %s doit contenir moins de %d caractères.',
+        'betweenLength' => 'Le champs %s doit contenir entre %d et %d caractères.',
+        'dateTime' => 'Le champs %s doit être une date valide (%s).',
         'slug' => 'Le champs %s n\'est pas un slug valide.',
+        'filetype' => 'Le champs %s n\'est pas au format valide (%s).',
+        'uploaded' => 'Vous devez uploader un fichier.',
     ];
 
     /**

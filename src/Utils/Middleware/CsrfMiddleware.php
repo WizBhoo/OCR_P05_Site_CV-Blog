@@ -130,7 +130,7 @@ class CsrfMiddleware implements MiddlewareInterface
      *
      * @throws CsrfInvalidException
      */
-    private function reject(): void
+    protected function reject(): void
     {
         throw new CsrfInvalidException();
     }
@@ -142,20 +142,23 @@ class CsrfMiddleware implements MiddlewareInterface
      *
      * @return void
      */
-    private function useToken(string $token): void
+    protected function useToken(string $token): void
     {
-        $tokens = array_filter($this->session[$this->sessionKey], function ($t) use ($token) {
-            return $token !== $t;
-        });
+        $tokens = array_filter(
+            $this->session[$this->sessionKey],
+            function ($t) use ($token) {
+                return $token !== $t;
+            }
+        );
         $this->session[$this->sessionKey] = $tokens;
     }
 
     /**
-     * limit token's number in session
+     * Limit token's number in session
      *
      * @return void
      */
-    private function limitTokens(): void
+    protected function limitTokens(): void
     {
         $tokens = $this->session[$this->sessionKey] ?? [];
         if (count($tokens) > $this->limit) {
@@ -168,8 +171,10 @@ class CsrfMiddleware implements MiddlewareInterface
      * Check if session is valid
      *
      * @param $session
+     *
+     * @return void
      */
-    private function validSession($session)
+    protected function validSession($session): void
     {
         if (!is_array($session) && !$session instanceof ArrayAccess) {
             throw new TypeError(

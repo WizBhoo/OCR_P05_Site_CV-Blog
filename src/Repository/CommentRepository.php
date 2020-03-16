@@ -45,7 +45,7 @@ class CommentRepository
                 'SELECT Comments.id,
                     slug,
                     content_comment as content, 
-                    DATE_FORMAT(date_comment, \'%d/%m/%Y à %H:%i\') as commentedAt,
+                    date_comment as commentedAt,
                     status_comment as commentStatus,
                     CONCAT(first_name, \' \', last_name) as nameAuthor
                 FROM Comments
@@ -74,7 +74,7 @@ class CommentRepository
             ->query(
                 'SELECT Comments.id,
                 content_comment as content,
-                DATE_FORMAT(date_comment, \'%d/%m/%Y à %H:%i\') as commentedAt,
+                date_comment as commentedAt,
                 CONCAT(first_name, \' \', last_name) as commentBy,
                 title as onArticle,
                 status_comment as commentStatus

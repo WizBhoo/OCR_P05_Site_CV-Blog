@@ -35,7 +35,7 @@
                                 <td>{{ item.id }}</td>
                                 <td>{{ item.commentBy }}</td>
                                 <td>{{ item.onArticle }}</td>
-                                <td>{{ item.commentedAt }}</td>
+                                <td>{{ item.commentedAt|date("d/m/Y à H:i") }}</td>
                                 <td>{{ item.content }}</td>
                                 <td>
                                     <div class="table-data-feature">
@@ -95,7 +95,7 @@
                                 <td>{{ item.id }}</td>
                                 <td>{{ item.commentBy }}</td>
                                 <td>{{ item.onArticle }}</td>
-                                <td>{{ item.commentedAt }}</td>
+                                <td>{{ item.commentedAt|date("d/m/Y à H:i") }}</td>
                                 <td>{{ item.content }}</td>
                                 <td>
                                     <div class="table-data-feature">
