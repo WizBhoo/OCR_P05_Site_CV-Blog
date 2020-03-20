@@ -12,6 +12,7 @@ use MyWebsite\Utils\PostUpload;
 use MyWebsite\Utils\RendererInterface;
 use MyWebsite\Utils\Router;
 use MyWebsite\Utils\Session\FlashService;
+use Swift_Mailer;
 
 /**
  * Class AbstractController.
@@ -61,6 +62,20 @@ abstract class AbstractController
     protected $postUpload;
 
     /**
+     * Contact mail recipient
+     *
+     * @var string
+     */
+    protected $to = 'adrien.pierrard@gmail.com';
+
+    /**
+     * A Swift_Mailer Instance
+     *
+     * @var Swift_Mailer
+     */
+    protected $mailer;
+
+    /**
      * AbstractController constructor.
      *
      * @param RendererInterface $renderer
@@ -69,8 +84,9 @@ abstract class AbstractController
      * @param CommentRepository $commentRepository
      * @param FlashService      $flash
      * @param PostUpload        $postUpload
+     * @param Swift_Mailer      $mailer
      */
-    public function __construct(RendererInterface $renderer, Router $router, PostRepository $postRepository, CommentRepository $commentRepository, FlashService $flash, PostUpload $postUpload)
+    public function __construct(RendererInterface $renderer, Router $router, PostRepository $postRepository, CommentRepository $commentRepository, FlashService $flash, PostUpload $postUpload, Swift_Mailer $mailer)
     {
         $this->renderer = $renderer;
         $this->router = $router;
@@ -78,6 +94,7 @@ abstract class AbstractController
         $this->commentRepository = $commentRepository;
         $this->flash = $flash;
         $this->postUpload = $postUpload;
+        $this->mailer = $mailer;
     }
 
     /**

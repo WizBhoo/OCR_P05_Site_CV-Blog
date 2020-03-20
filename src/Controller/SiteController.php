@@ -7,7 +7,9 @@
 namespace MyWebsite\Controller;
 
 use Exception;
+use MyWebsite\Utils\Validator\Validator;
 use Psr\Http\Message\ServerRequestInterface;
+use Swift_Message;
 
 /**
  * Class SiteController.
@@ -35,7 +37,7 @@ class SiteController extends AbstractController
             case sprintf('/portfolio/%s', $slug):
                 return $this->project($slug);
             case '/contact':
-                return $this->contact();
+                return $this->contact($request);
             default:
                 throw new Exception('Route not found');
         }
@@ -119,10 +121,47 @@ class SiteController extends AbstractController
     /**
      * Route callable function contact.
      *
+     * @param ServerRequestInterface $request
+     *
      * @return string
      */
-    public function contact(): string
+    public function contact(ServerRequestInterface $request): string
     {
-        return $this->renderer->renderView('site/contact');
+        if ($request->getMethod() === 'GET') {
+            return $this->renderer->renderView('site/contact');
+        }
+        $params = $request->getParsedBody();
+        $validator = (new Validator($params))
+            ->required('name', 'email', 'subject', 'message')
+            ->length('name', 15)
+            ->email('email')
+            ->length('subject', 10, 50)
+            ->length('message', 10)
+        ;
+        if ($validator->isValid()) {
+            $this->flash->success('Votre message a bien été envoyé');
+            $message = new Swift_Message('Formulaire de contact');
+            $message->setBody(
+                $this->renderer->renderView('email/contactText', $params)
+            );
+            $message->addPart(
+                $this->renderer->renderView('email/contactHtml', $params),
+                'text/html'
+            );
+            $message->setTo($this->to);
+            $message->setFrom($params['email']);
+            $this->mailer->send($message);
+
+            return $this->renderer->renderView('site/contact');
+        }
+        $this->flash->error(
+            'Vous devez remplire tous les champs pour soumettre votre demande'
+        );
+        $errors = $validator->getErrors();
+
+        return $this->renderer->renderView(
+            'site/contact',
+            compact('errors')
+        );
     }
 }

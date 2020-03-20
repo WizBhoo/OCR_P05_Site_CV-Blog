@@ -37,6 +37,7 @@ class TwigRendererFactory
         $renderer->addViewPath('site', $container->get('site_views.path'));
         $renderer->addViewPath('blog', $container->get('blog_views.path'));
         $renderer->addViewPath('admin', $container->get('admin_views.path'));
+        $renderer->addViewPath('email', $container->get('email_views.path'));
 
         return $renderer;
     }
