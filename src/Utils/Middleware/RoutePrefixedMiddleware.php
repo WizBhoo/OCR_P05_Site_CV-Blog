@@ -34,18 +34,18 @@ class RoutePrefixedMiddleware implements MiddlewareInterface
     /**
      * A middleware
      *
-     * @var string
+     * @var string|MiddlewareInterface
      */
     protected $middleware;
 
     /**
      * RoutePrefixedMiddleware constructor.
      *
-     * @param ContainerInterface $container
-     * @param string             $prefix
-     * @param string             $middleware
+     * @param ContainerInterface         $container
+     * @param string                     $prefix
+     * @param string|MiddlewareInterface $middleware
      */
-    public function __construct(ContainerInterface $container, string $prefix, string $middleware)
+    public function __construct(ContainerInterface $container, string $prefix, $middleware)
     {
         $this->container = $container;
         $this->prefix = $prefix;
@@ -64,7 +64,11 @@ class RoutePrefixedMiddleware implements MiddlewareInterface
     {
         $path = $request->getUri()->getPath();
         if (strpos($path, $this->prefix) === 0) {
-            return $this->container->get($this->middleware)->process($request, $delegate);
+            if (is_string($this->middleware)) {
+                return $this->container->get($this->middleware)->process($request, $delegate);
+            }
+
+            return $this->middleware->process($request, $delegate);
         }
 
         return $delegate->process($request);

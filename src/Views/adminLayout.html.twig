@@ -49,7 +49,7 @@
                 <h4 class="name">{{ current_user().userName }}</h4>
                 <form class="sign-out" method="post" action="{{ path('auth.logout') }}">
                     {{ csrf_input() }}
-                    <button class="sign-out">
+                    <button id="sign-out">
                         Sign out
                     </button>
                 </form>

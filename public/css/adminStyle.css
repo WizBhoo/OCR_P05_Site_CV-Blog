@@ -68,14 +68,14 @@ input, textarea {
     border: none;
 }
 
-button {
+#sign-out {
     border: none !important;
     background: none !important;
     font-size: 14px !important;
     color: #999 !important;
 }
 
-button:hover {
+#sign-out:hover {
     color: #666 !important;
 }
 

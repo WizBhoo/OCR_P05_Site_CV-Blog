@@ -30,7 +30,7 @@ class App implements DelegateInterface
     /**
      * Container config definition
      *
-     * @var string
+     * @var string|array|null
      */
     protected $definition;
 
@@ -39,7 +39,7 @@ class App implements DelegateInterface
      *
      * @var string[]
      */
-    protected $middlewares;
+    protected $middlewares = [];
 
     /**
      * A Middlewares table index
@@ -51,9 +51,9 @@ class App implements DelegateInterface
     /**
      * App constructor.
      *
-     * @param string $definition
+     * @param string|array|null $definition
      */
-    public function __construct(string $definition)
+    public function __construct($definition = null)
     {
         $this->definition = $definition;
     }
@@ -61,12 +61,12 @@ class App implements DelegateInterface
     /**
      * Add a middleware
      *
-     * @param string      $routePrefix
-     * @param string|null $middleware
+     * @param string|callable|MiddlewareInterface      $routePrefix
+     * @param string|null|callable|MiddlewareInterface $middleware
      *
      * @return App
      */
-    public function pipe(string $routePrefix, ?string $middleware = null): self
+    public function pipe($routePrefix, $middleware = null): self
     {
         if (null === $middleware) {
             $this->middlewares[] = $routePrefix;
@@ -145,7 +145,9 @@ class App implements DelegateInterface
     {
         if ($this->container === null) {
             $builder = new ContainerBuilder();
-            $builder->addDefinitions($this->definition);
+            if ($this->definition) {
+                $builder->addDefinitions($this->definition);
+            }
             try {
                 $this->container = $builder->build();
             } catch (Exception $e) {

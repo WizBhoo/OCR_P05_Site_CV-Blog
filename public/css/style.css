@@ -60,10 +60,6 @@ a:hover, a:focus {
   text-decoration: none;
   outline: none; }
 
-button {
-  background: transparent !important;
-  border: none !important; }
-
 button:focus {
   outline: none;
   box-shadow: none; }
@@ -274,6 +270,10 @@ button:focus {
 .header_area .navbar .nav .nav-item.submenu ul .nav-item:hover .nav-link {
   background: #00b0f0;
   color: #fec1a5; }
+#logout {
+  background: transparent !important;
+  border: none !important;
+}
 @media (min-width: 992px) {
   .header_area .navbar .nav .nav-item.submenu:hover ul {
     visibility: visible;
