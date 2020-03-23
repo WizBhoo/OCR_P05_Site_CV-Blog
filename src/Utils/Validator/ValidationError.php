@@ -38,14 +38,17 @@ class ValidationError
      * @var array
      */
     protected $messages = [
-        'required' => 'Le champs %s est requis.',
-        'minLength' => 'Le champs %s doit contenir plus de %d caractères.',
-        'maxLength' => 'Le champs %s doit contenir moins de %d caractères.',
-        'betweenLength' => 'Le champs %s doit contenir entre %d et %d caractères.',
+        'required' => 'Ce champs est requis.',
+        'minLength' => '%s > à %d caractères SVP.',
+        'maxLength' => '%s > à %d caractères SVP.',
+        'betweenLength' => '%s doit contenir entre %d et %d caractères.',
         'dateTime' => 'Le champs %s doit être une date valide (%s).',
         'slug' => 'Le champs %s n\'est pas un slug valide.',
-        'filetype' => 'Le champs %s n\'est pas au format valide (%s).',
+        'filetype' => 'Le format n\'est pas valide (%s).',
         'uploaded' => 'Vous devez uploader un fichier.',
+        'email' => 'Cet email ne semble pas valide.',
+        'confirm' => 'Vos mots de passe ne se correspondent pas.',
+        'unique' => 'Le champs %s doit être unique.',
     ];
 
     /**

@@ -30,6 +30,8 @@ return [
     'blog.prefix' => '/blog',
     'auth.login' => '/login',
     'auth.logout' => '/logout',
+    'account.signup' => '/signup',
+    'account.profile' => '/user-profile',
     'admin.prefix' => '/apiadmin',
 
     //Twig config keys
@@ -37,6 +39,7 @@ return [
     'site_views.path' => sprintf("%s/Views/site", __DIR__),
     'blog_views.path' => sprintf("%s/Views/blog", __DIR__),
     'auth_views.path' => sprintf("%s/Views/auth", __DIR__),
+    'account_views.path' => sprintf("%s/Views/account", __DIR__),
     'admin_views.path' => sprintf("%s/Views/admin", __DIR__),
 
     //Twig extensions

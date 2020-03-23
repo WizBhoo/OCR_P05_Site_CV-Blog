@@ -34,15 +34,14 @@ class FormTwigExtension extends AbstractExtension
     /**
      * Generate field's HTML code
      *
-     * @param array       $context Twig view context
-     * @param string      $key     Field's Key
-     * @param mixed       $value   Filed's value
-     * @param string|null $label   Label to use
-     * @param array       $options
+     * @param array  $context Twig view context
+     * @param string $key     Field's Key
+     * @param mixed  $value   Filed's value
+     * @param array  $options
      *
      * @return string
      */
-    public function field(array $context, string $key, $value, ?string $label = null, array $options = []): string
+    public function field(array $context, string $key, $value, array $options = []): string
     {
         $type = $options['type'] ?? 'text';
         $disabled = $options['disabled'] ?? '';
@@ -66,20 +65,15 @@ class FormTwigExtension extends AbstractExtension
         } elseif (array_key_exists('options', $options)) {
             $input = $this->select($value, $options['options'], $attributes);
         } else {
+            $attributes['type'] = $options['type'] ?? 'text';
+            $attributes['class'] = $options['class'] ?? $attributes['class'];
             $input = $this->input($value, $attributes, $disabled);
         }
 
-        return "<div class=\"row form-group\">
-                    <div class=\"col col-md-3\">
-                        <label for=\"{$key}\" class=\"form-control-label\">
-                            {$label}
-                        </label>
-                    </div>
-                    <div class=\"col-12 col-md-9\">
-                        {$input}
-                        {$error}
-                    </div>
-                </div>";
+        return "
+                {$input}
+                {$error}
+                ";
     }
 
     /**
@@ -94,7 +88,7 @@ class FormTwigExtension extends AbstractExtension
     protected function input(?string $value, array $attributes, string $disabled): string
     {
         return sprintf(
-            "<input type=\"text\" %s value=\"{$value}\" {$disabled}>",
+            "<input %s value=\"{$value}\" {$disabled}>",
             $this->getHtmlFromArray($attributes)
         );
     }

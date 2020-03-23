@@ -7,14 +7,15 @@
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
-                <form class="login100-form validate-form" action="{{ path('auth.login') }}" method="post">
+                <form class="login100-form" action="{{ path('account.signup') }}" method="post"
+                      enctype="multipart/form-data" class="form-horizontal">
 					<span class="login100-form-title p-b-26">
 						<a href="{{ path('site.home') }}">
                             <img src="../../img/logo.png" alt="APi" />
                          </a>
 					</span>
                     <span class="login100-form-title p-b-26">
-						Sign In
+						Sign Up
 					</span>
                     {{ csrf_input() }}
                     {% if flash('error') %}
@@ -26,35 +27,49 @@
                             </div>
                         </div>
                     {% endif %}
-                    <div class="wrap-input100 validate-input" data-validate = "Saisissez un email valide.">
-                        <input class="input100 email" type="text" name="email">
+                    <div class="wrap-input100 form-group">
+                        {{ field('firstName', user.firstName, {class: 'input100 firstName'}) }}
+                        <span class="focus-input100" data-placeholder="Prénom"></span>
+                    </div>
+                    <div class="wrap-input100 form-group">
+                        {{ field('lastName', user.lastName, {class: 'input100 lastName'}) }}
+                        <span class="focus-input100" data-placeholder="Nom"></span>
+                    </div>
+                    <div class="wrap-input100 form-group">
+                        {{ field('email', user.email, {type: 'email', class: 'input100 email'}) }}
                         <span class="focus-input100" data-placeholder="Email"></span>
                     </div>
-
-                    <div class="wrap-input100 validate-input" data-validate="Vous devez saisir votre mot de passe.">
+                    <div class="wrap-input100 form-group">
 						<span class="btn-show-pass">
 							<i class="zmdi zmdi-eye"></i>
 						</span>
-                        <input class="input100 password" type="password" name="password">
+                        {{ field('password', null, {type: 'password', class: 'input100 password'}) }}
                         <span class="focus-input100" data-placeholder="Password"></span>
+                    </div>
+                    <div class="wrap-input100 form-group">
+						<span class="btn-show-pass">
+							<i class="zmdi zmdi-eye"></i>
+						</span>
+                        {{ field('password_confirm', null, {type: 'password', class: 'input100 password_confirm'}) }}
+                        <span class="focus-input100" data-placeholder="Confirmer Password"></span>
                     </div>
 
                     <div class="container-login100-form-btn">
                         <div class="wrap-login100-form-btn">
                             <div class="login100-form-bgbtn"></div>
                             <button class="login100-form-btn">
-                                Se Connecter
+                                Créer
                             </button>
                         </div>
                     </div>
 
                     <div class="text-center p-t-115">
 						<span class="txt1">
-							Pas encore de compte ? ->
+							Déjà un compte ? ->
 						</span>
 
-                        <a class="txt2" href="{{ path('account.signup') }}">
-                            S'inscrire
+                        <a class="txt2" href="{{ path('auth.login') }}">
+                            Se Connecter
                         </a>
                     </div>
                 </form>

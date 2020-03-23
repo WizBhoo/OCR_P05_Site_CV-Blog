@@ -28,12 +28,14 @@ class LoginAttemptController extends AbstractController
         $params = $request->getParsedBody();
         $user = $this->auth->login($params['email'], $params['password']);
         if ($user) {
-            $path = $this->session->get('auth.redirect') ?: $this->router->generateUri('admin.dashboard', []);
+            $path = $this->session->get('auth.redirect')
+                ?: $this->router->generateUri('admin.dashboard', []);
             $this->session->delete('auth.redirect');
 
             return new RedirectResponse($path);
         }
-        (new FlashService($this->session))->error('Identifiant ou mot de passe incorrect');
+        (new FlashService($this->session))
+            ->error('Identifiant ou mot de passe incorrect');
 
         return $this->router->redirect('auth.login');
     }

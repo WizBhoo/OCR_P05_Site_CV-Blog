@@ -84,4 +84,24 @@ class UserRepository
 
         return $user;
     }
+
+    /**
+     * To insert a User in Database
+     *
+     * @param array $params
+     *
+     * @return bool
+     */
+    public function insertUser(array $params): bool
+    {
+        $statement = $this->pdo->prepare(
+            'INSERT INTO User
+            SET first_name = :firstName,
+                last_name = :lastName,
+                email = :email,
+                password = :password'
+        );
+
+        return $statement->execute($params);
+    }
 }

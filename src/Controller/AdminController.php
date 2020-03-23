@@ -142,7 +142,10 @@ class AdminController extends AbstractController
         if ($request->getMethod() === 'POST') {
             $validator = $this->getValidator($request);
             if ($validator->isValid()) {
-                $this->postRepository->updatePost($slug, $this->getParams($request, $item));
+                $this->postRepository->updatePost(
+                    $slug,
+                    $this->getParams($request, $item)
+                );
                 (new FlashService($this->session))
                     ->success('L\'article a bien été modifié');
 
@@ -225,15 +228,16 @@ class AdminController extends AbstractController
      */
     public function getValidator(ServerRequestInterface $request): Validator
     {
-        $params = array_merge($request->getParsedBody(), $request->getUploadedFiles());
+        $params = array_merge(
+            $request->getParsedBody(),
+            $request->getUploadedFiles()
+        );
         $validator = (new Validator($params))
             ->required('title', 'extract', 'content')
-            ->length('title', 2, 50)
+            ->length('title', 3, 50)
             ->length('extract', 10, 255)
             ->length('content', 10)
-            ->extension('image', ['jpg', 'png'])
-        ;
-
+            ->extension('image', ['jpg', 'png']);
         if (is_null($request->getAttribute('slug'))) {
             $validator->uploaded('image');
         }
@@ -251,16 +255,26 @@ class AdminController extends AbstractController
      */
     protected function getParams(ServerRequestInterface $request, Post $post): array
     {
-        $params = array_merge($request->getParsedBody(), $request->getUploadedFiles());
+        $params = array_merge(
+            $request->getParsedBody(),
+            $request->getUploadedFiles()
+        );
         $image = $this->postUpload->upload($params['image'], $post->getImage());
         if ($image) {
             $params['image'] = $image;
         } else {
             $params['image'] = $post->getImage();
         }
-        $params = array_filter($params, function ($key) {
-            return in_array($key, ['slug', 'title', 'user_id', 'extract', 'content', 'publishedAt', 'updatedAt', 'image']);
-        }, ARRAY_FILTER_USE_KEY);
+        $params = array_filter(
+            $params,
+            function ($key) {
+                return in_array(
+                    $key,
+                    ['slug', 'title', 'user_id', 'extract', 'content', 'publishedAt', 'updatedAt', 'image']
+                );
+            },
+            ARRAY_FILTER_USE_KEY
+        );
 
         return $params;
     }

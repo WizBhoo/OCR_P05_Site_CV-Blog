@@ -67,7 +67,9 @@ class BlogController extends AbstractController
             unset($params['_csrf']);
             $this->commentRepository->insertComment($params);
             (new FlashService($this->session))
-                ->commentSuccess('Votre commentaire a bien été envoyé pour validation');
+                ->commentSuccess(
+                    'Votre commentaire a bien été envoyé pour validation'
+                );
 
             return $this->router->redirect('blog.home');
         }

@@ -11,6 +11,7 @@ use MyWebsite\Controller\BlogController;
 use MyWebsite\Controller\LoginAttemptController;
 use MyWebsite\Controller\LoginController;
 use MyWebsite\Controller\LogoutController;
+use MyWebsite\Controller\SignUpController;
 use MyWebsite\Controller\SiteController;
 use Psr\Container\ContainerInterface;
 
@@ -71,6 +72,16 @@ class RouterFactory
             'auth.login'
         );
         $router->get(
+            $container->get('account.signup'),
+            SignUpController::class,
+            'account.signup'
+        );
+        $router->get(
+            $container->get('account.profile'),
+            SignUpController::class,
+            'account.profile'
+        );
+        $router->get(
             sprintf("%s/dashboard", $container->get('admin.prefix')),
             AdminController::class,
             'admin.dashboard'
@@ -109,6 +120,10 @@ class RouterFactory
             $container->get('auth.logout'),
             LogoutController::class,
             'auth.logout'
+        );
+        $router->post(
+            $container->get('account.signup'),
+            SignUpController::class
         );
         $router->post(
             sprintf("%s/post/new", $container->get('admin.prefix')),

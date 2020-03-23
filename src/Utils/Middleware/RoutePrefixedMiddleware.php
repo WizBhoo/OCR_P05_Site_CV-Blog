@@ -65,7 +65,9 @@ class RoutePrefixedMiddleware implements MiddlewareInterface
         $path = $request->getUri()->getPath();
         if (strpos($path, $this->prefix) === 0) {
             if (is_string($this->middleware)) {
-                return $this->container->get($this->middleware)->process($request, $delegate);
+                return $this->container
+                    ->get($this->middleware)
+                    ->process($request, $delegate);
             }
 
             return $this->middleware->process($request, $delegate);
