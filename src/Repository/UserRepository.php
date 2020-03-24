@@ -44,6 +44,8 @@ class UserRepository
             ->prepare(
                 'SELECT User.id,
                 CONCAT(first_name, \' \', last_name) as userName,
+                first_name as firstName,
+                last_name as lastName,
                 email,
                 password
                 FROM User
@@ -71,6 +73,8 @@ class UserRepository
             ->prepare(
                 'SELECT User.id,
                 CONCAT(first_name, \' \', last_name) as userName,
+                first_name as firstName,
+                last_name as lastName,
                 email,
                 password
                 FROM User
@@ -100,6 +104,28 @@ class UserRepository
                 last_name = :lastName,
                 email = :email,
                 password = :password'
+        );
+
+        return $statement->execute($params);
+    }
+
+    /**
+     * To update a User in Database
+     *
+     * @param int   $id
+     * @param array $params
+     *
+     * @return bool
+     */
+    public function updateUser(int $id, array $params): bool
+    {
+        $params['id'] = $id;
+        $statement = $this->pdo->prepare(
+            'UPDATE User
+            SET first_name = :firstName,
+                last_name = :lastName,
+                password = :password
+            WHERE User.id = :id'
         );
 
         return $statement->execute($params);

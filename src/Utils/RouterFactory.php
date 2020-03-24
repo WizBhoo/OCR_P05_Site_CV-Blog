@@ -6,6 +6,8 @@
 
 namespace MyWebsite\Utils;
 
+use MyWebsite\Controller\AccountController;
+use MyWebsite\Controller\AccountEditController;
 use MyWebsite\Controller\AdminController;
 use MyWebsite\Controller\BlogController;
 use MyWebsite\Controller\LoginAttemptController;
@@ -13,6 +15,7 @@ use MyWebsite\Controller\LoginController;
 use MyWebsite\Controller\LogoutController;
 use MyWebsite\Controller\SignUpController;
 use MyWebsite\Controller\SiteController;
+use MyWebsite\Utils\Middleware\LoggedInMiddleware;
 use Psr\Container\ContainerInterface;
 
 /**
@@ -78,7 +81,7 @@ class RouterFactory
         );
         $router->get(
             $container->get('account.profile'),
-            SignUpController::class,
+            [LoggedInMiddleware::class, AccountController::class],
             'account.profile'
         );
         $router->get(
@@ -124,6 +127,10 @@ class RouterFactory
         $router->post(
             $container->get('account.signup'),
             SignUpController::class
+        );
+        $router->post(
+            $container->get('account.profile'),
+            [LoggedInMiddleware::class, AccountEditController::class]
         );
         $router->post(
             sprintf("%s/post/new", $container->get('admin.prefix')),

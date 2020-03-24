@@ -18,7 +18,7 @@ use Psr\Http\Message\ServerRequestInterface;
 class RoutePrefixedMiddleware implements MiddlewareInterface
 {
     /**
-     * A ContainerInterface Instance
+     * A ContainerInterface Injection
      *
      * @var ContainerInterface
      */

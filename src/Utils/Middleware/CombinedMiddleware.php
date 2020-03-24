@@ -8,15 +8,14 @@ namespace MyWebsite\Utils\Middleware;
 
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
-use MyWebsite\Utils\Route;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
- * Class DispatcherMiddleware.
+ * Class CombinedMiddleware.
  */
-class DispatcherMiddleware implements MiddlewareInterface
+class CombinedMiddleware implements MiddlewareInterface
 {
     /**
      * A ContainerInterface Injection
@@ -26,17 +25,26 @@ class DispatcherMiddleware implements MiddlewareInterface
     protected $container;
 
     /**
-     * DispatcherMiddleware constructor.
+     * A table that contains Middlewares
+     *
+     * @var array
+     */
+    protected $middlewares;
+
+    /**
+     * CombinedMiddleware constructor.
      *
      * @param ContainerInterface $container
+     * @param array              $middlewares
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, array $middlewares)
     {
         $this->container = $container;
+        $this->middlewares = $middlewares;
     }
 
     /**
-     * Retrieve Route & Callback and return appropriate Response
+     * Allow to call multiple middleware and return appropriate Response
      *
      * @param ServerRequestInterface $request
      * @param DelegateInterface      $delegate
@@ -45,16 +53,12 @@ class DispatcherMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
     {
-        $route = $request->getAttribute(Route::class);
-        if (is_null($route)) {
-            return $delegate->process($request);
-        }
-        $callback = $route->getCallback();
-        if (!is_array($callback)) {
-            $callback = [$callback];
-        }
+        $delegate = new CombinedMiddlewareDelegate(
+            $this->container,
+            $this->middlewares,
+            $delegate
+        );
 
-        return (new CombinedMiddleware($this->container, $callback))
-            ->process($request, $delegate);
+        return $delegate->process($request);
     }
 }

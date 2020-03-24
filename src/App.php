@@ -10,6 +10,7 @@ use DI\ContainerBuilder;
 use Exception;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use MyWebsite\Utils\Middleware\CombinedMiddleware;
 use MyWebsite\Utils\Middleware\RoutePrefixedMiddleware;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -94,7 +95,7 @@ class App implements DelegateInterface
     }
 
     /**
-     * Call a Middleware as callable or object
+     * Call the CombinedMiddleware
      *
      * @param ServerRequestInterface $request
      *
@@ -104,36 +105,13 @@ class App implements DelegateInterface
      */
     public function process(ServerRequestInterface $request): ResponseInterface
     {
-        $middleware = $this->getMiddleware();
-        if (!is_null($middleware) && is_callable($middleware)) {
-            return call_user_func_array($middleware, [$request, [$this, 'process']]);
+        $this->index++;
+        if ($this->index > 1) {
+            throw new Exception();
         }
-        if ($middleware instanceof MiddlewareInterface) {
-            return $middleware->process($request, $this);
-        }
+        $middleware = new CombinedMiddleware($this->getContainer(), $this->middlewares);
 
-        throw new Exception('No middleware intercepted this request');
-    }
-
-    /**
-     * Getter Middleware
-     *
-     * @return mixed|null
-     */
-    public function getMiddleware()
-    {
-        if (array_key_exists($this->index, $this->middlewares)) {
-            if (is_string($this->middlewares[$this->index])) {
-                $middleware = $this->container->get($this->middlewares[$this->index]);
-            } else {
-                $middleware = $this->middlewares[$this->index];
-            }
-            $this->index++;
-
-            return $middleware;
-        }
-
-        return null;
+        return $middleware->process($request, $this);
     }
 
     /**
