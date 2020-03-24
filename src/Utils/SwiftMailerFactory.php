@@ -8,7 +8,7 @@ namespace MyWebsite\Utils;
 
 use Psr\Container\ContainerInterface;
 use Swift_Mailer;
-use Swift_SendmailTransport;
+use Swift_SmtpTransport;
 
 /**
  * Class SwiftMailerFactory.
@@ -24,7 +24,14 @@ class SwiftMailerFactory
      */
     public function __invoke(ContainerInterface $container): Swift_Mailer
     {
-        $transport = new Swift_SendmailTransport();
+        $transport = (new Swift_SmtpTransport(
+            'smtp.googlemail.com',
+            465,
+            'ssl'
+        ))
+            ->setUsername('wizbhoo.dev@gmail.com')
+            ->setPassword('0703Or1onAPEldrazil6$')
+        ;
 
         return new Swift_Mailer($transport);
     }

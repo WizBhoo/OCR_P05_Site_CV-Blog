@@ -130,27 +130,10 @@ class SiteController extends AbstractController
         if ($request->getMethod() === 'GET') {
             return $this->renderer->renderView('site/contact');
         }
-        $params = $request->getParsedBody();
-        $validator = (new Validator($params))
-            ->required('name', 'email', 'subject', 'message')
-            ->length('name', 15)
-            ->email('email')
-            ->length('subject', 10, 50)
-            ->length('message', 10)
-        ;
+        $validator = $this->getValidator($request);
         if ($validator->isValid()) {
             $this->flash->success('Votre message a bien été envoyé');
-            $message = new Swift_Message('Formulaire de contact');
-            $message->setBody(
-                $this->renderer->renderView('email/contactText', $params)
-            );
-            $message->addPart(
-                $this->renderer->renderView('email/contactHtml', $params),
-                'text/html'
-            );
-            $message->setTo($this->to);
-            $message->setFrom($params['email']);
-            $this->mailer->send($message);
+            $this->getSwiftMailer($request);
 
             return $this->renderer->renderView('site/contact');
         }
@@ -163,5 +146,48 @@ class SiteController extends AbstractController
             'site/contact',
             compact('errors')
         );
+    }
+
+    /**
+     * Validator instance with defined rules
+     *
+     * @param ServerRequestInterface $request
+     *
+     * @return Validator
+     */
+    public function getValidator(ServerRequestInterface $request): Validator
+    {
+        $params = $request->getParsedBody();
+
+        return (new Validator($params))
+            ->required('name', 'email', 'subject', 'message')
+            ->length('name', 15)
+            ->email('email')
+            ->length('subject', 10, 50)
+            ->length('message', 10);
+    }
+
+    /**
+     * Get message to be sent with SwiftMailer
+     *
+     * @param ServerRequestInterface $request
+     *
+     * @return void
+     */
+    public function getSwiftMailer(ServerRequestInterface $request): void
+    {
+        $params = $request->getParsedBody();
+        $message = (new Swift_Message('Formulaire de contact'))
+            ->setBody(
+                $this->renderer->renderView('email/contactText', $params)
+            )
+            ->addPart(
+                $this->renderer->renderView('email/contactHtml', $params),
+                'text/html'
+            )
+            ->setTo(['wizbhoo.dev@gmail.com' => 'Adrien PIERRARD'])
+            ->setFrom($params['email'])
+        ;
+        $this->mailer->send($message);
     }
 }

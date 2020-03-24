@@ -62,13 +62,6 @@ abstract class AbstractController
     protected $postUpload;
 
     /**
-     * Contact mail recipient
-     *
-     * @var string
-     */
-    protected $to = 'adrien.pierrard@gmail.com';
-
-    /**
      * A Swift_Mailer Instance
      *
      * @var Swift_Mailer
