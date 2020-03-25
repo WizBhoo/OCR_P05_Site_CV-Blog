@@ -28,8 +28,48 @@ class SignUpController extends AbstractController
         if ($request->getMethod() === 'GET') {
             return $this->renderer->renderView('account/signup');
         }
+        $validator = $this->getValidator($request);
         $params = $request->getParsedBody();
-        $validator = (new Validator($params))
+        if ($validator->isValid()) {
+            $userParams = $this->getParams($request);
+            $userParams['password'] = password_hash(
+                $params['password'],
+                PASSWORD_DEFAULT
+            );
+            $this->userRepository->insertUser($userParams);
+            (new FlashService($this->session))
+                ->success(
+                    'Votre compte a bien été créé, veuillez attendre 
+                    de recevoir son activation par mail pour pouvoir vous connecter.'
+                );
+
+            return new RedirectResponse(
+                $this->router->generateUri('site.home', [])
+            );
+        }
+        $errors = $validator->getErrors();
+
+        return $this->renderer->renderView(
+            'account/signup',
+            [
+                'errors' => $errors,
+                'user' => $this->getParams($request),
+            ]
+        );
+    }
+
+    /**
+     * Validator instance with defined rules
+     *
+     * @param ServerRequestInterface $request
+     *
+     * @return Validator
+     */
+    public function getValidator(ServerRequestInterface $request): Validator
+    {
+        $params = $request->getParsedBody();
+
+        return (new Validator($params))
             ->required(
                 'firstName',
                 'lastName',
@@ -44,35 +84,23 @@ class SignUpController extends AbstractController
             ->length('password', 4)
             ->unique('email')
             ->unique('password');
-        if ($validator->isValid()) {
-            $userParams = [
-                'firstName' => $params['firstName'],
-                'lastName' => $params['lastName'],
-                'email' => $params['email'],
-                'password' => password_hash($params['password'], PASSWORD_DEFAULT),
-            ];
-            $this->userRepository->insertUser($userParams);
-            $user = $this->userRepository->findUser($userParams['email']);
-            $this->auth->setUser($user);
-            (new FlashService($this->session))
-                ->success('Votre compte a bien été créé');
+    }
 
-            return new RedirectResponse(
-                $this->router->generateUri('account.profile', [])
-            );
-        }
-        $errors = $validator->getErrors();
+    /**
+     * Retrieve userParams
+     *
+     * @param ServerRequestInterface $request
+     *
+     * @return array
+     */
+    public function getParams(ServerRequestInterface $request): array
+    {
+        $params = $request->getParsedBody();
 
-        return $this->renderer->renderView(
-            'account/signup',
-            [
-                'errors' => $errors,
-                'user' => [
-                    'firstName' => $params['firstName'],
-                    'lastName' => $params['lastName'],
-                    'email' => $params['email'],
-                ],
-            ]
-        );
+        return [
+            'firstName' => $params['firstName'],
+            'lastName' => strtoupper($params['lastName']),
+            'email' => $params['email'],
+        ];
     }
 }

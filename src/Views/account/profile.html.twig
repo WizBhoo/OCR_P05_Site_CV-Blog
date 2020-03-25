@@ -32,15 +32,6 @@
                     <h1>{{ user.userName }}</h1>
                     <p>Ici, vous pouvez modifier les informations de votre profile utilisateur.</p>
                     <p>Laissez le mot de passe vide si vous ne voulez pas le changer.</p>
-                    {% if flash('success') %}
-                        <div class="row justify-content-center">
-                            <div class="col-md-6 text-center">
-                                <div class="alert-success">
-                                    {{ flash('success') }}
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
                 </div>
             </div>
         </div>

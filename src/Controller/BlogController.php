@@ -63,7 +63,9 @@ class BlogController extends AbstractController
         }
         if ($request->getMethod() === 'POST') {
             $params = $request->getParsedBody();
+            $user = $this->auth->getUser();
             $params['id'] = $post->getId();
+            $params['user_id'] = $user->getId();
             unset($params['_csrf']);
             $this->commentRepository->insertComment($params);
             (new FlashService($this->session))

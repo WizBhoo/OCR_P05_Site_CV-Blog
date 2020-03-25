@@ -26,23 +26,9 @@ class AccountEditController extends AbstractController
     public function __invoke(ServerRequestInterface $request)
     {
         $user = $this->auth->getUser();
-        $params = $request->getParsedBody();
-        $validator = (new Validator($params))
-            ->confirm('password')
-            ->required('firstName', 'lastName');
+        $validator = $this->getValidator($request);
         if ($validator->isValid()) {
-            $userParams = [
-                'firstName' => $params['firstName'],
-                'lastName' => $params['lastName'],
-            ];
-            if (!empty($params['password'])) {
-                $userParams['password'] = password_hash(
-                    $params['password'],
-                    PASSWORD_DEFAULT
-                );
-            } else {
-                $userParams['password'] = $params['password'];
-            }
+            $userParams = $this->getParams($request);
             $this->userRepository->updateUser($user->getId(), $userParams);
             (new FlashService($this->session))
                 ->success('Votre compte a bien été mis à jour');
@@ -55,5 +41,48 @@ class AccountEditController extends AbstractController
             'account/profile',
             compact('user', 'errors')
         );
+    }
+
+    /**
+     * Validator instance with defined rules
+     *
+     * @param ServerRequestInterface $request
+     *
+     * @return Validator
+     */
+    public function getValidator(ServerRequestInterface $request): Validator
+    {
+        $params = $request->getParsedBody();
+
+        return (new Validator($params))
+            ->confirm('password')
+            ->required('firstName', 'lastName');
+    }
+
+    /**
+     * Retrieve userParams to be post for update
+     *
+     * @param ServerRequestInterface $request
+     *
+     * @return array
+     */
+    public function getParams(ServerRequestInterface $request): array
+    {
+        $user = $this->auth->getUser();
+        $params = $request->getParsedBody();
+        $userParams = [
+            'firstName' => $params['firstName'],
+            'lastName' => strtoupper($params['lastName']),
+        ];
+        if (!empty($params['password'])) {
+            $userParams['password'] = password_hash(
+                $params['password'],
+                PASSWORD_DEFAULT
+            );
+        } else {
+            $userParams['password'] = $user->getPassword();
+        }
+
+        return $userParams;
     }
 }

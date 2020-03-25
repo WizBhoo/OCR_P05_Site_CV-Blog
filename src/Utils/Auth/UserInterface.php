@@ -20,7 +20,7 @@ interface UserInterface
     /**
      * Getter roles
      *
-     * @return string[]
+     * @return string
      */
-    public function getRoles(): array;
+    public function getAccountType(): string;
 }

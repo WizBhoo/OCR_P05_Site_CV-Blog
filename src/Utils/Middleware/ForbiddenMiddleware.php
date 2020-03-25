@@ -9,6 +9,7 @@ namespace MyWebsite\Utils\Middleware;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use MyWebsite\Utils\Exception\ForbiddenException;
+use MyWebsite\Utils\Exception\NotConnectedException;
 use MyWebsite\Utils\RedirectResponse;
 use MyWebsite\Utils\Session\FlashService;
 use MyWebsite\Utils\Session\SessionInterface;
@@ -62,7 +63,14 @@ class ForbiddenMiddleware implements MiddlewareInterface
         } catch (ForbiddenException $exception) {
             $this->session->set('auth.redirect', $request->getUri()->getPath());
             (new FlashService($this->session))->error(
-                'Vous devez posséder un compte pour accéder à cette page'
+                'Vous devez être Administrateur pour accéder à cette page'
+            );
+
+            return new RedirectResponse($this->loginPath);
+        } catch (NotConnectedException $exception) {
+            $this->session->set('auth.redirect', $request->getUri()->getPath());
+            (new FlashService($this->session))->error(
+                'Vous devez être connecté pour accéder à cette page'
             );
 
             return new RedirectResponse($this->loginPath);

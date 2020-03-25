@@ -17,15 +17,6 @@
 						Sign In
 					</span>
                     {{ csrf_input() }}
-                    {% if flash('error') %}
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <div class="au-alert-danger">
-                                    {{ flash('error') }}
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
                     <div class="wrap-input100 validate-input" data-validate = "Saisissez un email valide.">
                         <input class="input100 email" type="text" name="email">
                         <span class="focus-input100" data-placeholder="Email"></span>
@@ -39,7 +30,7 @@
                         <span class="focus-input100" data-placeholder="Password"></span>
                     </div>
 
-                    <div class="container-login100-form-btn">
+                    <div class="container-login100-form-btn p-b-26">
                         <div class="wrap-login100-form-btn">
                             <div class="login100-form-bgbtn"></div>
                             <button class="login100-form-btn">
@@ -47,8 +38,18 @@
                             </button>
                         </div>
                     </div>
-
-                    <div class="text-center p-t-115">
+                    <div class="p-b-26">
+                        {% if flash('error') %}
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <div class="alert-danger">
+                                        {{ flash('error') }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="text-center">
 						<span class="txt1">
 							Pas encore de compte ? ->
 						</span>

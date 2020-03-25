@@ -5,10 +5,10 @@ require '../vendor/autoload.php';
 use GuzzleHttp\Psr7\ServerRequest;
 use Middlewares\Whoops;
 use MyWebsite\App;
+use MyWebsite\Utils\AccountTypeMiddlewareFactory;
 use MyWebsite\Utils\Middleware\CsrfMiddleware;
 use MyWebsite\Utils\Middleware\DispatcherMiddleware;
 use MyWebsite\Utils\Middleware\ForbiddenMiddleware;
-use MyWebsite\Utils\Middleware\LoggedInMiddleware;
 use MyWebsite\Utils\Middleware\MethodMiddleware;
 use MyWebsite\Utils\Middleware\NotFoundMiddleware;
 use MyWebsite\Utils\Middleware\RouterMiddleware;
@@ -19,7 +19,11 @@ $app = new App(sprintf("%s/config/config.php", dirname(__DIR__)));
 $container = $app->getContainer();
 $app->pipe(Whoops::class)
     ->pipe(ForbiddenMiddleware::class)
-    ->pipe($container->get('admin.prefix'), LoggedInMiddleware::class)
+    ->pipe(
+        $container->get('admin.prefix'),
+        $container->get(AccountTypeMiddlewareFactory::class)
+            ->makeForAccountType('admin')
+    )
     ->pipe(MethodMiddleware::class)
     ->pipe(CsrfMiddleware::class)
     ->pipe(RouterMiddleware::class)

@@ -65,7 +65,11 @@ class DatabaseAuth implements AuthInterface
         }
         $user = $this->userRepository->findUser($email);
         if ($user && password_verify($password, $user->getPassword())) {
-            $this->setUser($user);
+            if (true === $user->getAccountStatus()) {
+                $this->setUser($user);
+
+                return $user;
+            }
 
             return $user;
         }

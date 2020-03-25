@@ -406,6 +406,8 @@ button:focus {
   font-family: "Roboto", sans-serif;
   margin-right: 14px;
   position: relative; }
+.banner_area .banner_inner .banner_content .page_link a:hover {
+  color: #fec1a5; }
 .banner_area .banner_inner .banner_content .page_link a:before {
   position: absolute;
   content: "";
@@ -810,21 +812,19 @@ button:focus {
   color: #777777; }
 .blog_info .post_tag a.active {
   color: #e45447; }
-.blog_info .blog_meta li a {
+.blog_info .blog_meta li {
   font: 300 14px/20px "Roboto", sans-serif;
   color: #777777;
   vertical-align: middle;
   padding-bottom: 12px;
   display: inline-block; }
-.blog_info .blog_meta li a i {
+.blog_info .blog_meta li i {
   color: #222222;
   font-size: 16px;
   font-weight: 600;
   padding-left: 15px;
   line-height: 20px;
   vertical-align: middle; }
-.blog_info .blog_meta li a:hover {
-  color: #e45447; }
 
 .blog_post img {
   max-width: 100%; }
@@ -847,8 +847,6 @@ button:focus {
   color: #222222;
   font-weight: 600;
   transition: all 0.3s linear; }
-.blog_details h2:hover {
-  color: #e45447; }
 .blog_details p {
   margin-bottom: 26px; }
 
@@ -1095,6 +1093,10 @@ button:focus {
   line-height: 24px;
   color: #777;
   font-style: italic; }
+.single-post-area .quotes a {
+  color: #00b0f0; }
+.single-post-area .quotes a:hover {
+  color: #fec1a5; }
 .single-post-area .arrow {
   position: absolute; }
 .single-post-area .arrow .lnr {

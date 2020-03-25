@@ -215,14 +215,4 @@ class User implements UserInterface
     {
         $this->accountStatus = $accountStatus;
     }
-
-    /**
-     * Getter roles
-     *
-     * @return string[]
-     */
-    public function getRoles(): array
-    {
-        return [];
-    }
 }

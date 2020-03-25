@@ -47,7 +47,9 @@ class UserRepository
                 first_name as firstName,
                 last_name as lastName,
                 email,
-                password
+                password,
+                account_type as accountType,
+                account_status as accountStatus
                 FROM User
                 WHERE email = ?'
             );
@@ -76,7 +78,9 @@ class UserRepository
                 first_name as firstName,
                 last_name as lastName,
                 email,
-                password
+                password,
+                account_type as accountType,
+                account_status as accountStatus
                 FROM User
                 WHERE id = ?'
             );
