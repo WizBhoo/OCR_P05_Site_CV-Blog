@@ -66,11 +66,13 @@
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
                                 <a href="{{ path('admin.posts') }}">
-                                    <i class="fas fa-copy"></i>Articles</a>
+                                    <i class="fas fa-copy"></i>Articles
+                                </a>
                             </li>
                             <li>
                                 <a href="{{ path('admin.comments') }}">
-                                    <i class="fas fa-comments"></i>Comments</a>
+                                    <i class="fas fa-comments"></i>Comments
+                                </a>
                             </li>
                         </ul>
                     </li>
@@ -83,16 +85,14 @@
                         </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a href="login.html">
-                                    <i class="fas fa-sign-in-alt"></i>Login</a>
+                                <a href="{{ path('account.profile') }}">
+                                    <i class="fas fa-user"></i>My Account
+                                </a>
                             </li>
                             <li>
-                                <a href="register.html">
-                                    <i class="fas fa-user"></i>Register</a>
-                            </li>
-                            <li>
-                                <a href="forget-pass.html">
-                                    <i class="fas fa-unlock-alt"></i>Forget Password</a>
+                                <a href="{{ path('admin.users') }}">
+                                    <i class="fas fa-unlock-alt"></i>Admin Account
+                                </a>
                             </li>
                         </ul>
                     </li>
@@ -121,12 +121,14 @@
                             <div class="setting-menu js-right-sidebar d-none d-lg-block">
                                 <div class="account-dropdown__body">
                                     <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-account"></i>Account</a>
+                                        <a href="{{ path('account.profile') }}">
+                                            <i class="zmdi zmdi-account"></i>My Account
+                                        </a>
                                     </div>
                                     <div class="account-dropdown__item">
                                         <a href="{{ path('site.home') }}">
-                                            <i class="zmdi zmdi-home"></i>Go APi Site</a>
+                                            <i class="zmdi zmdi-home"></i>Go APi Site
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -166,11 +168,13 @@
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
                                     <a href="{{ path('admin.posts') }}">
-                                        <i class="fas fa-copy"></i>Articles</a>
+                                        <i class="fas fa-copy"></i>Articles
+                                    </a>
                                 </li>
                                 <li>
                                     <a href="{{ path('admin.comments') }}">
-                                        <i class="fas fa-comments"></i>Comments</a>
+                                        <i class="fas fa-comments"></i>Comments
+                                    </a>
                                 </li>
                             </ul>
                         </li>
@@ -183,16 +187,14 @@
                             </a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
-                                    <a href="login.html">
-                                        <i class="fas fa-sign-in-alt"></i>Login</a>
+                                    <a href="{{ path('account.profile') }}">
+                                        <i class="fas fa-user"></i>My Account
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="register.html">
-                                        <i class="fas fa-user"></i>Register</a>
-                                </li>
-                                <li>
-                                    <a href="forget-pass.html">
-                                        <i class="fas fa-unlock-alt"></i>Forget Password</a>
+                                    <a href="{{ path('admin.users') }}">
+                                        <i class="fas fa-unlock-alt"></i>Admin Account
+                                    </a>
                                 </li>
                             </ul>
                         </li>

@@ -32,6 +32,27 @@ class UserRepository
     }
 
     /**
+     * To get all Users
+     *
+     * @return User[]
+     */
+    public function findAllUser(): array
+    {
+        $query = $this->pdo
+            ->query(
+                'SELECT User.id,
+                CONCAT(first_name, \' \', last_name) as userName,
+                email,
+                account_type as accountType,
+                account_status as accountStatus
+                FROM User'
+            );
+        $query->setFetchMode(PDO::FETCH_CLASS, Comment::class);
+
+        return $query->fetchAll();
+    }
+
+    /**
      * To get a User from his email
      *
      * @param string $email
@@ -133,5 +154,56 @@ class UserRepository
         );
 
         return $statement->execute($params);
+    }
+
+    /**
+     * To activate User account with appropriate granted access in Database
+     *
+     * @param int $id
+     *
+     * @return bool
+     */
+    public function activateUser(int $id): bool
+    {
+        $params['id'] = $id;
+        $statement = $this->pdo->prepare(
+            'UPDATE User
+            SET account_status = 1
+            WHERE User.id = :id'
+        );
+
+        return $statement->execute($params);
+    }
+
+    /**
+     * To switch User account type in Database
+     *
+     * @param array $params
+     *
+     * @return bool
+     */
+    public function switchAccountType(array $params): bool
+    {
+        $statement = $this->pdo->prepare(
+            'UPDATE User
+            SET account_type = :accountType
+            WHERE User.id = :id'
+        );
+
+        return $statement->execute($params);
+    }
+
+    /**
+     * To delete a User in Database
+     *
+     * @param int $id
+     *
+     * @return bool
+     */
+    public function deleteUser(int $id): bool
+    {
+        $statement = $this->pdo->prepare('DELETE FROM User WHERE id = ?');
+
+        return $statement->execute([$id]);
     }
 }

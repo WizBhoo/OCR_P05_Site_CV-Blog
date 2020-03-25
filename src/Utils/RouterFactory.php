@@ -110,6 +110,11 @@ class RouterFactory
             'admin.comments'
         );
         $router->get(
+            sprintf("%s/users", $container->get('admin.prefix')),
+            AdminController::class,
+            'admin.users'
+        );
+        $router->get(
             sprintf("%s/404", $container->get('admin.prefix')),
             AdminController::class,
             'admin.404'
@@ -149,6 +154,16 @@ class RouterFactory
             AdminController::class,
             'admin.comment.edit'
         );
+        $router->post(
+            sprintf("%s/user/activate/{id:[0-9]+}", $container->get('admin.prefix')),
+            AdminController::class,
+            'admin.user.activate'
+        );
+        $router->post(
+            sprintf("%s/user/switch/{id:[0-9]+}", $container->get('admin.prefix')),
+            AdminController::class,
+            'admin.user.switch'
+        );
         // To reference DELETE routes
         $router->delete(
             sprintf("%s/post/{slug:[a-z\-0-9]+}", $container->get('admin.prefix')),
@@ -159,6 +174,11 @@ class RouterFactory
             sprintf("%s/comment/{id:[0-9]+}", $container->get('admin.prefix')),
             AdminController::class,
             'admin.comment.delete'
+        );
+        $router->delete(
+            sprintf("%s/user/delete/{id:[0-9]+}", $container->get('admin.prefix')),
+            AdminController::class,
+            'admin.user.delete'
         );
 
         return $router;

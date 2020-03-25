@@ -2,5 +2,3 @@
 composer.lock
 .DS_Store
 /public/img/blog/
-/prepros-6.config
-/src/Utils/ContactProcess.php
