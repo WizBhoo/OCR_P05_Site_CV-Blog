@@ -48,7 +48,8 @@ class ValidationError
         'uploaded' => 'Vous devez uploader un fichier.',
         'email' => 'Cet email ne semble pas valide.',
         'confirm' => 'Vos mots de passe ne se correspondent pas.',
-        'unique' => 'Le champs %s doit être unique.',
+        'unique' => 'Ce %s existe déjà sur le site.',
+        'exists' => 'Aucun utilisateur ne correspond sur le site.',
     ];
 
     /**

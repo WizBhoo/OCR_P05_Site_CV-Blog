@@ -51,10 +51,7 @@ class SignUpController extends AbstractController
 
         return $this->renderer->renderView(
             'account/signup',
-            [
-                'errors' => $errors,
-                'user' => $this->getParams($request),
-            ]
+            ['errors' => $errors, 'user' => $this->getParams($request)]
         );
     }
 

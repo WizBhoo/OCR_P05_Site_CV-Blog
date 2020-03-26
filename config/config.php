@@ -3,6 +3,7 @@
 use MyWebsite\Utils\Auth\DatabaseAuth;
 use MyWebsite\Utils\AuthInterface;
 use MyWebsite\Utils\ConnectDb;
+use MyWebsite\Utils\SwiftMailerFactory;
 use MyWebsite\Utils\TwigExtension\AuthTwigExtension;
 use MyWebsite\Utils\TwigExtension\CsrfTwigExtension;
 use MyWebsite\Utils\TwigExtension\FlashTwigExtension;
@@ -30,6 +31,8 @@ return [
     'blog.prefix' => '/blog',
     'auth.login' => '/login',
     'auth.logout' => '/logout',
+    'auth.password' => '/forgotten-password',
+    'auth.reset' => '/reset-password',
     'account.signup' => '/signup',
     'account.profile' => '/user-profile',
     'admin.prefix' => '/apiadmin',
@@ -41,6 +44,7 @@ return [
     'auth_views.path' => sprintf("%s/Views/auth", __DIR__),
     'account_views.path' => sprintf("%s/Views/account", __DIR__),
     'admin_views.path' => sprintf("%s/Views/admin", __DIR__),
+    'email_views.path' => sprintf("%s/Views/email", __DIR__),
 
     //Twig extensions
     'twig.extensions' => [
@@ -61,4 +65,7 @@ return [
     Router::class => factory(RouterFactory::class),
     RendererInterface::class => factory(TwigRendererFactory::class),
     PDO::class => ConnectDb::getInstance()->getConnection(),
+
+    //Mailer config
+    Swift_Mailer::class => factory(SwiftMailerFactory::class),
 ];

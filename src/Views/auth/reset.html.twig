@@ -1,6 +1,6 @@
 {% extends 'loginLayout.html.twig' %}
 
-{% block title "APi - S'inscrire" %}
+{% block title "APi - Nouveau Password" %}
 
 {% block body %}
 
@@ -9,7 +9,7 @@
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
-                <form class="login100-form" action="{{ path('account.signup') }}" method="post"
+                <form class="login100-form" action="{{ path('auth.reset') }}" method="post"
                       enctype="multipart/form-data" class="form-horizontal">
 					<span class="login100-form-title p-b-26">
 						<a href="{{ path('site.home') }}">
@@ -17,27 +17,15 @@
                          </a>
 					</span>
                     <span class="login100-form-title p-b-26">
-						Sign Up
+						Reset Password
 					</span>
                     {{ csrf_input() }}
-                    <div class="wrap-input100 form-group">
-                        {{ field('firstName', user.firstName, {class: 'input100 firstName'}) }}
-                        <span class="focus-input100" data-placeholder="Prénom"></span>
-                    </div>
-                    <div class="wrap-input100 form-group">
-                        {{ field('lastName', user.lastName, {class: 'input100 lastName'}) }}
-                        <span class="focus-input100" data-placeholder="Nom"></span>
-                    </div>
-                    <div class="wrap-input100 form-group">
-                        {{ field('email', user.email, {type: 'email', class: 'input100 email'}) }}
-                        <span class="focus-input100" data-placeholder="Email"></span>
-                    </div>
                     <div class="wrap-input100 form-group">
 						<span class="btn-show-pass">
 							<i class="zmdi zmdi-eye"></i>
 						</span>
                         {{ field('password', null, {type: 'password', class: 'input100 password'}) }}
-                        <span class="focus-input100" data-placeholder="Password"></span>
+                        <span class="focus-input100" data-placeholder="Nouveau Password"></span>
                     </div>
                     <div class="wrap-input100 form-group">
 						<span class="btn-show-pass">
@@ -50,13 +38,13 @@
                         <div class="wrap-login100-form-btn">
                             <div class="login100-form-bgbtn"></div>
                             <button class="login100-form-btn">
-                                Créer
+                                Mettre à jour
                             </button>
                         </div>
                     </div>
                     <div class="text-center">
 						<span class="txt1">
-							Déjà un compte ? |
+							Password retrouvé ? |
 						</span>
 
                         <a class="txt2" href="{{ path('auth.login') }}">

@@ -8,6 +8,7 @@ namespace MyWebsite\Repository;
 
 use MyWebsite\Entity\User;
 use PDO;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Class UserRepository.
@@ -45,9 +46,10 @@ class UserRepository
                 email,
                 account_type as accountType,
                 account_status as accountStatus
-                FROM User'
+                FROM User
+                ORDER BY id DESC'
             );
-        $query->setFetchMode(PDO::FETCH_CLASS, Comment::class);
+        $query->setFetchMode(PDO::FETCH_CLASS, User::class);
 
         return $query->fetchAll();
     }
@@ -69,6 +71,8 @@ class UserRepository
                 last_name as lastName,
                 email,
                 password,
+                password_reset as passwordReset,
+                password_reset_at as passwordResetAt,
                 account_type as accountType,
                 account_status as accountStatus
                 FROM User
@@ -100,6 +104,8 @@ class UserRepository
                 last_name as lastName,
                 email,
                 password,
+                password_reset as passwordReset,
+                password_reset_at as passwordResetAt,
                 account_type as accountType,
                 account_status as accountStatus
                 FROM User
@@ -205,5 +211,51 @@ class UserRepository
         $statement = $this->pdo->prepare('DELETE FROM User WHERE id = ?');
 
         return $statement->execute([$id]);
+    }
+
+    /**
+     * Generate a token in db for a User to reset password
+     *
+     * @param int $id
+     *
+     * @return string
+     */
+    public function resetPassword(int $id): string
+    {
+        $token = Uuid::uuid4()->toString();
+        $params['id'] = $id;
+        $params['token'] = $token;
+        $statement = $this->pdo->prepare(
+            'UPDATE User
+            SET password_reset = :token,
+                password_reset_at = now()
+            WHERE User.id = :id'
+        );
+        $statement->execute($params);
+
+        return $token;
+    }
+
+    /**
+     * @param int    $id
+     * @param string $password
+     *
+     * @return void
+     */
+    public function updatePassword(int $id, string $password): void
+    {
+        $params['id'] = $id;
+        $params['password'] = password_hash(
+            $password,
+            PASSWORD_DEFAULT
+        );
+        $statement = $this->pdo->prepare(
+            'UPDATE User
+            SET password = :password,
+                password_reset = null,
+                password_reset_at = null
+            WHERE User.id = :id'
+        );
+        $statement->execute($params);
     }
 }

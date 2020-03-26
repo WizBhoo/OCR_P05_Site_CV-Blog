@@ -11,6 +11,7 @@ use MyWebsite\Utils\Middleware\DispatcherMiddleware;
 use MyWebsite\Utils\Middleware\ForbiddenMiddleware;
 use MyWebsite\Utils\Middleware\MethodMiddleware;
 use MyWebsite\Utils\Middleware\NotFoundMiddleware;
+use MyWebsite\Utils\Middleware\RendererRequestMiddleware;
 use MyWebsite\Utils\Middleware\RouterMiddleware;
 
 use function Http\Response\send;
@@ -25,11 +26,11 @@ $app->pipe(Whoops::class)
             ->makeForAccountType('admin')
     )
     ->pipe(MethodMiddleware::class)
+    ->pipe(RendererRequestMiddleware::class)
     ->pipe(CsrfMiddleware::class)
     ->pipe(RouterMiddleware::class)
     ->pipe(DispatcherMiddleware::class)
-    ->pipe(NotFoundMiddleware::class)
-;
+    ->pipe(NotFoundMiddleware::class)       ;
 
 try {
     $response = $app->run(ServerRequest::fromGlobals());

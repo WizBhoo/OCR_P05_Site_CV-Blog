@@ -45,7 +45,7 @@ class AccountTypeMiddleware implements MiddlewareInterface
     }
 
     /**
-     *
+     * Verify if user has granted access to admin part
      *
      * @param ServerRequestInterface $request
      * @param DelegateInterface      $delegate

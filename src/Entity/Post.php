@@ -6,6 +6,7 @@
 
 namespace MyWebsite\Entity;
 
+use Cassandra\Date;
 use DateTime;
 use Exception;
 
@@ -195,15 +196,17 @@ class Post
      *
      * @param $datetime
      *
-     * @return void
+     * @return DateTime
      *
      * @throws Exception
      */
-    public function setPublishedAt($datetime): void
+    public function setPublishedAt($datetime): DateTime
     {
         if (is_string($datetime)) {
-            $this->publishedAt = new DateTime($datetime);
+            return $this->publishedAt = new DateTime($datetime);
         }
+
+        return $this->publishedAt = $datetime;
     }
 
     /**
@@ -221,15 +224,17 @@ class Post
      *
      * @param $datetime
      *
-     * @return void
+     * @return DateTime
      *
      * @throws Exception
      */
-    public function setUpdatedAt($datetime): void
+    public function setUpdatedAt($datetime): DateTime
     {
         if (is_string($datetime)) {
-            $this->updatedAt = new DateTime($datetime);
+            return $this->updatedAt = new DateTime($datetime);
         }
+
+        return $this->updatedAt = $datetime;
     }
 
     /**

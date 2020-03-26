@@ -34,7 +34,12 @@ class TwigRenderer implements RendererInterface
     }
 
     /**
-     * {@inheritDoc}
+     * To add a path to load views.
+     *
+     * @param string      $namespace
+     * @param string|null $path
+     *
+     * @return void
      */
     public function addViewPath(string $namespace, ?string $path = null): void
     {
@@ -45,15 +50,33 @@ class TwigRenderer implements RendererInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Allows view return giving path with namespace (or not) through addPath().
+     *
+     * @param string $view
+     * @param array  $params
+     *
+     * @return string
      */
     public function renderView(string $view, array $params = []): string
     {
         try {
-            return $this->twig->render(sprintf("%s.html.twig", $view), $params);
+            $view = $this->twig->render(sprintf("%s.html.twig", $view), $params);
         } catch (LoaderError $e) {
         } catch (RuntimeError $e) {
         } catch (SyntaxError $e) {
         }
+
+        return $view;
+    }
+
+    /**
+     * Allow to add GLOBAL var to all views
+     *
+     * @param string $key
+     * @param mixed  $value
+     */
+    public function addGlobal(string $key, $value): void
+    {
+        $this->twig->addGlobal($key, $value);
     }
 }

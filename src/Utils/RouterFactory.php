@@ -10,9 +10,11 @@ use MyWebsite\Controller\AccountController;
 use MyWebsite\Controller\AccountEditController;
 use MyWebsite\Controller\AdminController;
 use MyWebsite\Controller\BlogController;
+use MyWebsite\Controller\ForgottenPasswordController;
 use MyWebsite\Controller\LoginAttemptController;
 use MyWebsite\Controller\LoginController;
 use MyWebsite\Controller\LogoutController;
+use MyWebsite\Controller\ResetPasswordController;
 use MyWebsite\Controller\SignUpController;
 use MyWebsite\Controller\SiteController;
 use MyWebsite\Utils\Middleware\LoggedInMiddleware;
@@ -163,6 +165,17 @@ class RouterFactory
             sprintf("%s/user/switch/{id:[0-9]+}", $container->get('admin.prefix')),
             AdminController::class,
             'admin.user.switch'
+        );
+        // To reference similar routes whatever the method used
+        $router->any(
+            $container->get('auth.password'),
+            ForgottenPasswordController::class,
+            'auth.password'
+        );
+        $router->any(
+            sprintf("%s/{id:\d+}/{token}", $container->get('auth.reset')),
+            ResetPasswordController::class,
+            'auth.reset'
         );
         // To reference DELETE routes
         $router->delete(

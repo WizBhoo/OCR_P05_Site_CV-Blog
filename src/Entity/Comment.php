@@ -6,6 +6,7 @@
 
 namespace MyWebsite\Entity;
 
+use Cassandra\Date;
 use DateTime;
 use Exception;
 
@@ -101,15 +102,17 @@ class Comment
      *
      * @param $datetime
      *
-     * @return void
+     * @return DateTime
      *
      * @throws Exception
      */
-    public function setCommentedAt($datetime): void
+    public function setCommentedAt($datetime): DateTime
     {
         if (is_string($datetime)) {
-            $this->commentedAt = new DateTime($datetime);
+            return $this->commentedAt = new DateTime($datetime);
         }
+
+        return $this->commentedAt = $datetime;
     }
 
     /**

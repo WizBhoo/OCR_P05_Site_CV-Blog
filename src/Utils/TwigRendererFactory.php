@@ -39,6 +39,7 @@ class TwigRendererFactory
         $renderer->addViewPath('auth', $container->get('auth_views.path'));
         $renderer->addViewPath('account', $container->get('account_views.path'));
         $renderer->addViewPath('admin', $container->get('admin_views.path'));
+        $renderer->addViewPath('email', $container->get('email_views.path'));
 
         return $renderer;
     }

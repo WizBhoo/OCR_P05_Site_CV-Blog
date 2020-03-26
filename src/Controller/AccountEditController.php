@@ -56,6 +56,7 @@ class AccountEditController extends AbstractController
 
         return (new Validator($params))
             ->confirm('password')
+            ->unique('password')
             ->required('firstName', 'lastName');
     }
 

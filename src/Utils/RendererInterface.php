@@ -32,4 +32,13 @@ interface RendererInterface
      * @return string
      */
     public function renderView(string $view, array $params = []): string;
+
+    /**
+     * RendererInterface addGlobal
+     * Allow to add GLOBAL var to all views
+     *
+     * @param string $key
+     * @param mixed  $value
+     */
+    public function addGlobal(string $key, $value): void;
 }

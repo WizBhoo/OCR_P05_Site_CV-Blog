@@ -234,6 +234,27 @@ class Validator
     }
 
     /**
+     * Verify if a field exists in User table
+     *
+     * @param string $key
+     *
+     * @return Validator
+     */
+    public function exists(string $key): self
+    {
+        $value = $this->getValue($key);
+        $query = "SELECT id FROM User WHERE $key = ?";
+        $pdo = ConnectDb::getInstance()->getConnection();
+        $statement = $pdo->prepare($query);
+        $statement->execute([$value]);
+        if ($statement->fetchColumn() === false) {
+            $this->addError($key, 'exists', [$value]);
+        }
+
+        return $this;
+    }
+
+    /**
      * Verify file's format
      *
      * @param string $key
