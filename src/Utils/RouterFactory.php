@@ -94,6 +94,10 @@ class RouterFactory
         );
         // To reference POST routes
         $router->post(
+            $container->get('contact.prefix'),
+            SiteController::class
+        );
+        $router->post(
             sprintf("%s/post/new", $container->get('admin.prefix')),
             AdminController::class
         );

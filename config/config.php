@@ -11,6 +11,7 @@ use MyWebsite\Utils\RendererInterface;
 use MyWebsite\Utils\RouterTwigExtension;
 use MyWebsite\Utils\Session\PHPSession;
 use MyWebsite\Utils\Session\SessionInterface;
+use MyWebsite\Utils\SwiftMailerFactory;
 use MyWebsite\Utils\TwigRendererFactory;
 
 use function DI\create;
@@ -31,6 +32,7 @@ return [
     'site_views.path' => sprintf("%s/Views/site", __DIR__),
     'blog_views.path' => sprintf("%s/Views/blog", __DIR__),
     'admin_views.path' => sprintf("%s/Views/admin", __DIR__),
+    'email_views.path' => sprintf("%s/Views/email", __DIR__),
 
     //Twig extensions
     'twig.extensions' => [
@@ -45,4 +47,8 @@ return [
     Router::class => factory(RouterFactory::class),
     RendererInterface::class => factory(TwigRendererFactory::class),
     PDO::class => ConnectDb::getInstance()->getConnection(),
+
+    //Mailer config
+    Swift_Mailer::class => factory(SwiftMailerFactory::class),
+
 ];
