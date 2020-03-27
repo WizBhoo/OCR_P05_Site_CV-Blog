@@ -63,8 +63,39 @@
                             <a class="nav-link" href="{{ path('blog.home') }}">Blog</a>
                         </li>
                         <li class="nav-item {{ is_subpath('site.contact') ? 'active' }}">
-                            <a class="nav-link" href="{{ path('site.contact') }}">Me Contacter</a>
+                            <a class="nav-link" href="{{ path('site.contact') }}">Contact</a>
                         </li>
+                        {% if current_user().accountType == 'admin' %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('admin.dashboard') }}">
+                                    Accès Admin
+                                </a>
+                            </li>
+                            <form class="nav-item" method="post" action="{{ path('auth.logout') }}">
+                                {{ csrf_input() }}
+                                <button id="logout" class="nav-link">
+                                    Déconnexion
+                                </button>
+                            </form>
+                        {% elseif current_user().accountType == 'user' %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('account.profile') }}">
+                                    Mon Compte
+                                </a>
+                            </li>
+                            <form class="nav-item" method="post" action="{{ path('auth.logout') }}">
+                                {{ csrf_input() }}
+                                <button id="logout" class="nav-link">
+                                    Déconnexion
+                                </button>
+                            </form>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('auth.login') }}">
+                                    Se Connecter
+                                </a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

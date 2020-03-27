@@ -10,6 +10,8 @@ use DI\ContainerBuilder;
 use Exception;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use MyWebsite\Utils\Middleware\CombinedMiddleware;
+use MyWebsite\Utils\Middleware\RoutePrefixedMiddleware;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -29,7 +31,7 @@ class App implements DelegateInterface
     /**
      * Container config definition
      *
-     * @var string
+     * @var string|array|null
      */
     protected $definition;
 
@@ -38,7 +40,7 @@ class App implements DelegateInterface
      *
      * @var string[]
      */
-    protected $middlewares;
+    protected $middlewares = [];
 
     /**
      * A Middlewares table index
@@ -50,9 +52,9 @@ class App implements DelegateInterface
     /**
      * App constructor.
      *
-     * @param string $definition
+     * @param string|array|null $definition
      */
-    public function __construct(string $definition)
+    public function __construct($definition = null)
     {
         $this->definition = $definition;
     }
@@ -60,13 +62,18 @@ class App implements DelegateInterface
     /**
      * Add a middleware
      *
-     * @param string $middleware
+     * @param string|callable|MiddlewareInterface      $routePrefix
+     * @param string|null|callable|MiddlewareInterface $middleware
      *
-     * @return $this
+     * @return App
      */
-    public function pipe(string $middleware): self
+    public function pipe($routePrefix, $middleware = null): self
     {
-        $this->middlewares[] = $middleware;
+        if (null === $middleware) {
+            $this->middlewares[] = $routePrefix;
+        } else {
+            $this->middlewares[] = new RoutePrefixedMiddleware($this->getContainer(), $routePrefix, $middleware);
+        }
 
         return $this;
     }
@@ -88,7 +95,7 @@ class App implements DelegateInterface
     }
 
     /**
-     * Call a Middleware as callable or object
+     * Call the CombinedMiddleware
      *
      * @param ServerRequestInterface $request
      *
@@ -98,32 +105,13 @@ class App implements DelegateInterface
      */
     public function process(ServerRequestInterface $request): ResponseInterface
     {
-        $middleware = $this->getMiddleware();
-        if (!is_null($middleware) && is_callable($middleware)) {
-            return call_user_func_array($middleware, [$request, [$this, 'process']]);
+        $this->index++;
+        if ($this->index > 1) {
+            throw new Exception();
         }
-        if ($middleware instanceof MiddlewareInterface) {
-            return $middleware->process($request, $this);
-        }
+        $middleware = new CombinedMiddleware($this->getContainer(), $this->middlewares);
 
-        throw new Exception('No middleware intercepted this request');
-    }
-
-    /**
-     * Getter Middleware
-     *
-     * @return mixed|null
-     */
-    public function getMiddleware()
-    {
-        if (array_key_exists($this->index, $this->middlewares)) {
-            $middleware = $this->container->get($this->middlewares[$this->index]);
-            $this->index++;
-
-            return $middleware;
-        }
-
-        return null;
+        return $middleware->process($request, $this);
     }
 
     /**
@@ -135,7 +123,9 @@ class App implements DelegateInterface
     {
         if ($this->container === null) {
             $builder = new ContainerBuilder();
-            $builder->addDefinitions($this->definition);
+            if ($this->definition) {
+                $builder->addDefinitions($this->definition);
+            }
             try {
                 $this->container = $builder->build();
             } catch (Exception $e) {

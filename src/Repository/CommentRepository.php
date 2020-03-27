@@ -100,7 +100,7 @@ class CommentRepository
         $statement = $this->pdo->prepare(
             'INSERT INTO Comments
             SET post_id = :id,
-                user_id = 1,
+                user_id = :user_id,
                 content_comment = :content,
                 status_comment = 0'
         );

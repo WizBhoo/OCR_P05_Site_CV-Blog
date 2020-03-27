@@ -8,11 +8,13 @@ namespace MyWebsite\Controller;
 
 use MyWebsite\Repository\CommentRepository;
 use MyWebsite\Repository\PostRepository;
+use MyWebsite\Repository\UserRepository;
+use MyWebsite\Utils\Auth\DatabaseAuth;
+use MyWebsite\Utils\Auth\PasswordResetMailer;
 use MyWebsite\Utils\PostUpload;
 use MyWebsite\Utils\RendererInterface;
 use MyWebsite\Utils\Router;
-use MyWebsite\Utils\Session\FlashService;
-use Swift_Mailer;
+use MyWebsite\Utils\Session\SessionInterface;
 
 /**
  * Class AbstractController.
@@ -48,13 +50,6 @@ abstract class AbstractController
     protected $commentRepository;
 
     /**
-     * A FlashService Instance
-     *
-     * @var FlashService
-     */
-    protected $flash;
-
-    /**
      * A PostUpload Instance
      *
      * @var PostUpload
@@ -62,31 +57,56 @@ abstract class AbstractController
     protected $postUpload;
 
     /**
-     * A Swift_Mailer Instance
+     * A UserRepository Instance
      *
-     * @var Swift_Mailer
+     * @var UserRepository
+     */
+    protected $userRepository;
+
+    /**
+     * A DatabaseAuth Instance
+     *
+     * @var DatabaseAuth
+     */
+    protected $auth;
+
+    /**
+     * A SessionInterface Injection
+     *
+     * @var SessionInterface
+     */
+    protected $session;
+
+    /**
+     * A PasswordResetMailer Instance
+     *
+     * @var PasswordResetMailer
      */
     protected $mailer;
 
     /**
      * AbstractController constructor.
      *
-     * @param RendererInterface $renderer
-     * @param Router            $router
-     * @param PostRepository    $postRepository
-     * @param CommentRepository $commentRepository
-     * @param FlashService      $flash
-     * @param PostUpload        $postUpload
-     * @param Swift_Mailer      $mailer
+     * @param RendererInterface   $renderer
+     * @param Router              $router
+     * @param PostRepository      $postRepository
+     * @param CommentRepository   $commentRepository
+     * @param PostUpload          $postUpload
+     * @param UserRepository      $userRepository
+     * @param DatabaseAuth        $auth
+     * @param SessionInterface    $session
+     * @param PasswordResetMailer $mailer
      */
-    public function __construct(RendererInterface $renderer, Router $router, PostRepository $postRepository, CommentRepository $commentRepository, FlashService $flash, PostUpload $postUpload, Swift_Mailer $mailer)
+    public function __construct(RendererInterface $renderer, Router $router, PostRepository $postRepository, CommentRepository $commentRepository, PostUpload $postUpload, UserRepository $userRepository, DatabaseAuth $auth, SessionInterface $session, PasswordResetMailer $mailer)
     {
         $this->renderer = $renderer;
         $this->router = $router;
         $this->postRepository = $postRepository;
         $this->commentRepository = $commentRepository;
-        $this->flash = $flash;
         $this->postUpload = $postUpload;
+        $this->userRepository = $userRepository;
+        $this->auth = $auth;
+        $this->session = $session;
         $this->mailer = $mailer;
     }
 

@@ -6,6 +6,8 @@
 
 namespace MyWebsite\Utils\Validator;
 
+use MyWebsite\Utils\ConnectDb;
+
 /**
  * Class Validator.
  */
@@ -180,6 +182,73 @@ class Validator
         $value = $this->getValue($key);
         if (filter_var($value, FILTER_VALIDATE_EMAIL) === false) {
             $this->addError($key, 'email');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Confirm password during account sign up
+     *
+     * @param string $key
+     *
+     * @return Validator
+     */
+    public function confirm(string $key): self
+    {
+        $value = $this->getValue($key);
+        $valueConfirm = $this->getValue(sprintf("%s_confirm", $key));
+
+        if ($valueConfirm !== $value) {
+            $this->addError($key, 'confirm');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Verify if a field is unique in User table
+     *
+     * @param string   $key
+     * @param int|null $exclude
+     *
+     * @return Validator
+     */
+    public function unique(string $key, ?int $exclude = null): self
+    {
+        $value = $this->getValue($key);
+        $query = "SELECT id FROM User WHERE $key = ?";
+        $params = [$value];
+        if (null !== $exclude) {
+            $query .= " AND id != ?";
+            $params[] = $exclude;
+        }
+        $pdo = ConnectDb::getInstance()->getConnection();
+        $statement = $pdo->prepare($query);
+        $statement->execute($params);
+        if ($statement->fetchColumn() !== false) {
+            $this->addError($key, 'unique', [$value]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Verify if a field exists in User table
+     *
+     * @param string $key
+     *
+     * @return Validator
+     */
+    public function exists(string $key): self
+    {
+        $value = $this->getValue($key);
+        $query = "SELECT id FROM User WHERE $key = ?";
+        $pdo = ConnectDb::getInstance()->getConnection();
+        $statement = $pdo->prepare($query);
+        $statement->execute([$value]);
+        if ($statement->fetchColumn() === false) {
+            $this->addError($key, 'exists', [$value]);
         }
 
         return $this;

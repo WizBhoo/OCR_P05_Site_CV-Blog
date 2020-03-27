@@ -6,8 +6,8 @@
 
 namespace MyWebsite\Utils\Middleware;
 
-use Exception;
-use GuzzleHttp\Psr7\Response;
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use MyWebsite\Utils\Route;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -16,17 +16,17 @@ use Psr\Http\Message\ServerRequestInterface;
 /**
  * Class DispatcherMiddleware.
  */
-class DispatcherMiddleware
+class DispatcherMiddleware implements MiddlewareInterface
 {
     /**
-     * A ContainerInterface Instance
+     * A ContainerInterface Injection
      *
      * @var ContainerInterface
      */
     protected $container;
 
     /**
-     * RouterMiddleware constructor.
+     * DispatcherMiddleware constructor.
      *
      * @param ContainerInterface $container
      */
@@ -35,40 +35,26 @@ class DispatcherMiddleware
         $this->container = $container;
     }
 
-
     /**
-     * Retrieve Callback and return appropriate Response
+     * Retrieve Route & Callback and return appropriate Response
      *
      * @param ServerRequestInterface $request
-     * @param callable               $next
+     * @param DelegateInterface      $delegate
      *
-     * @return Response|mixed
-     *
-     * @throws Exception
+     * @return ResponseInterface
      */
-    public function __invoke(ServerRequestInterface $request, callable $next)
+    public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
     {
         $route = $request->getAttribute(Route::class);
         if (is_null($route)) {
-            return $next($request);
+            return $delegate->process($request);
         }
         $callback = $route->getCallback();
-        if (is_string($callback)) {
-            $callback = $this->container->get($callback);
-        }
-        $response = call_user_func_array($callback, [$request]);
-        if (is_string($response)) {
-            $response = new Response(
-                200,
-                [],
-                $response
-            );
-        } elseif (!$response instanceof ResponseInterface) {
-            throw new Exception(
-                'The response is not a string or an instance of ResponseInterface'
-            );
+        if (!is_array($callback)) {
+            $callback = [$callback];
         }
 
-        return $response;
+        return (new CombinedMiddleware($this->container, $callback))
+            ->process($request, $delegate);
     }
 }

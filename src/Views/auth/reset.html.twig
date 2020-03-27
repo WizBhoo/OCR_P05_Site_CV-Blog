@@ -1,0 +1,61 @@
+{% extends 'loginLayout.html.twig' %}
+
+{% block title "APi - Nouveau Password" %}
+
+{% block body %}
+
+    <!--================ Start Login Area =================-->
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form class="login100-form" action="{{ path('auth.reset') }}" method="post"
+                      enctype="multipart/form-data" class="form-horizontal">
+					<span class="login100-form-title p-b-26">
+						<a href="{{ path('site.home') }}">
+                            <img src="../../img/logo.png" alt="APi" />
+                         </a>
+					</span>
+                    <span class="login100-form-title p-b-26">
+						Reset Password
+					</span>
+                    {{ csrf_input() }}
+                    <div class="wrap-input100 form-group">
+						<span class="btn-show-pass">
+							<i class="zmdi zmdi-eye"></i>
+						</span>
+                        {{ field('password', null, {type: 'password', class: 'input100 password'}) }}
+                        <span class="focus-input100" data-placeholder="Nouveau Password"></span>
+                    </div>
+                    <div class="wrap-input100 form-group">
+						<span class="btn-show-pass">
+							<i class="zmdi zmdi-eye"></i>
+						</span>
+                        {{ field('password_confirm', null, {type: 'password', class: 'input100 password_confirm'}) }}
+                        <span class="focus-input100" data-placeholder="Confirmer Password"></span>
+                    </div>
+                    <div class="container-login100-form-btn p-b-26">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn">
+                                Mettre à jour
+                            </button>
+                        </div>
+                    </div>
+                    <div class="text-center">
+						<span class="txt1">
+							Password retrouvé ? |
+						</span>
+
+                        <a class="txt2" href="{{ path('auth.login') }}">
+                            Se Connecter
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--================ End Login Area =================-->
+
+{% endblock %}

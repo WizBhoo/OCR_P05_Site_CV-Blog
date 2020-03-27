@@ -98,6 +98,25 @@ class Router
     }
 
     /**
+     * Router any allowing all methods
+     *
+     * @param string          $path
+     * @param string|callable $callableFunction
+     * @param string|null     $routeName
+     */
+    public function any(string $path, $callableFunction, ?string $routeName = null): void
+    {
+        $this->router->addRoute(
+            new ZendRoute(
+                $path,
+                $callableFunction,
+                ['DELETE', 'POST', 'GET', 'PUT'],
+                $routeName
+            )
+        );
+    }
+
+    /**
      * Router match.
      *
      * @param ServerRequestInterface $request

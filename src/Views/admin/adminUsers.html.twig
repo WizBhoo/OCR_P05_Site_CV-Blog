@@ -1,0 +1,131 @@
+{% extends 'adminLayout.html.twig' %}
+
+{% block title "Administration des Utilisateurs" %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="overview-wrap">
+                <h1 class="title-1">Modération des Utilisateurs</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- DATA TABLE -->
+            <h3 class="title-5 m-b-35">Activation en attente</h3>
+            <div class="table-responsive table-responsive-data2">
+                <table class="table table-data2">
+                    <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>User</th>
+                        <th>Email</th>
+                        <th>Type</th>
+                        <th class="action">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% set token_input = csrf_input() %}
+                    {% for user in users %}
+                        {% if not user.accountStatus %}
+                            <tr class="tr-shadow">
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.userName }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.accountType }}</td>
+                                <td>
+                                    <div class="table-data-feature">
+                                        <form action="{{ path('admin.user.activate', {id: user.id}) }}"
+                                              method="POST"
+                                              onsubmit="return confirm('Es tu sûr de vouloir activer {{ user.userName }} ?')">
+                                            <input type="hidden" name="_METHOD" value="POST">
+                                            <button class="item" data-toggle="tooltip"
+                                                    data-placement="top" title="Activer">
+                                                <i class="zmdi zmdi-check-circle"></i>
+                                            </button>
+                                            {{ token_input | raw }}
+                                        </form>
+                                        <form action="{{ path('admin.user.delete', {id: user.id}) }}"
+                                              method="POST"
+                                              onsubmit="return confirm('Es tu sûr de vouloir supprimer {{ user.userName }} ?')">
+                                            <input type="hidden" name="_METHOD" value="DELETE">
+                                            <button class="item" data-toggle="tooltip"
+                                                    data-placement="top" title="Supprimer">
+                                                <i class="zmdi zmdi-delete"></i>
+                                            </button>
+                                            {{ token_input | raw }}
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="spacer"></tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- END DATA TABLE -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- DATA TABLE -->
+            <h3 class="title-5 m-b-35">Liste de tous les Utilisateurs</h3>
+            <div class="table-responsive table-responsive-data2">
+                <table class="table table-data2">
+                    <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>User</th>
+                        <th>Email</th>
+                        <th>Type</th>
+                        <th class="action">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% set token_input = csrf_input() %}
+                    {% for user in users %}
+                        {% if user.accountStatus %}
+                            <tr class="tr-shadow">
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.userName }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.accountType }}</td>
+                                <td>
+                                    <div class="table-data-feature">
+                                        <form action="{{ path('admin.user.switch', {id: user.id}) }}"
+                                              method="POST"
+                                              onsubmit="return confirm('Es tu sûr de vouloir donner ces droits à {{ user.userName }} ?')">
+                                            <input type="hidden" name="_METHOD" value="POST">
+                                            <button class="item" data-toggle="tooltip"
+                                                    data-placement="top" title="Switch">
+                                                <i class="zmdi zmdi-refresh"></i>
+                                            </button>
+                                            {{ token_input | raw }}
+                                        </form>
+                                        <form action="{{ path('admin.user.delete', {id: user.id}) }}"
+                                              method="POST"
+                                              onsubmit="return confirm('Es tu sûr de vouloir supprimer {{ user.userName }} ?')">
+                                            <input type="hidden" name="_METHOD" value="DELETE">
+                                            <button class="item" data-toggle="tooltip"
+                                                    data-placement="top" title="Supprimer">
+                                                <i class="zmdi zmdi-delete"></i>
+                                            </button>
+                                            {{ token_input | raw }}
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="spacer"></tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- END DATA TABLE -->
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'layout.html.twig' %}
+
+{% block title "Adrien PIERRARD - Contact" %}
+
+{% block body %}
+
+    <!--================ Start Profile Banner Area =================-->
+
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="container">
+                <div class="banner_content text-right">
+                    <h1>Mon Profile</h1>
+                    <div class="page_link">
+                        <a href="{{ path('site.home') }}">Accueil</a>
+                        <a href="{{ path('site.contact') }}">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% if flash('success') %}
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center">
+                <div class="alert-success">
+                    {{ flash('success') }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <!--================ End Profile Banner Area =================-->
+
+    <!--================ Start Profile Area =================-->
+
+    <section class="section_gap portfolio_area" id="work">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <div class="main-title">
+                        <h1>{{ user.userName }}</h1>
+                        <p>Ici, vous pouvez modifier les informations de votre profile utilisateur.</p>
+                        <p>Laissez le mot de passe vide si vous ne voulez pas le changer.</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <form class="row contact_form" action="" method="post" id="contactForm">
+                        {{ csrf_input() }}
+                        <div class="col-md-5 offset-1">
+                            <div class="form-group">
+                                <label for="lastName">Nom :</label>
+                                {{ field('lastName', user.lastName) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="firstName">Prénom :</label>
+                                {{ field('firstName', user.firstName) }}
+                            </div>
+                        </div>
+                        <div class="col-md-5 offset-1">
+                            <div class="form-group">
+                                <label for="password">Password :</label>
+                                {{ field('password', null, {type: 'password'}) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="password_confirm">Confirmer Password :</label>
+                                {{ field('password_confirm', null, {type: 'password'}) }}
+                            </div>
+                        </div>
+                        <div class="col-md-12 text-right">
+                            <button type="submit" value="submit" class="primary-btn"><span>Modifier</span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--================ End Profile Area =================-->
+
+{% endblock %}

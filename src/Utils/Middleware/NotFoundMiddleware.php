@@ -17,7 +17,7 @@ use Psr\Http\Message\ServerRequestInterface;
 class NotFoundMiddleware
 {
     /**
-     * A ContainerInterface Instance
+     * A ContainerInterface Injection
      *
      * @var ContainerInterface
      */

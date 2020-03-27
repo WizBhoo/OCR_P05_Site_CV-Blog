@@ -6,10 +6,15 @@
 
 namespace MyWebsite\Entity;
 
+use Cassandra\Date;
+use DateTime;
+use Exception;
+use MyWebsite\Utils\Auth\UserInterface;
+
 /**
  * Class User.
  */
-class User
+class User implements UserInterface
 {
     /**
      * User's id
@@ -45,6 +50,20 @@ class User
      * @var string
      */
     protected $password;
+
+    /**
+     * User's passwordReset
+     *
+     * @var string
+     */
+    protected $passwordReset;
+
+    /**
+     * User's passwordResetAt
+     *
+     * @var DateTime
+     */
+    protected $passwordResetAt;
 
     /**
      * User account type
@@ -168,6 +187,56 @@ class User
     public function setPassword(string $password): void
     {
         $this->password = $password;
+    }
+
+    /**
+     * Getter passwordReset
+     *
+     * @return string|null
+     */
+    public function getPasswordReset(): ?string
+    {
+        return $this->passwordReset;
+    }
+
+    /**
+     * Setter passwordReset
+     *
+     * @param string $passwordReset
+     *
+     * @return void
+     */
+    public function setPasswordReset(string $passwordReset): void
+    {
+        $this->passwordReset = $passwordReset;
+    }
+
+    /**
+     * Getter passwordResetAt
+     *
+     * @return string|DateTime|null
+     */
+    public function getPasswordResetAt()
+    {
+        return $this->passwordResetAt;
+    }
+
+    /**
+     * Setter passwordResetAt
+     *
+     * @param $datetime
+     *
+     * @return null|DateTime
+     *
+     * @throws Exception
+     */
+    public function setPasswordResetAt($datetime): ?DateTime
+    {
+        if (is_string($datetime)) {
+            return $this->passwordResetAt = new DateTime($datetime);
+        }
+
+        return $this->passwordResetAt = $datetime;
     }
 
     /**

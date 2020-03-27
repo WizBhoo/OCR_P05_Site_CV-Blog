@@ -4,8 +4,9 @@
  * (c) Adrien PIERRARD
  */
 
-namespace MyWebsite\Utils;
+namespace MyWebsite\Utils\TwigExtension;
 
+use MyWebsite\Utils\Router;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

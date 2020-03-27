@@ -35,7 +35,7 @@ class FlashService
     /**
      * FlashService constructor.
      *
-     * @param SessionInterface $session
+     * @param SessionInterface|null $session
      */
     public function __construct(SessionInterface $session)
     {

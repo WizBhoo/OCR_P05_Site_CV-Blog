@@ -6,6 +6,7 @@
 
 namespace MyWebsite\Controller;
 
+use MyWebsite\Utils\Session\FlashService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -62,10 +63,15 @@ class BlogController extends AbstractController
         }
         if ($request->getMethod() === 'POST') {
             $params = $request->getParsedBody();
+            $user = $this->auth->getUser();
             $params['id'] = $post->getId();
+            $params['user_id'] = $user->getId();
             unset($params['_csrf']);
             $this->commentRepository->insertComment($params);
-            $this->flash->commentSuccess('Votre commentaire a bien été envoyé pour validation');
+            (new FlashService($this->session))
+                ->commentSuccess(
+                    'Votre commentaire a bien été envoyé pour validation'
+                );
 
             return $this->router->redirect('blog.home');
         }

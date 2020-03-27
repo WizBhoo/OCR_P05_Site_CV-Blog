@@ -4,7 +4,7 @@
  * (c) Adrien PIERRARD
  */
 
-namespace MyWebsite\Utils;
+namespace MyWebsite\Utils\TwigExtension;
 
 use Exception;
 use MyWebsite\Utils\Middleware\CsrfMiddleware;

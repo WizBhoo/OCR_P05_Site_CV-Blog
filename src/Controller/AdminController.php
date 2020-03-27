@@ -8,6 +8,7 @@ namespace MyWebsite\Controller;
 
 use Exception;
 use MyWebsite\Entity\Post;
+use MyWebsite\Utils\Session\FlashService;
 use MyWebsite\Utils\Validator\Validator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -44,14 +45,22 @@ class AdminController extends AbstractController
                 }
 
                 return $this->editPost($request);
+            case '/apiadmin/comments':
+                return $this->adminComments();
             case sprintf('/apiadmin/comment/%s', $id):
                 if ($request->getMethod() === 'DELETE') {
                     return $this->deleteComment($request);
                 }
 
                 return $this->editComment($request);
-            case '/apiadmin/comments':
-                return $this->adminComments();
+            case '/apiadmin/users':
+                return $this->adminUsers();
+            case sprintf('/apiadmin/user/activate/%s', $id):
+                return $this->activateUser($request);
+            case sprintf('/apiadmin/user/switch/%s', $id):
+                return $this->switchUserType($request);
+            case sprintf('/apiadmin/user/delete/%s', $id):
+                return $this->deleteUser($request);
             default:
                 throw new Exception('Route not found');
         }
@@ -78,7 +87,7 @@ class AdminController extends AbstractController
 
         return $this->renderer->renderView(
             'admin/adminPosts',
-            $params = $this->formParams(['items' => $items])
+            $params = $this->formParamsAuthors(['items' => $items])
         );
     }
 
@@ -93,7 +102,22 @@ class AdminController extends AbstractController
 
         return $this->renderer->renderView(
             'admin/adminComments',
-            $params = $this->formParams(['items' => $items])
+            $params = $this->formParamsAuthors(['items' => $items])
+        );
+    }
+
+    /**
+     * Route callable function adminUsers.
+     *
+     * @return string
+     */
+    public function adminUsers(): string
+    {
+        $users = $this->userRepository->findAllUser();
+
+        return $this->renderer->renderView(
+            'admin/adminUsers',
+            compact('users')
         );
     }
 
@@ -111,7 +135,8 @@ class AdminController extends AbstractController
             $validator = $this->getValidator($request);
             if ($validator->isValid()) {
                 $this->postRepository->insertPost($this->getParams($request, $item));
-                $this->flash->success('L\'article a bien été créé');
+                (new FlashService($this->session))
+                    ->success('L\'article a bien été créé');
 
                 return $this->router->redirect('admin.posts');
             }
@@ -121,7 +146,7 @@ class AdminController extends AbstractController
 
         return $this->renderer->renderView(
             'admin/createPost',
-            $params = $this->formParams(['item' => $item, 'errors' => $errors])
+            $params = $this->formParamsAuthors(['item' => $item, 'errors' => $errors])
         );
     }
 
@@ -140,8 +165,12 @@ class AdminController extends AbstractController
         if ($request->getMethod() === 'POST') {
             $validator = $this->getValidator($request);
             if ($validator->isValid()) {
-                $this->postRepository->updatePost($slug, $this->getParams($request, $item));
-                $this->flash->success('L\'article a bien été modifié');
+                $this->postRepository->updatePost(
+                    $slug,
+                    $this->getParams($request, $item)
+                );
+                (new FlashService($this->session))
+                    ->success('L\'article a bien été modifié');
 
                 return $this->router->redirect('admin.posts');
             }
@@ -159,7 +188,7 @@ class AdminController extends AbstractController
 
         return $this->renderer->renderView(
             'admin/editPost',
-            $params = $this->formParams(['item' => $item, 'errors' => $errors])
+            $params = $this->formParamsAuthors(['item' => $item, 'errors' => $errors])
         );
     }
 
@@ -173,9 +202,51 @@ class AdminController extends AbstractController
     public function editComment(ServerRequestInterface $request): ResponseInterface
     {
         $this->commentRepository->updateComment($request->getAttribute('id'));
-        $this->flash->success('Le commentaire a bien été approuvé et publié');
+        (new FlashService($this->session))
+            ->success('Le commentaire a bien été approuvé et publié');
 
         return $this->router->redirect('admin.comments');
+    }
+
+    /**
+     * Route callable function activateUser
+     *
+     * @param ServerRequestInterface $request
+     *
+     * @return ResponseInterface
+     */
+    public function activateUser(ServerRequestInterface $request): ResponseInterface
+    {
+        $this->userRepository->activateUser($request->getAttribute('id'));
+        (new FlashService($this->session))
+            ->success('Le compte a bien été activé');
+
+        return $this->router->redirect('admin.users');
+    }
+
+    /**
+     * Route callable function switchUserType
+     *
+     * @param ServerRequestInterface $request
+     *
+     * @return ResponseInterface
+     */
+    public function switchUserType(ServerRequestInterface $request): ResponseInterface
+    {
+        $params['id'] = $request->getAttribute('id');
+        $params['accountType'] = $this->userRepository
+            ->findUserById($params['id'])
+            ->getAccountType();
+        if ('user' === $params['accountType']) {
+            $params['accountType'] = 'admin';
+        } elseif ('admin' === $params['accountType']) {
+            $params['accountType'] = 'user';
+        }
+        $this->userRepository->switchAccountType($params);
+        (new FlashService($this->session))
+            ->success('Les droits de l\'utilisateur ont bien été mis à jour');
+
+        return $this->router->redirect('admin.users');
     }
 
     /**
@@ -190,7 +261,8 @@ class AdminController extends AbstractController
         $post = $this->postRepository->findPost($request->getAttribute('slug'));
         $this->postUpload->delete($post->getImage());
         $this->postRepository->deletePost($request->getAttribute('slug'));
-        $this->flash->success('L\'article a bien été supprimé');
+        (new FlashService($this->session))
+            ->success('L\'article a bien été supprimé');
 
         return $this->router->redirect('admin.posts');
     }
@@ -205,9 +277,26 @@ class AdminController extends AbstractController
     public function deleteComment(ServerRequestInterface $request): ResponseInterface
     {
         $this->commentRepository->deleteComment($request->getAttribute('id'));
-        $this->flash->success('Le commentaire a bien été supprimé');
+        (new FlashService($this->session))
+            ->success('Le commentaire a bien été supprimé');
 
         return $this->router->redirect('admin.comments');
+    }
+
+    /**
+     * Route callable function deleteUser
+     *
+     * @param ServerRequestInterface $request
+     *
+     * @return ResponseInterface
+     */
+    public function deleteUser(ServerRequestInterface $request): ResponseInterface
+    {
+        $this->userRepository->deleteUser($request->getAttribute('id'));
+        (new FlashService($this->session))
+            ->success('Le compte a bien été supprimé');
+
+        return $this->router->redirect('admin.users');
     }
 
     /**
@@ -219,15 +308,16 @@ class AdminController extends AbstractController
      */
     public function getValidator(ServerRequestInterface $request): Validator
     {
-        $params = array_merge($request->getParsedBody(), $request->getUploadedFiles());
+        $params = array_merge(
+            $request->getParsedBody(),
+            $request->getUploadedFiles()
+        );
         $validator = (new Validator($params))
             ->required('title', 'extract', 'content')
-            ->length('title', 2, 50)
+            ->length('title', 3, 50)
             ->length('extract', 10, 255)
             ->length('content', 10)
-            ->extension('image', ['jpg', 'png'])
-        ;
-
+            ->extension('image', ['jpg', 'png']);
         if (is_null($request->getAttribute('slug'))) {
             $validator->uploaded('image');
         }
@@ -245,28 +335,38 @@ class AdminController extends AbstractController
      */
     protected function getParams(ServerRequestInterface $request, Post $post): array
     {
-        $params = array_merge($request->getParsedBody(), $request->getUploadedFiles());
+        $params = array_merge(
+            $request->getParsedBody(),
+            $request->getUploadedFiles()
+        );
         $image = $this->postUpload->upload($params['image'], $post->getImage());
         if ($image) {
             $params['image'] = $image;
         } else {
             $params['image'] = $post->getImage();
         }
-        $params = array_filter($params, function ($key) {
-            return in_array($key, ['slug', 'title', 'user_id', 'extract', 'content', 'publishedAt', 'updatedAt', 'image']);
-        }, ARRAY_FILTER_USE_KEY);
+        $params = array_filter(
+            $params,
+            function ($key) {
+                return in_array(
+                    $key,
+                    ['slug', 'title', 'user_id', 'extract', 'content', 'publishedAt', 'updatedAt', 'image']
+                );
+            },
+            ARRAY_FILTER_USE_KEY
+        );
 
         return $params;
     }
 
     /**
-     * Allow to manage params sending to View
+     * Allow to manage authors param sending to View for "select" fields
      *
      * @param array $params
      *
      * @return array
      */
-    protected function formParams(array $params): array
+    protected function formParamsAuthors(array $params): array
     {
         $params['authors'] = $this->postRepository->findListAuthors();
 

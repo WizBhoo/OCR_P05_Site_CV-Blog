@@ -34,9 +34,9 @@
                         <div class="col-lg-4  col-md-4">
                             <div class="blog_info text-right">
                                 <ul class="blog_meta list">
-                                    <li><a href="#">{{ post.nameAuthor }}<i class="lnr lnr-user"></i></a></li>
-                                    <li><a href="#">Modifié le {{ post.updatedAt|date("d/m/Y à H:i") }}<i class="lnr lnr-calendar-full"></i></a></li>
-                                    <li><a href="#">Commenté {{ post.nbrComments }} fois<i class="lnr lnr-bubble"></i></a></li>
+                                    <li>{{ post.nameAuthor }}<i class="lnr lnr-user"></i></li>
+                                    <li>Modifié le {{ post.updatedAt|date("d/m/Y à H:i") }}<i class="lnr lnr-calendar-full"></i></li>
+                                    <li>Commenté {{ post.nbrComments }} fois<i class="lnr lnr-bubble"></i></li>
                                 </ul>
                             </div>
                         </div>
@@ -46,13 +46,18 @@
                                 {{ post.content | nl2br }}
                             </p>
                         </div>
-                        <div class="col-lg-12">
-                            <div class="quotes text-justify">
-                                Cet article vous a plu ? Vous souhaitez laisser un commentaire ?<br>
-                                Pour cela vous devez au préalable créer un compte sur mon site qui vous donnera accès
-                                au formulaire pour poster votre commentaire en bas de cette page.
+                        {% if not current_user() %}
+                            <div class="col-lg-12">
+                                <div class="quotes text-center">
+                                    Cet article vous a plu ? Vous souhaitez laisser un commentaire ?<br>
+                                    Pour cela vous devez au préalable
+                                    <a href="{{ path('auth.login') }}">
+                                        vous connecter
+                                    </a>
+                                    sur mon site afin d'avoir accès au formulaire de commentaire en bas de cette page.
+                                </div>
                             </div>
-                        </div>
+                        {% endif %}
                     </div>
                     <div class="comments-area">
                         <h4>Commenté {{ post.nbrComments }} fois</h4>
@@ -62,7 +67,7 @@
                                     <div class="single-comment justify-content-between d-flex">
                                         <div class="user justify-content-between d-flex">
                                             <div class="desc">
-                                                <h5><a href="#">{{ comment.nameAuthor }}</a></h5>
+                                                <h5>{{ comment.nameAuthor }}</h5>
                                                 <p class="date">Le {{ comment.commentedAt|date("d/m/Y à H:i") }}</p>
                                                 <p class="comment text-justify">
                                                     {{ comment.content | nl2br }}
@@ -74,25 +79,27 @@
                             {% endif %}
                         {% endfor %}
                     </div>
-                    <div class="comment-form">
-                        <h4>Laisser un commentaire</h4>
-                        <form action="{{ path('blog.show') }}"
-                              method="post" enctype="multipart/form-data" class="form-horizontal">
-                            {{ csrf_input() }}
-                            <div class="form-group">
-                                <label for="content" class="form-control-label">
-                                    Votre commentaire sera validé par l'administrateur avant d'être publié.
-                                </label>
-                                <textarea class="form-control mb-10" rows="5" id="content" name="content"
-                                          placeholder="Commentaire..." onfocus="this.placeholder = ''"
-                                          onblur="this.placeholder = 'Commentaire...'" required=""></textarea>
-                                <small class="form-text text-muted">{{ errors }}</small>
-                            </div>
-                            <button type="submit" class="primary-btn primary_btn">
-                                <span>Commenter</span>
-                            </button>
-                        </form>
-                    </div>
+                    {% if current_user() %}
+                        <div class="comment-form">
+                            <h4>Laisser un commentaire</h4>
+                            <form action="{{ path('blog.show') }}"
+                                  method="post" enctype="multipart/form-data" class="form-horizontal">
+                                {{ csrf_input() }}
+                                <div class="form-group">
+                                    <label for="content" class="form-control-label">
+                                        Votre commentaire sera contrôlé par l'administrateur avant d'être publié.
+                                    </label>
+                                    <textarea class="form-control mb-10" rows="5" id="content" name="content"
+                                              placeholder="Commentaire..." onfocus="this.placeholder = ''"
+                                              onblur="this.placeholder = 'Commentaire...'" required=""></textarea>
+                                    <small class="form-text text-muted">{{ errors }}</small>
+                                </div>
+                                <button type="submit" class="primary-btn primary_btn">
+                                    <span>Commenter</span>
+                                </button>
+                            </form>
+                        </div>
+                    {%  endif %}
                 </div>
             </div>
         </div>
