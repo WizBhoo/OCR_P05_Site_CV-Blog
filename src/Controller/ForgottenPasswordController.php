@@ -33,7 +33,7 @@ class ForgottenPasswordController extends AbstractController
         if ($validator->isValid()) {
             $user = $this->userRepository->findUser($params['email']);
             $token = $this->userRepository->resetPassword($user->getId());
-            $this->mailer->sendMail(
+            $this->mailer->sendResetPassMail(
                 $user->getEmail(),
                 ['id' => $user->getId(), 'token' => $token]
             );

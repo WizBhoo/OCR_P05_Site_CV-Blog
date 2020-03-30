@@ -32,7 +32,7 @@ class ResetPasswordController extends AbstractController
         $passwordResetAt = $user->setPasswordResetAt($user->getPasswordResetAt());
         if ($user->getPasswordReset() !== null
             && $user->getPasswordReset() === $request->getAttribute('token')
-            && time() - $passwordResetAt->getTimestamp() < 4200
+            && time() - $passwordResetAt->getTimestamp() < 7800
         ) {
             if ($request->getMethod() === 'GET') {
                 return $this->renderer->renderView('auth/reset');
