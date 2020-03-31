@@ -2597,6 +2597,10 @@ h6 {
     left: 10%; } }
 .about-area .main-title h1:after {
   left: 5px; }
+#about-me a {
+  color: #00b0f0 !important; }
+#about-me a:hover {
+  color: #000000 !important; }
 @media (max-width: 1024px) {
   .about-area .main-title {
     padding-bottom: 0; } }
