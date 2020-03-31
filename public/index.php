@@ -30,7 +30,7 @@ $app->pipe(Whoops::class)
     ->pipe(CsrfMiddleware::class)
     ->pipe(RouterMiddleware::class)
     ->pipe(DispatcherMiddleware::class)
-    ->pipe(NotFoundMiddleware::class)       ;
+    ->pipe(NotFoundMiddleware::class);
 
 try {
     $response = $app->run(ServerRequest::fromGlobals());

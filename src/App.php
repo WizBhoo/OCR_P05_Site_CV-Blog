@@ -8,18 +8,18 @@ namespace MyWebsite;
 
 use DI\ContainerBuilder;
 use Exception;
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use MyWebsite\Utils\Middleware\CombinedMiddleware;
 use MyWebsite\Utils\Middleware\RoutePrefixedMiddleware;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 /**
  * Class App.
  */
-class App implements DelegateInterface
+class App implements RequestHandlerInterface
 {
     /**
      * A ContainerInterface instance.
@@ -91,7 +91,7 @@ class App implements DelegateInterface
     {
         $this->container = $this->getContainer();
 
-        return $this->process($request);
+        return $this->handle($request);
     }
 
     /**
@@ -103,7 +103,7 @@ class App implements DelegateInterface
      *
      * @throws Exception
      */
-    public function process(ServerRequestInterface $request): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $this->index++;
         if ($this->index > 1) {

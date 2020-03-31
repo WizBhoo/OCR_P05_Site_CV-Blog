@@ -82,7 +82,7 @@
                     {% if current_user() %}
                         <div class="comment-form">
                             <h4>Laisser un commentaire</h4>
-                            <form action="{{ path('blog.show') }}"
+                            <form action="{{ path('blog.show', {slug: slug}) }}"
                                   method="post" enctype="multipart/form-data" class="form-horizontal">
                                 {{ csrf_input() }}
                                 <div class="form-group">

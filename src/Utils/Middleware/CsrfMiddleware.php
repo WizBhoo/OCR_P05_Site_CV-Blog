@@ -8,11 +8,11 @@ namespace MyWebsite\Utils\Middleware;
 
 use ArrayAccess;
 use Exception;
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use MyWebsite\Utils\Exception\CsrfInvalidException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use TypeError;
 
 /**
@@ -68,14 +68,14 @@ class CsrfMiddleware implements MiddlewareInterface
     /**
      * Process CSRF check on request before sending response
      *
-     * @param ServerRequestInterface $request
-     * @param DelegateInterface      $delegate
+     * @param ServerRequestInterface  $request
+     * @param RequestHandlerInterface $handler
      *
      * @return ResponseInterface
      *
      * @throws CsrfInvalidException
      */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         if (in_array($request->getMethod(), ['POST', 'PUT', 'DELETE'])) {
             $params = $request->getParsedBody() ?: [];
@@ -88,11 +88,11 @@ class CsrfMiddleware implements MiddlewareInterface
                 }
                 $this->useToken($params[$this->formKey]);
 
-                return $delegate->process($request);
+                return $handler->handle($request);
             }
         }
 
-        return $delegate->process($request);
+        return $handler->handle($request);
     }
 
     /**
@@ -178,7 +178,8 @@ class CsrfMiddleware implements MiddlewareInterface
     {
         if (!is_array($session) && !$session instanceof ArrayAccess) {
             throw new TypeError(
-                'La session passée au middleware CSRF n\'est pas traitable comme un tableau'
+                'La session passée au middleware 
+                CSRF n\'est pas traitable comme un tableau'
             );
         }
     }

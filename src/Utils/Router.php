@@ -7,6 +7,7 @@
 namespace MyWebsite\Utils;
 
 use GuzzleHttp\Psr7\Response;
+use MyWebsite\Utils\Middleware\CallableMiddleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Expressive\Router\FastRouteRouter;
@@ -48,7 +49,7 @@ class Router
         $this->router->addRoute(
             new ZendRoute(
                 $path,
-                $callableFunction,
+                new CallableMiddleware($callableFunction),
                 ['GET'],
                 $routeName
             )
@@ -69,7 +70,7 @@ class Router
         $this->router->addRoute(
             new ZendRoute(
                 $path,
-                $callableFunction,
+                new CallableMiddleware($callableFunction),
                 ['POST'],
                 $routeName
             )
@@ -90,7 +91,7 @@ class Router
         $this->router->addRoute(
             new ZendRoute(
                 $path,
-                $callableFunction,
+                new CallableMiddleware($callableFunction),
                 ['DELETE'],
                 $routeName
             )
@@ -103,13 +104,15 @@ class Router
      * @param string          $path
      * @param string|callable $callableFunction
      * @param string|null     $routeName
+     *
+     * @return void
      */
     public function any(string $path, $callableFunction, ?string $routeName = null): void
     {
         $this->router->addRoute(
             new ZendRoute(
                 $path,
-                $callableFunction,
+                new CallableMiddleware($callableFunction),
                 ['DELETE', 'POST', 'GET', 'PUT'],
                 $routeName
             )
@@ -129,7 +132,8 @@ class Router
         if ($result->isSuccess()) {
             return new Route(
                 $result->getMatchedRouteName(),
-                $result->getMatchedMiddleware(),
+                $result->getMatchedRoute()
+                    ->getMiddleware()->getCallable(),
                 $result->getMatchedParams()
             );
         }

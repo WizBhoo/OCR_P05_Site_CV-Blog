@@ -9,12 +9,15 @@ namespace MyWebsite\Utils\Middleware;
 use GuzzleHttp\Psr7\Response;
 use MyWebsite\Utils\RendererInterface;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 /**
  * Class MethodMiddleware.
  */
-class NotFoundMiddleware
+class NotFoundMiddleware implements MiddlewareInterface
 {
     /**
      * A ContainerInterface Injection
@@ -36,11 +39,12 @@ class NotFoundMiddleware
     /**
      * Return a 404 Response in case of not route matched
      *
-     * @param ServerRequestInterface $request
+     * @param ServerRequestInterface  $request
+     * @param RequestHandlerInterface $handler
      *
-     * @return Response
+     * @return ResponseInterface
      */
-    public function __invoke(ServerRequestInterface $request): Response
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         return new Response(
             404,

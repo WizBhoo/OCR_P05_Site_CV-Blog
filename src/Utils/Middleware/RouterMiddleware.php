@@ -7,12 +7,15 @@
 namespace MyWebsite\Utils\Middleware;
 
 use MyWebsite\Utils\Router;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 /**
  * Class MethodMiddleware.
  */
-class RouterMiddleware
+class RouterMiddleware implements MiddlewareInterface
 {
     /**
      * A Router Instance
@@ -34,16 +37,16 @@ class RouterMiddleware
     /**
      * Match route and Add params to request
      *
-     * @param ServerRequestInterface $request
-     * @param callable               $next
+     * @param ServerRequestInterface  $request
+     * @param RequestHandlerInterface $handler
      *
-     * @return mixed
+     * @return ResponseInterface
      */
-    public function __invoke(ServerRequestInterface $request, callable $next)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $route = $this->router->match($request);
         if (is_null($route)) {
-            return $next($request);
+            return $handler->handle($request);
         }
         // To add attributes to the request.
         $params = $route->getParams();
@@ -56,6 +59,6 @@ class RouterMiddleware
         );
         $request = $request->withAttribute(get_class($route), $route);
 
-        return $next($request);
+        return $handler->handle($request);
     }
 }

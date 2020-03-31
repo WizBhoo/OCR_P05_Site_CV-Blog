@@ -6,11 +6,11 @@
 
 namespace MyWebsite\Utils\Middleware;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 /**
  * Class CombinedMiddleware.
@@ -46,19 +46,19 @@ class CombinedMiddleware implements MiddlewareInterface
     /**
      * Allow to call multiple middleware and return appropriate Response
      *
-     * @param ServerRequestInterface $request
-     * @param DelegateInterface      $delegate
+     * @param ServerRequestInterface  $request
+     * @param RequestHandlerInterface $handler
      *
      * @return ResponseInterface
      */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $delegate = new CombinedMiddlewareDelegate(
+        $handler = new CombinedMiddlewareDelegate(
             $this->container,
             $this->middlewares,
-            $delegate
+            $handler
         );
 
-        return $delegate->process($request);
+        return $handler->handle($request);
     }
 }

@@ -6,11 +6,11 @@
 
 namespace MyWebsite\Utils\Middleware;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use MyWebsite\Utils\RendererInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 /**
  * Class RendererRequestMiddleware.
@@ -37,12 +37,12 @@ class RendererRequestMiddleware implements MiddlewareInterface
     /**
      * Set up GLOBAL var "domain" and add it to renderer to be available in views
      *
-     * @param ServerRequestInterface $request
-     * @param DelegateInterface      $delegate
+     * @param ServerRequestInterface  $request
+     * @param RequestHandlerInterface $handler
      *
      * @return ResponseInterface|void
      */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $domain = sprintf(
             '%s://%s%s',
@@ -56,6 +56,6 @@ class RendererRequestMiddleware implements MiddlewareInterface
 
         $this->renderer->addGlobal('domain', $domain);
 
-        return $delegate->process($request);
+        return $handler->handle($request);
     }
 }
