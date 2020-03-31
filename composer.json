@@ -15,14 +15,14 @@
     "require": {
         "guzzlehttp/psr7": "^1.6",
         "http-interop/response-sender": "^1.0",
-        "zendframework/zend-expressive-fastroute": "^3.0",
         "twig/twig": "^3.0",
         "php-di/php-di": "^6.0",
         "ext-pdo": "*",
         "cocur/slugify": "^4.0",
         "intervention/image": "^2.5",
         "swiftmailer/swiftmailer": "^6.0",
-        "ramsey/uuid": "^4.0"
+        "ramsey/uuid": "^4.0",
+        "mezzio/mezzio-fastroute": "^3.0"
     },
     "require-dev": {
         "middlewares/whoops": "^1.2"

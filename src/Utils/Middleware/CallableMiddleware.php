@@ -37,9 +37,9 @@ class CallableMiddleware implements MiddlewareInterface
     /**
      * Getter callable
      *
-     * @return string
+     * @return mixed
      */
-    public function getCallable(): string
+    public function getCallable()
     {
         return $this->callable;
     }
