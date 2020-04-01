@@ -34,7 +34,7 @@
                         <div class="info_item">
                             <i class="lnr lnr-phone-handset"></i>
                             <h6>+33 (6) 85 21 60 46</h6>
-                            <p>Merci de laisser un message<br>avec vos coordonnées ;-)</p>
+                            <p>Merci de laisser un message avec vos coordonnées ;-)</p>
                         </div>
                         <div class="info_item">
                             <i class="lnr lnr-envelope"></i>
@@ -44,9 +44,12 @@
                     </div>
                 </div>
                 <div class="col-lg-9">
+                    <div class="main-title">
+                        <h1>Formulaire de contact</h1>
+                    </div>
                     <form class="row contact_form" action="{{ path('site.contact') }}" method="post" id="contactForm">
                         {{ csrf_input() }}
-                        <div class="col-md-5 offset-1">
+                        <div class="col-md-5 offset-md-1">
                             <div class="form-group">
                                 <label for="name">Nom & Prénom :</label>
                                 {{ field('name', contact.name, {class: 'form-control'}) }}
@@ -56,7 +59,7 @@
                                 {{ field('email', contact.email, {type: 'email', class: 'form-control'}) }}
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-lg-5 col-md-6 offset-lg-1">
                             <div class="form-group">
                                 <label for="subject">Sujet :</label>
                                 {{ field('subject', contact.subject, {class: 'form-control'}) }}
@@ -69,7 +72,7 @@
                         <div class="col-md-12 text-right">
                             {% if flash('success') %}
                                 <div class="row">
-                                    <div class="col-md-4 offset-8 text-center">
+                                    <div class="col-lg-5 col-md-6 offset-lg-7 offset-md-6 text-center">
                                         <div class="alert-success">
                                             {{ flash('success') }}
                                         </div>
@@ -78,7 +81,7 @@
                             {% endif %}
                             {% if flash('error') %}
                                 <div class="row">
-                                    <div class="col-md-7 offset-5 text-center">
+                                    <div class="col-lg-8 col-md-9 offset-lg-4 offset-md-3 text-center">
                                         <div class="alert-danger">
                                             {{ flash('error') }}
                                         </div>

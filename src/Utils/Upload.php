@@ -152,9 +152,8 @@ class Upload
     protected function generateFormats(string $targetPath): void
     {
         foreach ($this->formats as $format => $size) {
-            $info = pathinfo($targetPath);
-            $destination = $this->getPathWithSuffix($targetPath, $format);
             $manager = new ImageManager(['driver' => 'gd']);
+            $destination = $this->getPathWithSuffix($targetPath, $format);
             [$width , $height] = $size;
             $manager->make($targetPath)->fit($width, $height)->save($destination);
         }

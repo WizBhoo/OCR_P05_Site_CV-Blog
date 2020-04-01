@@ -7,6 +7,7 @@
 namespace MyWebsite\Utils\Middleware;
 
 use GuzzleHttp\Psr7\Response;
+use MyWebsite\Utils\RendererInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;

@@ -212,6 +212,10 @@ iframe {
   background: transparent;
   padding: 0 5px;
 }
+.wrap-input100 label {
+  font-size: 15px;
+  color: #999999;
+}
 
 /*---------------------------------------------*/
 .focus-input100 {

@@ -402,7 +402,7 @@ button:focus {
   line-height: 46px; }
 .banner_area .banner_inner .banner_content .page_link a {
   font-size: 14px;
-  color: #000;
+  color: #ffffff;
   font-family: "Roboto", sans-serif;
   margin-right: 14px;
   position: relative; }
@@ -822,7 +822,7 @@ button:focus {
   color: #222222;
   font-size: 16px;
   font-weight: 600;
-  padding-left: 15px;
+  padding-left: 26px !important;
   line-height: 20px;
   vertical-align: middle; }
 
@@ -1275,7 +1275,10 @@ button:focus {
 .mapBox {
   height: 420px;
   margin-top: 80px; }
-
+.contact_area .main-title {
+  margin-bottom: 30px; }
+.contact_info {
+  padding-bottom: 35px; }
 .contact_info .info_item {
   position: relative;
   padding-left: 45px; }
@@ -2691,7 +2694,7 @@ h6 {
   font-style: italic;
   margin-bottom: 40px;
   line-height: 36px;
-  padding-right: 35px;
+  padding-right: 15px;
   text-align: justify;}
 @media (max-width: 767px) {
   .single_testimonial .testimonial_content p {
@@ -2764,9 +2767,9 @@ h6 {
 ============================================================================================ */
 /*---------------------------------------------------- */
 /*----------------------------------------------------*/
-@media (max-width: 991px) {
-  /* Main Menu Area css
+/* Main Menu Area css
 ============================================================================================ */
+@media (max-width: 991px) {
   .navbar-toggler {
     border: none;
     border-radius: 0;

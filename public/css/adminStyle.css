@@ -3155,8 +3155,8 @@ section {
 
 @media (min-width: 992px) and (max-width: 1519px) {
     .overview-item {
-        padding-left: 15px;
-        padding-right: 15px;
+        padding-left: 10px;
+        padding-right: 0;
     }
 }
 
