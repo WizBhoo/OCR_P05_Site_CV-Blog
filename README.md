@@ -8,6 +8,7 @@ My WebSite is Online and you can visit it : <https://adrien-pierrard.fr>
 * IDE used : PhpStorm
 * I use a Docker Stack as personal local development environment but you can use your own environment.
 * Both method to install the project are described bellow.
+* NOTE that only OCR Evaluators have access to my DB file (see project renderings) with a set of data for demo.
 
 -------------------------------------------------------------------------------------------------------------------------------------
 
@@ -29,16 +30,18 @@ Follow each following steps :
 ```
 https://github.com/WizBhoo/OCR_P05_Site_CV-Blog.git
 ```
-* You need to create a dot env file to setup your DB environment variable for connection.
+* You need to edit the ".env" file to setup your DB environment variable for connection.
 * You need also to setup inside ENV variables for SwiftMailer to allow sending contact message 
 or use the forgotten password form to send a reset password email for user account.
-* Launch your local environment and create the database following UML schemas.
+* If you prefer you can copy the ".env" file and setup your credentials in a ".env.local" file.
+* Launch your local environment and create the database following UML schemas (only OCR Evaluators 
+have access to my DB file (see project renderings) with a set of data for demo).
 * From your terminal, go to the project directory.
 * I used some package with composer so don't forget to tape those command lines in you terminal :
 ```
 composer install
 composer update
-composer dump-autload
+composer dump-autoload
 ```
 * Well done ! The project is installed so you just have to go to your localhost home page.
 
@@ -57,9 +60,10 @@ Once you have well installed my Docker Stack, follow each following steps :
 ```
 https://github.com/WizBhoo/OCR_P05_Site_CV-Blog.git
 ```
-* You need to create a dot env file to setup your DB environment variable for connection.
+* You need to edit the ".env" file to setup your DB environment variable for connection.
 * You need also to setup inside ENV variables for SwiftMailer to allow sending contact message 
-or allow the use of the forgotten password form to send a reset password email for user account.
+or use the forgotten password form to send a reset password email for user account.
+* If you prefer you can copy the ".env" file and setup your credentials in a ".env.local" file.
 * From your terminal go to the Docker directory and launch Docker using those command lines :
 ```
 make build
@@ -69,15 +73,16 @@ make start or make up
 You can also use "make help" to see what "make" command are available.
 </blockquote>
 
-* Go to <http://pma.localhost> to access to PHPMyAdmin and create the database following UML schemas.
+* Go to <http://pma.localhost> to access to PHPMyAdmin and create the database following UML schemas 
+(only OCR Evaluators have access to my DB file (see project renderings) with a set of data for demo).
 * From your terminal, go to the php_project directory.
 * I used some package with composer so don't forget to tape those command lines in you terminal :
 ```
 composer install
 composer update
-composer dump-autload
+composer dump-autoload
 ```
-* Well done ! The project is installed so you just have to go to <htt://mon-site.localhost> home page.
+* Well done ! The project is installed so you just have to go to <http://mon-site.localhost> home page.
 
 -------------------------------------------------------------------------------------------------------------------------------------
 

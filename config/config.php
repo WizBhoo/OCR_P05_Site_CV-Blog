@@ -17,10 +17,15 @@ use MyWebsite\Utils\TwigExtension\RouterTwigExtension;
 use MyWebsite\Utils\Session\PHPSession;
 use MyWebsite\Utils\Session\SessionInterface;
 use MyWebsite\Utils\TwigRendererFactory;
+use Symfony\Component\Dotenv\Dotenv;
 
 use function DI\create;
 use function DI\factory;
 use function DI\get;
+
+//Dot Env Loader
+$dotenv = new Dotenv();
+$dotenv->loadEnv('../.env');
 
 return [
     //Router config keys

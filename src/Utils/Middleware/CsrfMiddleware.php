@@ -21,11 +21,11 @@ use TypeError;
 class CsrfMiddleware implements MiddlewareInterface
 {
     /**
-     * A csrf key
+     * A session in ArrayAccess
      *
-     * @var string
+     * @var ArrayAccess
      */
-    protected $formKey;
+    protected $session;
 
     /**
      * A csrf key in session
@@ -42,11 +42,11 @@ class CsrfMiddleware implements MiddlewareInterface
     protected $limit;
 
     /**
-     * A session in ArrayAccess
+     * A csrf key
      *
-     * @var ArrayAccess
+     * @var string
      */
-    protected $session;
+    protected $formKey;
 
     /**
      * CsrfMiddleware constructor.
@@ -60,9 +60,9 @@ class CsrfMiddleware implements MiddlewareInterface
     {
         $this->validSession($session);
         $this->session = &$session;
+        $this->sessionKey = $sessionKey;
         $this->limit = $limit;
         $this->formKey = $formKey;
-        $this->sessionKey = $sessionKey;
     }
 
     /**

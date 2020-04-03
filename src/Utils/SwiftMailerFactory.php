@@ -25,12 +25,12 @@ class SwiftMailerFactory
     public function __invoke(ContainerInterface $container): Swift_Mailer
     {
         $transport = (new Swift_SmtpTransport(
-            'smtp.googlemail.com',
-            465,
-            'ssl'
+            $_ENV['SM_HOST'],
+            $_ENV['SM_PORT'],
+            $_ENV['SM_ENCRYPT']
         ))
-            ->setUsername('wizbhoo.dev@gmail.com')
-            ->setPassword('0703Or1onAPEldrazil6$')
+            ->setUsername($_ENV['SM_USER'])
+            ->setPassword($_ENV['SM_PASS'])
         ;
 
         return new Swift_Mailer($transport);
