@@ -6,7 +6,6 @@
 
 namespace MyWebsite\Utils;
 
-use Psr\Container\ContainerInterface;
 use Swift_Mailer;
 use Swift_SmtpTransport;
 
@@ -18,11 +17,9 @@ class SwiftMailerFactory
     /**
      * SwiftMailerFactory __invoke.
      *
-     * @param ContainerInterface $container
-     *
      * @return Swift_Mailer
      */
-    public function __invoke(ContainerInterface $container): Swift_Mailer
+    public function __invoke(): Swift_Mailer
     {
         $transport = (new Swift_SmtpTransport(
             $_ENV['SM_HOST'],

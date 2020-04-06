@@ -81,15 +81,14 @@ class CsrfMiddleware implements MiddlewareInterface
             $params = $request->getParsedBody() ?: [];
             if (!array_key_exists($this->formKey, $params)) {
                 $this->reject();
-            } else {
-                $csrfList = $this->session[$this->sessionKey] ?? [];
-                if (!in_array($params[$this->formKey], $csrfList)) {
-                    $this->reject();
-                }
-                $this->useToken($params[$this->formKey]);
-
-                return $handler->handle($request);
             }
+            $csrfList = $this->session[$this->sessionKey] ?? [];
+            if (!in_array($params[$this->formKey], $csrfList)) {
+                $this->reject();
+            }
+            $this->useToken($params[$this->formKey]);
+
+            return $handler->handle($request);
         }
 
         return $handler->handle($request);

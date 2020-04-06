@@ -42,7 +42,7 @@ class BlogController extends AbstractController
 
         return $this->renderer->renderView(
             'blog/blogHome',
-            $params = compact('posts')
+            compact('posts')
         );
     }
 
@@ -56,7 +56,7 @@ class BlogController extends AbstractController
     public function show(ServerRequestInterface $request)
     {
         $params = $this->getParams($request);
-        if (is_null($params['post'])) {
+        if (null === $params['post']) {
             return $this->renderer->renderView('site/404');
         }
         if ($request->getMethod() === 'POST') {

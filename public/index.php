@@ -16,7 +16,7 @@ use MyWebsite\Utils\Middleware\RouterMiddleware;
 
 use function Http\Response\send;
 
-$app = new App(sprintf("%s/config/config.php", dirname(__DIR__)));
+$app = new App("../config/config.php");
 $container = $app->getContainer();
 $app->pipe(Whoops::class)
     ->pipe(ForbiddenMiddleware::class)

@@ -45,7 +45,7 @@ class RouterMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $route = $this->router->match($request);
-        if (is_null($route)) {
+        if (null === $route) {
             return $handler->handle($request);
         }
         // To add attributes to the request.

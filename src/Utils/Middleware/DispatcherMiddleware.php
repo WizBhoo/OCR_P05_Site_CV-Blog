@@ -46,7 +46,7 @@ class DispatcherMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $route = $request->getAttribute(Route::class);
-        if (is_null($route)) {
+        if (null === $route) {
             return $handler->handle($request);
         }
         $callback = $route->getCallback();

@@ -70,7 +70,7 @@ class CombinedMiddlewareDelegate implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $middleware = $this->getMiddleware();
-        if (!is_null($middleware) && is_callable($middleware)) {
+        if (null !== $middleware && is_callable($middleware)) {
             $response = call_user_func_array(
                 $middleware,
                 [$request, [$this, 'handle']]
@@ -100,9 +100,11 @@ class CombinedMiddlewareDelegate implements RequestHandlerInterface
                 $middleware = $this->container->get(
                     $this->middlewares[$this->index]
                 );
-            } else {
-                $middleware = $this->middlewares[$this->index];
+                $this->index++;
+
+                return $middleware;
             }
+            $middleware = $this->middlewares[$this->index];
             $this->index++;
 
             return $middleware;

@@ -48,7 +48,7 @@ class LoggedInMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $user = $this->auth->getUser();
-        if (is_null($user)) {
+        if (null === $user) {
             throw new NotConnectedException();
         }
 

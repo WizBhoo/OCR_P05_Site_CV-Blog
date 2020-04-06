@@ -121,7 +121,7 @@ button:focus {
 @media (max-width: 767px) {
   .main-title h1 {
     font-size: 36px;
-    padding-bottom: 0 !important; } }
+    padding-bottom: 0; } }
 .main-title h1:before {
   position: absolute;
   left: 50%;
@@ -164,7 +164,7 @@ button:focus {
   font-weight: 500;
   line-height: 46px;
   padding: 0 40px;
-  outline: none !important;
+  outline: none;
   text-align: center;
   text-transform: capitalize;
   border: 2px solid #00b0f0;
@@ -271,8 +271,8 @@ button:focus {
   background: #00b0f0;
   color: #fec1a5; }
 #logout {
-  background: transparent !important;
-  border: none !important;
+  background: transparent;
+  border: none;
 }
 @media (min-width: 992px) {
   .header_area .navbar .nav .nav-item.submenu:hover ul {
@@ -333,7 +333,7 @@ button:focus {
 }
 @media (max-width: 991px) {
   .banner-area .fullscreen {
-    height: 600px !important; } }
+    height: 600px; } }
 
 .banner-content {
   text-align: left; }
@@ -559,9 +559,9 @@ button:focus {
   width: 97px;
   display: inline-block; }
 .portfolio_details_inner .portfolio_right_text .list li a {
-  color: #00b0f0 !important; }
+  color: #00b0f0; }
 .portfolio_details_inner .portfolio_right_text .list li a:hover {
-  color: #000 !important; }
+  color: #000; }
 .portfolio_details_inner .portfolio_right_text .list li:last-child {
   margin-bottom: 0; }
 .portfolio_details_inner .portfolio_right_btn {
@@ -822,7 +822,7 @@ button:focus {
   color: #222222;
   font-size: 16px;
   font-weight: 600;
-  padding-left: 26px !important;
+  padding-left: 26px;
   line-height: 20px;
   vertical-align: middle; }
 
@@ -1343,7 +1343,7 @@ button:focus {
   position: absolute;
   top: 36%;
   left: 50%;
-  transform: translateX(-50%) translateY(-50%) !important;
+  transform: translateX(-50%) translateY(-50%);
   margin: 0;
   max-width: 500px;
   width: 100%; }
@@ -1853,9 +1853,9 @@ h6 {
 
 .single-gallery-image {
   margin-top: 30px;
-  background-repeat: no-repeat !important;
-  background-position: center center !important;
-  background-size: cover !important;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
   height: 200px;
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
@@ -1872,7 +1872,7 @@ h6 {
 .unordered-list li {
   position: relative;
   padding-left: 30px;
-  line-height: 1.82em !important; }
+  line-height: 1.82em; }
 
 .unordered-list li:before {
   content: "";
@@ -1892,7 +1892,7 @@ h6 {
   list-style-type: decimal-leading-zero;
   color: #f8b600;
   font-weight: 500;
-  line-height: 1.82em !important; }
+  line-height: 1.82em; }
 
 .ordered-list li span {
   font-weight: 300;
@@ -1903,7 +1903,7 @@ h6 {
   list-style-type: lower-alpha;
   color: #f8b600;
   font-weight: 500;
-  line-height: 1.82em !important; }
+  line-height: 1.82em; }
 
 .ordered-list-alpha li span {
   font-weight: 300;
@@ -1914,7 +1914,7 @@ h6 {
   list-style-type: lower-roman;
   color: #f8b600;
   font-weight: 500;
-  line-height: 1.82em !important; }
+  line-height: 1.82em; }
 
 .ordered-list-roman li span {
   font-weight: 300;
@@ -2068,7 +2068,7 @@ h6 {
   border: none;
   border-radius: 0;
   height: 40px;
-  background: #f9f9ff !important;
+  background: #f9f9ff;
   padding-left: 45px;
   padding-right: 40px;
   width: 100%; }
@@ -2133,9 +2133,9 @@ h6 {
 .about-area .main-title h1:after {
   left: 5px; }
 #about-me a {
-  color: #00b0f0 !important; }
+  color: #00b0f0; }
 #about-me a:hover {
-  color: #000000 !important; }
+  color: #000000; }
 @media (max-width: 1024px) {
   .about-area .main-title {
     padding-bottom: 0; } }

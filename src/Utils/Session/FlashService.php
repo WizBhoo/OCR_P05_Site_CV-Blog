@@ -93,7 +93,7 @@ class FlashService
      */
     public function get(string $type): ?string
     {
-        if (is_null($this->messages)) {
+        if (null === $this->messages) {
             $this->messages = $this->session->get(self::SESSION_KEY, []);
             $this->session->delete(self::SESSION_KEY);
         }

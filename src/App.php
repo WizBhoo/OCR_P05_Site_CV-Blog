@@ -71,9 +71,8 @@ class App implements RequestHandlerInterface
     {
         if (null === $middleware) {
             $this->middlewares[] = $routePrefix;
-        } else {
-            $this->middlewares[] = new RoutePrefixedMiddleware($this->getContainer(), $routePrefix, $middleware);
         }
+        $this->middlewares[] = new RoutePrefixedMiddleware($this->getContainer(), $routePrefix, $middleware);
 
         return $this;
     }

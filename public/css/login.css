@@ -7,9 +7,15 @@
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
 
-.p-b-26 {padding-bottom: 26px;}
-.p-b-48 {padding-bottom: 48px;}
-.p-t-115 {padding-top: 115px;}
+.p-b-26 {
+  padding-bottom: 26px;
+}
+.p-b-48 {
+  padding-bottom: 48px;
+}
+.p-t-115 {
+  padding-top: 115px;
+}
 
 * {
   margin: 0;
@@ -218,7 +224,7 @@ iframe {
 }
 
 /*---------------------------------------------*/
-.focus-input100 {
+.container.focus-input100 {
   position: absolute;
   display: block;
   width: 100%;
@@ -228,7 +234,7 @@ iframe {
   pointer-events: none;
 }
 
-.focus-input100::before {
+.container.focus-input100::before {
   content: "";
   display: block;
   position: absolute;
@@ -249,7 +255,7 @@ iframe {
   background: linear-gradient(left, #00b0f0, #fec1a5);
 }
 
-.focus-input100::after {
+.container.focus-input100::after {
   font-family: "Poppins", sans-serif;
   font-size: 15px;
   color: #999999;
@@ -339,7 +345,7 @@ iframe {
   padding-top: 13px;
 }
 
-.wrap-login100-form-btn {
+.container.wrap-login100-form-btn {
   width: 100%;
   display: block;
   position: relative;
@@ -349,7 +355,7 @@ iframe {
   margin: 0 auto;
 }
 
-.login100-form-bgbtn {
+.container.login100-form-bgbtn {
   position: absolute;
   z-index: -1;
   width: 300%;
@@ -368,7 +374,7 @@ iframe {
   transition: all 0.4s;
 }
 
-.login100-form-btn {
+.container.login100-form-btn {
   font-family: "Poppins", sans-serif;
   font-size: 15px;
   color: #fff;
@@ -387,7 +393,7 @@ iframe {
   height: 50px;
 }
 
-.wrap-login100-form-btn:hover .login100-form-bgbtn {
+.container.wrap-login100-form-btn:hover .login100-form-bgbtn {
   left: 0;
 }
 
@@ -395,7 +401,7 @@ iframe {
 [ Responsive ]*/
 
 @media (max-width: 576px) {
-  .wrap-login100 {
+  .container.wrap-login100 {
     padding: 77px 15px 33px 15px;
   }
 }

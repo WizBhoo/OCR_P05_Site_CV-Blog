@@ -80,9 +80,8 @@ class AccountEditController extends AbstractController
                 $params['password'],
                 PASSWORD_DEFAULT
             );
-        } else {
-            $userParams['password'] = $user->getPassword();
         }
+        $userParams['password'] = $user->getPassword();
 
         return $userParams;
     }

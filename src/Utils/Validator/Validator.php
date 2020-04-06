@@ -58,7 +58,7 @@ class Validator
     {
         foreach ($keys as $key) {
             $value = $this->getValue($key);
-            if (is_null($value) || empty($value)) {
+            if (null === $value || empty($value)) {
                 $this->addError($key, 'required');
             }
         }
@@ -129,22 +129,22 @@ class Validator
     {
         $value = $this->getValue($key);
         $length = mb_strlen($value);
-        if (!is_null($min)
-            && !is_null($max)
+        if (null !== $min
+            && null !== $max
             && ($length < $min || $length > $max)
         ) {
             $this->addError($key, 'betweenLength', [$min, $max]);
 
             return $this;
         }
-        if (!is_null($min)
+        if (null !== $min
             && $length < $min
         ) {
             $this->addError($key, 'minLength', [$min]);
 
             return $this;
         }
-        if (!is_null($max)
+        if (null !== $max
             && $length > $max
         ) {
             $this->addError($key, 'maxLength', [$max]);
