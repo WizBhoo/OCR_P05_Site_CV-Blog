@@ -7,12 +7,13 @@
 namespace MyWebsite\Utils;
 
 use GuzzleHttp\Psr7\Response;
+use Mezzio\Router\FastRouteRouter;
+use Mezzio\Router\RouterInterface;
+use MyWebsite\Utils\Middleware\CallableMiddleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zend\Expressive\Router\FastRouteRouter;
 use MyWebsite\Utils\Route as Route;
-use Zend\Expressive\Router\Route as ZendRoute;
-use Zend\Expressive\Router\RouterInterface;
+use \Mezzio\Router\Route as MezzioRoute;
 
 /**
  * Class Router. To register and match routes
@@ -46,9 +47,9 @@ class Router
     public function get(string $path, $callableFunction, ?string $routeName = null): void
     {
         $this->router->addRoute(
-            new ZendRoute(
+            new MezzioRoute(
                 $path,
-                $callableFunction,
+                new CallableMiddleware($callableFunction),
                 ['GET'],
                 $routeName
             )
@@ -67,9 +68,9 @@ class Router
     public function post(string $path, $callableFunction, ?string $routeName = null): void
     {
         $this->router->addRoute(
-            new ZendRoute(
+            new MezzioRoute(
                 $path,
-                $callableFunction,
+                new CallableMiddleware($callableFunction),
                 ['POST'],
                 $routeName
             )
@@ -88,9 +89,9 @@ class Router
     public function delete(string $path, $callableFunction, ?string $routeName = null): void
     {
         $this->router->addRoute(
-            new ZendRoute(
+            new MezzioRoute(
                 $path,
-                $callableFunction,
+                new CallableMiddleware($callableFunction),
                 ['DELETE'],
                 $routeName
             )
@@ -103,13 +104,15 @@ class Router
      * @param string          $path
      * @param string|callable $callableFunction
      * @param string|null     $routeName
+     *
+     * @return void
      */
     public function any(string $path, $callableFunction, ?string $routeName = null): void
     {
         $this->router->addRoute(
-            new ZendRoute(
+            new MezzioRoute(
                 $path,
-                $callableFunction,
+                new CallableMiddleware($callableFunction),
                 ['DELETE', 'POST', 'GET', 'PUT'],
                 $routeName
             )
@@ -129,7 +132,8 @@ class Router
         if ($result->isSuccess()) {
             return new Route(
                 $result->getMatchedRouteName(),
-                $result->getMatchedMiddleware(),
+                $result->getMatchedRoute()
+                    ->getMiddleware()->getCallable(),
                 $result->getMatchedParams()
             );
         }

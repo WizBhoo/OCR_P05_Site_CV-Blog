@@ -17,10 +17,15 @@ use MyWebsite\Utils\TwigExtension\RouterTwigExtension;
 use MyWebsite\Utils\Session\PHPSession;
 use MyWebsite\Utils\Session\SessionInterface;
 use MyWebsite\Utils\TwigRendererFactory;
+use Symfony\Component\Dotenv\Dotenv;
 
 use function DI\create;
 use function DI\factory;
 use function DI\get;
+
+//Dot Env Loader
+$dotenv = new Dotenv();
+$dotenv->loadEnv('../.env');
 
 return [
     //Router config keys
@@ -38,13 +43,13 @@ return [
     'admin.prefix' => '/apiadmin',
 
     //Twig config keys
-    'default_views.path' => sprintf("%s/src/Views", dirname(__DIR__)),
-    'site_views.path' => sprintf("%s/Views/site", __DIR__),
-    'blog_views.path' => sprintf("%s/Views/blog", __DIR__),
-    'auth_views.path' => sprintf("%s/Views/auth", __DIR__),
-    'account_views.path' => sprintf("%s/Views/account", __DIR__),
-    'admin_views.path' => sprintf("%s/Views/admin", __DIR__),
-    'email_views.path' => sprintf("%s/Views/email", __DIR__),
+    'default_views.path' => "../src/Views",
+    'site_views.path' => "../Views/site",
+    'blog_views.path' => "../Views/blog",
+    'auth_views.path' => "../Views/auth",
+    'account_views.path' => "../Views/account",
+    'admin_views.path' => "../Views/admin",
+    'email_views.path' => "../Views/email",
 
     //Twig extensions
     'twig.extensions' => [

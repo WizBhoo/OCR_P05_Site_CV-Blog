@@ -6,22 +6,25 @@
 
 namespace MyWebsite\Utils\Middleware;
 
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 /**
  * Class MethodMiddleware.
  */
-class MethodMiddleware
+class MethodMiddleware implements MiddlewareInterface
 {
     /**
      * Manage method in request
      *
-     * @param ServerRequestInterface $request
-     * @param callable               $next
+     * @param ServerRequestInterface  $request
+     * @param RequestHandlerInterface $handler
      *
-     * @return mixed
+     * @return ResponseInterface
      */
-    public function __invoke(ServerRequestInterface $request, callable $next)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $parsedBody = $request->getParsedBody();
         if (array_key_exists('_METHOD', $parsedBody)
@@ -30,6 +33,6 @@ class MethodMiddleware
             $request = $request->withMethod($parsedBody['_METHOD']);
         }
 
-        return $next($request);
+        return $handler->handle($request);
     }
 }

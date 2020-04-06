@@ -2,20 +2,20 @@
 [Master Stylesheet]
 
 Project:  CoolAdmin
-Version:	1.0
-Last change:	08/10/2018 [Add Define a table of contents Link]
-Assigned to:	Hau Nguyen
-Primary use:	Open Source
+Version:1.0
+Last change:08/10/2018 [Add Define a table of contents Link]
+Assigned to:Hau Nguyen
+Primary use:Open Source
 -------------------------------------------------------------------*/
 /*------------------------------------------------------------------
 [LAYOUT]
 
 * body
     + Header / header
-	+ Page Content / .page-content .name-page
+    + Page Content/.page-content.name-page
         + Section Layouts / section .name-section
         ...
-	+ Footer / footer
+    + Footer/footer
 
 -------------------------------------------------------------------*/
 /*------------------------------------------------------------------
@@ -28,9 +28,9 @@ Primary use:	Open Source
 /*------------------------------------------------------------------
 [Typography]
 
-Notes:	decreasing heading by 0.4em with every subsequent heading level
+Notes:decreasing heading by 0.4em with every subsequent heading level
 /*=================== fonts ====================*/
-@import url("https://fonts.googleapis.com/css?family=Poppins:700|Roboto:400,500,500i");
+@import url('https://fonts.googleapis.com/css?family=Poppins:700|Roboto:400,500,500i');
 /*-----------------------------------------------------*/
 /*                   SETTINGS                          */
 /*-----------------------------------------------------*/
@@ -963,8 +963,6 @@ section {
     font-size: 14px;
     box-shadow: 0 2px 15px 3px rgba(0,0,0,0.1);
     border-radius: 4px;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
     border: 1px solid #e0e0e0;
     margin-top: 8px;
     overflow: hidden;
@@ -1051,7 +1049,7 @@ section {
     border-color: transparent transparent #808080 transparent;
 }
 
-.rs-select2--light v .select2-container--open .select2-dropdown {
+.rs-select2--light .select2-container--open .select2-dropdown {
     font-size: 14px;
 }
 
@@ -1428,8 +1426,7 @@ section {
 
 .account-item > .content {
     margin-left: 45px;
-    padding: 9px 0;
-    padding-left: 12px;
+    padding: 9px 0 9px 12px;
 }
 
 .account-item > .content > a {
@@ -1495,8 +1492,7 @@ section {
 
 .account-dropdown .info .content {
     margin-left: 65px;
-    padding: 11px 0;
-    padding-left: 12px;
+    padding: 11px 0 11px 12px;
 }
 
 .account-dropdown .info .content .name {
@@ -1621,7 +1617,7 @@ section {
 }
 
 .menu-sidebar .navbar__list .navbar__sub-list li a {
-    padding: 11.5px 0;
+    padding: 11px 0;
 }
 
 .menu-sidebar__content {
@@ -1632,8 +1628,7 @@ section {
 }
 
 .navbar-sidebar {
-    padding: 35px;
-    padding-bottom: 0;
+    padding: 35px 35px 0;
 }
 
 .navbar-sidebar .navbar__list li a {
@@ -1940,8 +1935,7 @@ section {
 }
 
 .mess__item {
-    padding: 19px 22px;
-    padding-bottom: 14px;
+    padding: 19px 22px 14px;
     border-bottom: 1px solid #f2f2f2;
     display: -webkit-box;
     display: -webkit-flex;
@@ -2000,8 +1994,7 @@ section {
     display: -moz-box;
     display: -ms-flexbox;
     display: flex;
-    padding: 19px 22px;
-    padding-bottom: 14px;
+    padding: 19px 22px 14px;
     border-bottom: 1px solid #f2f2f2;
     -webkit-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -2052,8 +2045,7 @@ section {
     display: -moz-box;
     display: -ms-flexbox;
     display: flex;
-    padding: 19px 22px;
-    padding-bottom: 14px;
+    padding: 19px 22px 14px;
     border-bottom: 1px solid #f2f2f2;
     -webkit-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -2975,7 +2967,7 @@ section {
 }
 
 .header4-wrap .header__logo {
-    margin: 11.5px 0;
+    margin: 11px 0;
 }
 
 .header4-wrap .header__tool .header-button-item {
@@ -2995,11 +2987,11 @@ section {
 @media (max-width: 991px) {
     .header4-wrap .header__tool .notifi-dropdown {
         left: -220px;
-        -webkit-transform-origin: 60% 0%;
-        -moz-transform-origin: 60% 0%;
-        -ms-transform-origin: 60% 0%;
-        -o-transform-origin: 60% 0%;
-        transform-origin: 60% 0%;
+        -webkit-transform-origin: 60% 0;
+        -moz-transform-origin: 60% 0;
+        -ms-transform-origin: 60% 0;
+        -o-transform-origin: 60% 0;
+        transform-origin: 60% 0;
     }
 }
 
@@ -3011,11 +3003,11 @@ section {
 @media (max-width: 991px) {
     .header4-wrap .header__tool .setting-dropdown {
         left: -240px;
-        -webkit-transform-origin: 85% 0%;
-        -moz-transform-origin: 85% 0%;
-        -ms-transform-origin: 85% 0%;
-        -o-transform-origin: 85% 0%;
-        transform-origin: 85% 0%;
+        -webkit-transform-origin: 85% 0;
+        -moz-transform-origin: 85% 0;
+        -ms-transform-origin: 85% 0;
+        -o-transform-origin: 85% 0;
+        transform-origin: 85% 0;
     }
 }
 
@@ -3075,7 +3067,7 @@ section {
 }
 
 .navbar-sidebar3 .navbar__sub-list li a {
-    padding: 11.5px 27px;
+    padding: 11px 27px;
 }
 
 .navbar-sidebar3 .has-sub.open > a {
@@ -3155,8 +3147,8 @@ section {
 
 @media (min-width: 992px) and (max-width: 1519px) {
     .overview-item {
-        padding-left: 15px;
-        padding-right: 15px;
+        padding-left: 10px;
+        padding-right: 0;
     }
 }
 
@@ -3268,8 +3260,7 @@ section {
     -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    padding-right: 35px;
+    padding: 40px 35px 40px 40px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
@@ -3304,9 +3295,7 @@ section {
 .au-card-bordered {
     border: 1px solid #e5e5e5;
     background: #fff;
-    padding: 40px;
-    padding-top: 42px;
-    padding-right: 55px;
+    padding: 42px 55px 40px 40px;
     margin-bottom: 40px;
 }
 
@@ -3317,9 +3306,7 @@ section {
 }
 
 .au-card-top-countries {
-    padding: 40px;
-    padding-top: 25px;
-    padding-bottom: 29px;
+    padding: 25px 40px 29px;
 }
 
 .au-card--no-shadow {
@@ -3334,9 +3321,7 @@ section {
 
 .au-card-title {
     position: relative;
-    padding: 40px;
-    padding-top: 45px;
-    padding-bottom: 47px;
+    padding: 45px 40px 47px;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -3396,9 +3381,7 @@ section {
 }
 
 .au-task__title {
-    padding: 27px 15px;
-    padding-left: 40px;
-    padding-bottom: 22px;
+    padding: 27px 15px 22px 40px;
     border-bottom: 1px solid #f2f2f2;
     font-size: 14px;
 }
@@ -3422,8 +3405,7 @@ section {
 }
 
 .au-task__item-inner {
-    padding: 26px 15px;
-    padding-left: 40px;
+    padding: 26px 15px 26px 40px;
 }
 
 .au-task__item-inner .task {
@@ -3487,9 +3469,7 @@ section {
 }
 
 .au-message__noti {
-    padding: 25px 15px;
-    padding-left: 40px;
-    padding-bottom: 22px;
+    padding: 25px 15px 22px 40px;
     border-bottom: 1px solid #f2f2f2;
 }
 
@@ -3530,24 +3510,18 @@ section {
     -moz-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    padding: 19px 40px;
-    padding-right: 50px;
-    padding-bottom: 25px;
+    padding: 19px 50px 25px 40px;
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
     .au-message__item-inner {
-        padding: 15px;
-        padding-right: 10px;
-        padding-bottom: 15px;
+        padding: 15px 10px 15px 15px;
     }
 }
 
 @media (max-width: 767px) {
     .au-message__item-inner {
-        padding: 15px;
-        padding-right: 10px;
-        padding-bottom: 15px;
+        padding: 15px 10px 15px 15px;
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
         -webkit-flex-direction: column;
@@ -3574,8 +3548,7 @@ section {
 
 .au-message__item-text .text {
     margin-left: 60px;
-    padding: 7px 0;
-    padding-left: 23px;
+    padding: 7px 0 7px 23px;
 }
 
 .au-message__item-text .text .name {
@@ -3719,41 +3692,22 @@ section {
 .au-chat__content {
     height: 400px;
     overflow: auto;
-    padding: 30px 40px;
-    padding-bottom: 0;
+    padding: 30px 40px 0;
     position: relative;
 }
 
 .au-chat__content2 .recei-mess {
     max-width: 240px;
-    -webkit-border-top-left-radius: 3px;
-    -moz-border-radius-topleft: 3px;
-    border-top-left-radius: 3px;
-    -webkit-border-bottom-left-radius: 3px;
-    -moz-border-radius-bottomleft: 3px;
-    border-bottom-left-radius: 3px;
-    -webkit-border-top-right-radius: 15px;
-    -moz-border-radius-topright: 15px;
-    border-top-right-radius: 15px;
-    -webkit-border-bottom-right-radius: 15px;
-    -moz-border-radius-bottomright: 15px;
-    border-bottom-right-radius: 15px;
+    -webkit-border-radius: 3px 15px 15px 3px;
+    -moz-border-radius: 3px 15px 15px 3px;
+    border-radius: 3px 15px 15px 3px;
 }
 
 .au-chat__content2 .send-mess {
     max-width: 240px;
-    -webkit-border-top-right-radius: 3px;
-    -moz-border-radius-topright: 3px;
-    border-top-right-radius: 3px;
-    -webkit-border-bottom-right-radius: 3px;
-    -moz-border-radius-bottomright: 3px;
-    border-bottom-right-radius: 3px;
-    -webkit-border-top-left-radius: 15px;
-    -moz-border-radius-topleft: 15px;
-    border-top-left-radius: 15px;
-    -webkit-border-bottom-left-radius: 15px;
-    -moz-border-radius-bottomleft: 15px;
-    border-bottom-left-radius: 15px;
+    -webkit-border-radius: 15px 3px 3px 15px;
+    -moz-border-radius: 15px 3px 3px 15px;
+    border-radius: 15px 3px 3px 15px;
 }
 
 .mess-time {
@@ -3835,9 +3789,7 @@ section {
 }
 
 .au-chat-textfield {
-    padding: 40px;
-    padding-top: 32px;
-    padding-bottom: 50px;
+    padding: 32px 40px 50px;
 }
 
 .au-inbox-wrap {
@@ -3872,10 +3824,7 @@ section {
 .task-progress {
     border: 1px solid  #e5e5e5;
     background: #fff;
-    padding: 40px;
-    padding-top: 42px;
-    padding-right: 55px;
-    padding-bottom: 74px;
+    padding: 42px 55px 74px 40px;
     margin-bottom: 40px;
 }
 
@@ -3890,10 +3839,7 @@ section {
 .recent-report2 {
     border: 1px solid #e5e5e5;
     background: #fff;
-    padding: 40px;
-    padding-top: 42px;
-    padding-right: 55px;
-    padding-bottom: 51px;
+    padding: 42px 55px 51px 40px;
     margin-bottom: 40px;
 }
 
@@ -3980,9 +3926,7 @@ section {
 .map-data {
     border: 1px solid #e5e5e5;
     background: #fff;
-    padding: 40px;
-    padding-top: 44px;
-    padding-right: 60px;
+    padding: 44px 60px 40px 40px;
 }
 
 .recent-report3, .chart-percent-3 {
@@ -3991,10 +3935,7 @@ section {
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
-    padding-top: 45px;
-    padding-left: 40px;
-    padding-right: 50px;
-    padding-bottom: 50px;
+    padding: 45px 50px 50px 40px;
 }
 
 .recent-report3 .title-wrap {
@@ -4172,9 +4113,7 @@ section {
 
 .statistic-chart-1, .top-campaign, .chart-percent-2 {
     background: #fff;
-    padding: 0 40px;
-    padding-top: 45px;
-    padding-bottom: 50px;
+    padding: 45px 40px 50px;
     -webkit-box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.03);
     -moz-box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.03);
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.03);
@@ -4373,10 +4312,7 @@ section {
 .table-data .table td {
     border-top: none;
     border-bottom: 1px solid #f2f2f2;
-    padding-top: 23px;
-    padding-bottom: 33px;
-    padding-left: 40px;
-    padding-right: 10px;
+    padding: 23px 10px 33px 40px;
 }
 
 .table-data .table tr td:last-child {
@@ -4556,8 +4492,7 @@ section {
     font-size: 14px;
     color: #808080;
     vertical-align: middle;
-    padding: 25px 40px;
-    padding-right: 10px;
+    padding: 25px 10px 25px 40px;
     border: none;
 }
 
@@ -4690,8 +4625,7 @@ section {
     color: #fff;
     font-weight: 400;
     text-transform: capitalize;
-    padding: 18px 40px;
-    padding-right: 10px;
+    padding: 18px 10px 18px 40px;
 }
 
 .table-data3 thead tr th:first-child {
@@ -4738,8 +4672,7 @@ section {
     background: #fff;
     font-size: 14px;
     color: #808080;
-    padding: 12px 40px;
-    padding-right: 10px;
+    padding: 12px 10px 12px 40px;
 }
 
 .table-data3 tbody td.process {
@@ -4753,8 +4686,7 @@ section {
 /* ----- Footer ----- */
 .copyright {
     text-align: center;
-    padding: 60px 0;
-    padding-top: 20px;
+    padding: 20px 0 60px;
 }
 
 .copyright p {
@@ -5118,17 +5050,10 @@ section {
     border: 1px solid #fff;
     background: #fff;
     border-left: 3px solid #fff;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    border-radius: 0;
     margin: 0;
-    -webkit-border-top-right-radius: 3px;
-    -moz-border-radius-topright: 3px;
-    border-top-right-radius: 3px;
-    -webkit-border-bottom-right-radius: 3px;
-    -moz-border-radius-bottomright: 3px;
-    border-bottom-right-radius: 3px;
-    padding: 0;
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
     padding: 15px 30px;
 }
 
@@ -5206,10 +5131,10 @@ section {
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
-    -webkit-transition: opacity background .15s ease-out;
-    -o-transition: opacity background .15s ease-out;
-    -moz-transition: opacity background .15s ease-out;
-    transition: opacity background .15s ease-out;
+    -webkit-transition: opacity .15s ease-out;
+    -o-transition: opacity .15s ease-out;
+    -moz-transition: opacity .15s ease-out;
+    transition: opacity .15s ease-out;
 }
 
 .switch.switch-default .switch-input:checked ~ .switch-label::before {
@@ -5324,10 +5249,10 @@ section {
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
-    -webkit-transition: opacity background .15s ease-out;
-    -o-transition: opacity background .15s ease-out;
-    -moz-transition: opacity background .15s ease-out;
-    transition: opacity background .15s ease-out;
+    -webkit-transition: opacity .15s ease-out;
+    -o-transition: opacity .15s ease-out;
+    -moz-transition: opacity .15s ease-out;
+    transition: opacity .15s ease-out;
 }
 
 .switch.switch-text .switch-label::before,
@@ -5461,7 +5386,7 @@ section {
     position: relative;
     display: block;
     height: inherit;
-    font-family: FontAwesome;
+    font-family: FontAwesome, sans-serif;
     font-size: 10px;
     font-weight: 600;
     text-transform: uppercase;
@@ -5470,10 +5395,10 @@ section {
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
-    -webkit-transition: opacity background .15s ease-out;
-    -o-transition: opacity background .15s ease-out;
-    -moz-transition: opacity background .15s ease-out;
-    transition: opacity background .15s ease-out;
+    -webkit-transition: opacity .15s ease-out;
+    -o-transition: opacity .15s ease-out;
+    -moz-transition: opacity .15s ease-out;
+    transition: opacity .15s ease-out;
 }
 
 .switch.switch-icon .switch-label::before,
@@ -5615,10 +5540,10 @@ section {
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
-    -webkit-transition: opacity background .15s ease-out;
-    -o-transition: opacity background .15s ease-out;
-    -moz-transition: opacity background .15s ease-out;
-    transition: opacity background .15s ease-out;
+    -webkit-transition: opacity .15s ease-out;
+    -o-transition: opacity .15s ease-out;
+    -moz-transition: opacity .15s ease-out;
+    transition: opacity .15s ease-out;
 }
 
 .switch.switch-3d .switch-input:checked ~ .switch-label::before {
@@ -5644,7 +5569,6 @@ section {
     -o-transition: left .15s ease-out;
     -moz-transition: left .15s ease-out;
     transition: left .15s ease-out;
-    border: 0;
     -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);

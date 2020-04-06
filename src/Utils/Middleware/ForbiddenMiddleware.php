@@ -6,8 +6,6 @@
 
 namespace MyWebsite\Utils\Middleware;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use MyWebsite\Utils\Exception\ForbiddenException;
 use MyWebsite\Utils\Exception\NotConnectedException;
 use MyWebsite\Utils\RedirectResponse;
@@ -15,6 +13,8 @@ use MyWebsite\Utils\Session\FlashService;
 use MyWebsite\Utils\Session\SessionInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 /**
  * Class ForbiddenMiddleware.
@@ -51,15 +51,15 @@ class ForbiddenMiddleware implements MiddlewareInterface
     /**
      * Redirect not connected user to login path
      *
-     * @param ServerRequestInterface $request
-     * @param DelegateInterface      $delegate
+     * @param ServerRequestInterface  $request
+     * @param RequestHandlerInterface $handler
      *
      * @return ResponseInterface
      */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         try {
-            return $delegate->process($request);
+            return $handler->handle($request);
         } catch (ForbiddenException $exception) {
             $this->session->set('auth.redirect', $request->getUri()->getPath());
             (new FlashService($this->session))->error(

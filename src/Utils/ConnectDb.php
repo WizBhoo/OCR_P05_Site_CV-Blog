@@ -28,42 +28,14 @@ class ConnectDb
     protected $conn;
 
     /**
-     * MySQL Host Name
-     *
-     * @var string
-     */
-    protected $host = 'mysql-server.localhost';
-
-    /**
-     * MySQL db username
-     *
-     * @var string
-     */
-    protected $user = 'root';
-
-    /**
-     * MySQL db pass
-     *
-     * @var string
-     */
-    protected $pass = 'root';
-
-    /**
-     * MySQL dbname
-     *
-     * @var string
-     */
-    protected $name = 'monsite';
-
-    /**
      * ConnectDb constructor.
      */
     private function __construct()
     {
         $this->conn = new PDO(
-            "mysql:host={$this->host};dbname={$this->name}",
-            $this->user,
-            $this->pass
+            "mysql:host={$_ENV['DB_HOST']};dbname={$_ENV['DB_NAME']}",
+            $_ENV['DB_USER'],
+            $_ENV['DB_PASS']
         );
     }
 

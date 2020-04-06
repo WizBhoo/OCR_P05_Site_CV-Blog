@@ -7,9 +7,9 @@
 namespace MyWebsite\Controller;
 
 use Exception;
+use MyWebsite\Utils\Session\FlashService;
 use MyWebsite\Utils\Validator\Validator;
 use Psr\Http\Message\ServerRequestInterface;
-use Swift_Message;
 
 /**
  * Class SiteController.
@@ -132,19 +132,23 @@ class SiteController extends AbstractController
         }
         $validator = $this->getValidator($request);
         if ($validator->isValid()) {
-            $this->flash->success('Votre message a bien été envoyé');
-            $this->getSwiftMailer($request);
+            (new FlashService($this->session))
+                ->success(
+                    'Votre message a bien été envoyé'
+                );
+            $this->mailer->sendContactMail($request->getParsedBody());
 
             return $this->renderer->renderView('site/contact');
         }
-        $this->flash->error(
-            'Vous devez remplire tous les champs pour soumettre votre demande'
-        );
+        (new FlashService($this->session))
+            ->error(
+                'Vous devez remplire tous les champs pour soumettre votre demande'
+            );
         $errors = $validator->getErrors();
 
         return $this->renderer->renderView(
             'site/contact',
-            compact('errors')
+            ['errors' => $errors, 'contact' => $this->getParams($request)]
         );
     }
 
@@ -161,33 +165,28 @@ class SiteController extends AbstractController
 
         return (new Validator($params))
             ->required('name', 'email', 'subject', 'message')
-            ->length('name', 15)
+            ->length('name', 5)
             ->email('email')
             ->length('subject', 10, 50)
             ->length('message', 10);
     }
 
     /**
-     * Get message to be sent with SwiftMailer
+     * Retrieve contactParams
      *
      * @param ServerRequestInterface $request
      *
-     * @return void
+     * @return array
      */
-    public function getSwiftMailer(ServerRequestInterface $request): void
+    public function getParams(ServerRequestInterface $request): array
     {
         $params = $request->getParsedBody();
-        $message = (new Swift_Message('Formulaire de contact'))
-            ->setBody(
-                $this->renderer->renderView('email/contactText', $params)
-            )
-            ->addPart(
-                $this->renderer->renderView('email/contactHtml', $params),
-                'text/html'
-            )
-            ->setTo(['wizbhoo.dev@gmail.com' => 'Adrien PIERRARD'])
-            ->setFrom($params['email'])
-        ;
-        $this->mailer->send($message);
+
+        return [
+            'name' => $params['name'],
+            'email' => $params['email'],
+            'subject' => $params['subject'],
+            'message' => $params['message'],
+        ];
     }
 }

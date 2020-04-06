@@ -87,7 +87,7 @@ class AdminController extends AbstractController
 
         return $this->renderer->renderView(
             'admin/adminPosts',
-            $params = $this->formParamsAuthors(['items' => $items])
+            $this->formParamsAuthors(['items' => $items])
         );
     }
 
@@ -102,7 +102,7 @@ class AdminController extends AbstractController
 
         return $this->renderer->renderView(
             'admin/adminComments',
-            $params = $this->formParamsAuthors(['items' => $items])
+            $this->formParamsAuthors(['items' => $items])
         );
     }
 
@@ -146,7 +146,7 @@ class AdminController extends AbstractController
 
         return $this->renderer->renderView(
             'admin/createPost',
-            $params = $this->formParamsAuthors(['item' => $item, 'errors' => $errors])
+            $this->formParamsAuthors(['item' => $item, 'errors' => $errors])
         );
     }
 
@@ -182,7 +182,7 @@ class AdminController extends AbstractController
             $item = $params;
         }
 
-        if (is_null($item)) {
+        if (null === $item) {
             return $this->renderer->renderView('admin/admin404');
         }
 
@@ -318,7 +318,7 @@ class AdminController extends AbstractController
             ->length('extract', 10, 255)
             ->length('content', 10)
             ->extension('image', ['jpg', 'png']);
-        if (is_null($request->getAttribute('slug'))) {
+        if (null === $request->getAttribute('slug')) {
             $validator->uploaded('image');
         }
 
@@ -342,9 +342,8 @@ class AdminController extends AbstractController
         $image = $this->postUpload->upload($params['image'], $post->getImage());
         if ($image) {
             $params['image'] = $image;
-        } else {
-            $params['image'] = $post->getImage();
         }
+        $params['image'] = $post->getImage();
         $params = array_filter(
             $params,
             function ($key) {

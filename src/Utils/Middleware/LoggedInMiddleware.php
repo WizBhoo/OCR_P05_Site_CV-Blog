@@ -6,12 +6,12 @@
 
 namespace MyWebsite\Utils\Middleware;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use MyWebsite\Utils\AuthInterface;
 use MyWebsite\Utils\Exception\NotConnectedException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 /**
  * Class LoggedInMiddleware.
@@ -38,20 +38,20 @@ class LoggedInMiddleware implements MiddlewareInterface
     /**
      * Verify if a User is logged or not to allow access or not to site parts
      *
-     * @param ServerRequestInterface $request
-     * @param DelegateInterface      $delegate
+     * @param ServerRequestInterface  $request
+     * @param RequestHandlerInterface $handler
      *
      * @return ResponseInterface
      *
      * @throws NotConnectedException
      */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $user = $this->auth->getUser();
-        if (is_null($user)) {
+        if (null === $user) {
             throw new NotConnectedException();
         }
 
-        return $delegate->process($request->withAttribute('user', $user));
+        return $handler->handle($request->withAttribute('user', $user));
     }
 }

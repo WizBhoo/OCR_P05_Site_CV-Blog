@@ -7,16 +7,16 @@
 namespace MyWebsite\Utils\Middleware;
 
 use GuzzleHttp\Psr7\Response;
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 /**
  * Class CombinedMiddlewareDelegate.
  */
-class CombinedMiddlewareDelegate implements DelegateInterface
+class CombinedMiddlewareDelegate implements RequestHandlerInterface
 {
     /**
      * A table that contains Middlewares
@@ -42,22 +42,22 @@ class CombinedMiddlewareDelegate implements DelegateInterface
     /**
      * A DelegateInterface Injection
      *
-     * @var DelegateInterface
+     * @var RequestHandlerInterface
      */
-    protected $delegate;
+    protected $handler;
 
     /**
      * CombinedMiddlewareDelegate constructor.
      *
-     * @param ContainerInterface $container
-     * @param array              $middlewares
-     * @param DelegateInterface  $delegate
+     * @param ContainerInterface      $container
+     * @param array                   $middlewares
+     * @param RequestHandlerInterface $handler
      */
-    public function __construct(ContainerInterface $container, array $middlewares, DelegateInterface $delegate)
+    public function __construct(ContainerInterface $container, array $middlewares, RequestHandlerInterface $handler)
     {
         $this->container = $container;
         $this->middlewares = $middlewares;
-        $this->delegate = $delegate;
+        $this->handler = $handler;
     }
 
     /**
@@ -67,13 +67,13 @@ class CombinedMiddlewareDelegate implements DelegateInterface
      *
      * @return ResponseInterface
      */
-    public function process(ServerRequestInterface $request): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $middleware = $this->getMiddleware();
-        if (!is_null($middleware) && is_callable($middleware)) {
+        if (null !== $middleware && is_callable($middleware)) {
             $response = call_user_func_array(
                 $middleware,
-                [$request, [$this, 'process']]
+                [$request, [$this, 'handle']]
             );
             if (is_string($response)) {
                 return new Response(200, [], $response);
@@ -85,7 +85,7 @@ class CombinedMiddlewareDelegate implements DelegateInterface
             return $middleware->process($request, $this);
         }
 
-        return $this->delegate->process($request);
+        return $this->handler->handle($request);
     }
 
     /**
@@ -100,9 +100,11 @@ class CombinedMiddlewareDelegate implements DelegateInterface
                 $middleware = $this->container->get(
                     $this->middlewares[$this->index]
                 );
-            } else {
-                $middleware = $this->middlewares[$this->index];
+                $this->index++;
+
+                return $middleware;
             }
+            $middleware = $this->middlewares[$this->index];
             $this->index++;
 
             return $middleware;

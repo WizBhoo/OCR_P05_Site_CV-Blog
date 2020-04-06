@@ -46,7 +46,7 @@ class FormTwigExtension extends AbstractExtension
         $type = $options['type'] ?? 'text';
         $disabled = $options['disabled'] ?? '';
         $error = $this->getErrorHTML($context, $key);
-        if (!is_null($value)) {
+        if (null !== $value) {
             $value = $this->convertValue($value);
         }
         $attributes = [

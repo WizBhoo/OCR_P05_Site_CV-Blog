@@ -42,7 +42,7 @@ class BlogController extends AbstractController
 
         return $this->renderer->renderView(
             'blog/blogHome',
-            $params = $this->formParams(['posts' => $posts])
+            compact('posts')
         );
     }
 
@@ -55,16 +55,15 @@ class BlogController extends AbstractController
      */
     public function show(ServerRequestInterface $request)
     {
-        $slug = $request->getAttribute('slug');
-        $post = $this->postRepository->findPost($slug);
-        $comments = $this->commentRepository->findComments($slug);
-        if (is_null($post)) {
+        $params = $this->getParams($request);
+        if (null === $params['post']) {
             return $this->renderer->renderView('site/404');
         }
         if ($request->getMethod() === 'POST') {
             $params = $request->getParsedBody();
+            $slug = $request->getAttribute('slug');
             $user = $this->auth->getUser();
-            $params['id'] = $post->getId();
+            $params['id'] = $this->postRepository->findPost($slug)->getId();
             $params['user_id'] = $user->getId();
             unset($params['_csrf']);
             $this->commentRepository->insertComment($params);
@@ -76,23 +75,27 @@ class BlogController extends AbstractController
             return $this->router->redirect('blog.home');
         }
 
-        return $this->renderer->renderView(
-            'blog/show',
-            $params = $this->formParams(['post' => $post, 'comments' => $comments])
-        );
+        return $this->renderer->renderView('blog/show', $params);
     }
 
     /**
      * Allow to manage params sending to View
      *
-     * @param array $params
+     * @param ServerRequestInterface $request
      *
      * @return array
      */
-    protected function formParams(array $params): array
+    protected function getParams(ServerRequestInterface $request): array
     {
-        $params['authors'] = $this->postRepository->findListAuthors();
+        $slug = $request->getAttribute('slug');
+        $post = $this->postRepository->findPost($slug);
+        $comments = $this->commentRepository->findComments($slug);
 
-        return $params;
+        return [
+            'slug' => $slug,
+            'post' => $post,
+            'comments' => $comments,
+            'authors' => $this->postRepository->findListAuthors(),
+        ];
     }
 }

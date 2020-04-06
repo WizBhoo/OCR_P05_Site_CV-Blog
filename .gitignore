@@ -1,4 +1,5 @@
 /vendor/
+.env.local
 composer.lock
 .DS_Store
-/public/img/blog/
+/bdd/

@@ -10,7 +10,7 @@ use MyWebsite\Repository\CommentRepository;
 use MyWebsite\Repository\PostRepository;
 use MyWebsite\Repository\UserRepository;
 use MyWebsite\Utils\Auth\DatabaseAuth;
-use MyWebsite\Utils\Auth\PasswordResetMailer;
+use MyWebsite\Utils\Mailer\MessageMailer;
 use MyWebsite\Utils\PostUpload;
 use MyWebsite\Utils\RendererInterface;
 use MyWebsite\Utils\Router;
@@ -78,26 +78,26 @@ abstract class AbstractController
     protected $session;
 
     /**
-     * A PasswordResetMailer Instance
+     * A MessageMailer Instance
      *
-     * @var PasswordResetMailer
+     * @var MessageMailer
      */
     protected $mailer;
 
     /**
      * AbstractController constructor.
      *
-     * @param RendererInterface   $renderer
-     * @param Router              $router
-     * @param PostRepository      $postRepository
-     * @param CommentRepository   $commentRepository
-     * @param PostUpload          $postUpload
-     * @param UserRepository      $userRepository
-     * @param DatabaseAuth        $auth
-     * @param SessionInterface    $session
-     * @param PasswordResetMailer $mailer
+     * @param RendererInterface $renderer
+     * @param Router            $router
+     * @param PostRepository    $postRepository
+     * @param CommentRepository $commentRepository
+     * @param PostUpload        $postUpload
+     * @param UserRepository    $userRepository
+     * @param DatabaseAuth      $auth
+     * @param SessionInterface  $session
+     * @param MessageMailer     $mailer
      */
-    public function __construct(RendererInterface $renderer, Router $router, PostRepository $postRepository, CommentRepository $commentRepository, PostUpload $postUpload, UserRepository $userRepository, DatabaseAuth $auth, SessionInterface $session, PasswordResetMailer $mailer)
+    public function __construct(RendererInterface $renderer, Router $router, PostRepository $postRepository, CommentRepository $commentRepository, PostUpload $postUpload, UserRepository $userRepository, DatabaseAuth $auth, SessionInterface $session, MessageMailer $mailer)
     {
         $this->renderer = $renderer;
         $this->router = $router;

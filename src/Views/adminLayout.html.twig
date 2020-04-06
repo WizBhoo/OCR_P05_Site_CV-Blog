@@ -24,7 +24,6 @@
     <link rel="stylesheet" href="../../libs/dashboard/animsition/animsition.min.css">
     <link rel="stylesheet" href="../../libs/dashboard/wow/animate.css">
     <link rel="stylesheet" href="../../libs/dashboard/slick/slick.css">
-    <link rel="stylesheet" href="../../libs/dashboard/select2/select2.min.css">
     <link rel="stylesheet" href="../../libs/dashboard/perfect-scrollbar/perfect-scrollbar.css">
 
     <!-- Main CSS -->
@@ -121,13 +120,13 @@
                             <div class="setting-menu js-right-sidebar d-none d-lg-block">
                                 <div class="account-dropdown__body">
                                     <div class="account-dropdown__item">
-                                        <a href="{{ path('account.profile') }}">
-                                            <i class="zmdi zmdi-account"></i>My Account
+                                        <a href="{{ path('site.home') }}">
+                                            <i class="zmdi zmdi-home"></i>Go APi Site
                                         </a>
                                     </div>
                                     <div class="account-dropdown__item">
-                                        <a href="{{ path('site.home') }}">
-                                            <i class="zmdi zmdi-home"></i>Go APi Site
+                                        <a href="{{ path('account.profile') }}">
+                                            <i class="zmdi zmdi-account"></i>My Account
                                         </a>
                                     </div>
                                 </div>
@@ -151,13 +150,18 @@
                     <h4 class="name">{{ current_user().userName }}</h4>
                     <form class="sign-out" method="post" action="{{ path('auth.logout') }}">
                         {{ csrf_input() }}
-                        <button class="btn btn-primary btn-sm">
+                        <button id="sign-out">
                             Sign out
                         </button>
                     </form>
                 </div>
                 <nav class="navbar-sidebar2">
                     <ul class="list-unstyled navbar__list">
+                        <li class="has-dub">
+                            <a href="{{ path('site.home') }}">
+                                <i class="zmdi zmdi-home"></i>Go APi Site
+                            </a>
+                        </li>
                         <li class="has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-tachometer-alt"></i>Blog
@@ -273,11 +277,8 @@
 <script src="../../libs/dashboard/slick/slick.min.js"></script>
 <script src="../../libs/dashboard/wow/wow.min.js"></script>
 <script src="../../libs/dashboard/animsition/animsition.min.js"></script>
-<script src="../../libs/dashboard/counter-up/jquery.waypoints.min.js"></script>
-<script src="../../libs/dashboard/counter-up/jquery.counterup.min.js"></script>
+<script src="../../libs/dashboard/wow/wow.min.js"></script>
 <script src="../../libs/dashboard/perfect-scrollbar/perfect-scrollbar.js"></script>
-<script src="../../libs/dashboard/chartjs/Chart.bundle.min.js"></script>
-<script src="../../libs/dashboard/select2/select2.min.js"></script>
 
 <!-- Main JS-->
 <script src="../../js/dashboard/main.js"></script>

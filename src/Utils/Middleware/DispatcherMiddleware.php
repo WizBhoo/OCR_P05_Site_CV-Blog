@@ -6,12 +6,12 @@
 
 namespace MyWebsite\Utils\Middleware;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use MyWebsite\Utils\Route;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 /**
  * Class DispatcherMiddleware.
@@ -38,16 +38,16 @@ class DispatcherMiddleware implements MiddlewareInterface
     /**
      * Retrieve Route & Callback and return appropriate Response
      *
-     * @param ServerRequestInterface $request
-     * @param DelegateInterface      $delegate
+     * @param ServerRequestInterface  $request
+     * @param RequestHandlerInterface $handler
      *
      * @return ResponseInterface
      */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $route = $request->getAttribute(Route::class);
-        if (is_null($route)) {
-            return $delegate->process($request);
+        if (null === $route) {
+            return $handler->handle($request);
         }
         $callback = $route->getCallback();
         if (!is_array($callback)) {
@@ -55,6 +55,6 @@ class DispatcherMiddleware implements MiddlewareInterface
         }
 
         return (new CombinedMiddleware($this->container, $callback))
-            ->process($request, $delegate);
+            ->process($request, $handler);
     }
 }
