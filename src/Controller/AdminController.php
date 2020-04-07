@@ -142,11 +142,16 @@ class AdminController extends AbstractController
             }
             $item = $request->getParsedBody();
             $errors = $validator->getErrors();
+
+            return $this->renderer->renderView(
+                'admin/createPost',
+                $this->formParamsAuthors(['item' => $item, 'errors' => $errors])
+            );
         }
 
         return $this->renderer->renderView(
             'admin/createPost',
-            $this->formParamsAuthors(['item' => $item, 'errors' => $errors])
+            $this->formParamsAuthors(['item' => $item])
         );
     }
 
@@ -180,6 +185,11 @@ class AdminController extends AbstractController
             $params['publishedAt'] = $item->getPublishedAt();
             $params['updatedAt'] = $item->getUpdatedAt();
             $item = $params;
+
+            return $this->renderer->renderView(
+                'admin/editPost',
+                $this->formParamsAuthors(['item' => $item, 'errors' => $errors])
+            );
         }
 
         if (null === $item) {
@@ -188,7 +198,7 @@ class AdminController extends AbstractController
 
         return $this->renderer->renderView(
             'admin/editPost',
-            $params = $this->formParamsAuthors(['item' => $item, 'errors' => $errors])
+            $this->formParamsAuthors(['item' => $item])
         );
     }
 
@@ -342,8 +352,9 @@ class AdminController extends AbstractController
         $image = $this->postUpload->upload($params['image'], $post->getImage());
         if ($image) {
             $params['image'] = $image;
+        } elseif (!$image) {
+            $params['image'] = $post->getImage();
         }
-        $params['image'] = $post->getImage();
         $params = array_filter(
             $params,
             function ($key) {
