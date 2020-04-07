@@ -3,7 +3,6 @@
 require '../vendor/autoload.php';
 
 use GuzzleHttp\Psr7\ServerRequest;
-use Middlewares\Whoops;
 use MyWebsite\App;
 use MyWebsite\Utils\AccountTypeMiddlewareFactory;
 use MyWebsite\Utils\Middleware\CsrfMiddleware;
@@ -18,8 +17,7 @@ use function Http\Response\send;
 
 $app = new App("../config/config.php");
 $container = $app->getContainer();
-$app->pipe(Whoops::class)
-    ->pipe(ForbiddenMiddleware::class)
+$app->pipe(ForbiddenMiddleware::class)
     ->pipe(
         $container->get('admin.prefix'),
         $container->get(AccountTypeMiddlewareFactory::class)

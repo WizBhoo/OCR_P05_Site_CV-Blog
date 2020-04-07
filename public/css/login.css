@@ -218,13 +218,9 @@ iframe {
   background: transparent;
   padding: 0 5px;
 }
-.wrap-input100 label {
-  font-size: 15px;
-  color: #999999;
-}
 
 /*---------------------------------------------*/
-.container.focus-input100 {
+.focus-input100 {
   position: absolute;
   display: block;
   width: 100%;
@@ -234,7 +230,7 @@ iframe {
   pointer-events: none;
 }
 
-.container.focus-input100::before {
+.focus-input100::before {
   content: "";
   display: block;
   position: absolute;
@@ -255,7 +251,7 @@ iframe {
   background: linear-gradient(left, #00b0f0, #fec1a5);
 }
 
-.container.focus-input100::after {
+.focus-input100::after {
   font-family: "Poppins", sans-serif;
   font-size: 15px;
   color: #999999;
@@ -345,7 +341,7 @@ iframe {
   padding-top: 13px;
 }
 
-.container.wrap-login100-form-btn {
+.wrap-login100-form-btn {
   width: 100%;
   display: block;
   position: relative;
@@ -355,7 +351,7 @@ iframe {
   margin: 0 auto;
 }
 
-.container.login100-form-bgbtn {
+.login100-form-bgbtn {
   position: absolute;
   z-index: -1;
   width: 300%;
@@ -374,7 +370,7 @@ iframe {
   transition: all 0.4s;
 }
 
-.container.login100-form-btn {
+.login100-form-btn {
   font-family: "Poppins", sans-serif;
   font-size: 15px;
   color: #fff;
@@ -393,7 +389,7 @@ iframe {
   height: 50px;
 }
 
-.container.wrap-login100-form-btn:hover .login100-form-bgbtn {
+.wrap-login100-form-btn:hover .login100-form-bgbtn {
   left: 0;
 }
 
@@ -401,7 +397,7 @@ iframe {
 [ Responsive ]*/
 
 @media (max-width: 576px) {
-  .container.wrap-login100 {
+  .wrap-login100 {
     padding: 77px 15px 33px 15px;
   }
 }

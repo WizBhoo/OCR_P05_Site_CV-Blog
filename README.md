@@ -2,6 +2,8 @@
 OpenClassrooms - Training Course DA PHP/Symfony - Project P05<br>
 My WebSite is Online and you can visit it : [APi - Site CV](https://adrien-pierrard.fr)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/79a2760fdd9e4e08828d5e2b7a33b6e4)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=WizBhoo/OCR_P05_Site_CV-Blog&amp;utm_campaign=Badge_Grade)
+
 ## Version 1.0.0 - April 2020
 
 *   This file explains how to install and run the project.
@@ -34,7 +36,7 @@ Follow each following steps :
 https://github.com/WizBhoo/OCR_P05_Site_CV-Blog.git
 ```
 
-*   You need to edit the ".env" file to setup your DB environment variable for connection.
+*   You need to edit the ".env" file to setup your DB environment variables for connection.
 *   You need also to setup inside ENV variables for SwiftMailer to allow sending contact message or use the forgotten password form to send a reset password email for user account.
 *   If you prefer you can copy the ".env" file and setup your credentials in a ".env.local" file.
 *   Launch your local environment and create the database following UML schemas (only OCR Evaluators have access to my DB file (see project renderings) with a set of data for demo).
@@ -67,7 +69,7 @@ Once you have well installed my Docker Stack, follow each following steps :
 https://github.com/WizBhoo/OCR_P05_Site_CV-Blog.git
 ```
 
-*   You need to edit the ".env" file to setup your DB environment variable for connection.
+*   You need to edit the ".env" file to setup the Docker DB environment variables for connection.
 *   You need also to setup inside ENV variables for SwiftMailer to allow sending contact message or use the forgotten password form to send a reset password email for user account.
 *   If you prefer you can copy the ".env" file and setup your credentials in a ".env.local" file.
 *   From your terminal go to the Docker directory and launch Docker using those command lines :
@@ -111,7 +113,7 @@ Please don't use it for personal uses !
 *   Each comment has to be approved by an admin from the dashboard before being published.
 *   Only admin users can create articles from the dashboard.
 *   Admin users can add, modify, delete articles / approved or delete comments / activate, delete users.
-*   Admin users can also change user right form user to admin or admin to user.
+*   Admin users can also change user right from user to admin or admin to user.
 *   From the public site part, each user can modify his profile (first and last name and password if needed).
 *   A functional contact form is available.
 *   A user can reset his password using the forgotten password form and by following a reset link received by email.
@@ -121,4 +123,7 @@ Please don't use it for personal uses !
 ### Contact
 
 Thanks in advance for Star contribution
-Any question / trouble ? Please send me an e-mail ;-) - [adrien.pierrard@gmail.com](mailto:adrien.pierrard@gmail.com)
+
+Any question / trouble ?
+
+Please send me an e-mail ;-) - [adrien.pierrard@gmail.com](mailto:adrien.pierrard@gmail.com)
