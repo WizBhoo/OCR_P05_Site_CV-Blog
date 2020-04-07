@@ -62,7 +62,7 @@ class Upload
             );
             $dirname = pathinfo($targetPath, PATHINFO_DIRNAME);
             if (!file_exists($dirname)) {
-                mkdir($dirname, 777, true);
+                mkdir($dirname, 755, true);
             }
             $file->moveTo($targetPath);
 

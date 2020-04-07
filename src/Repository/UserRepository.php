@@ -237,6 +237,8 @@ class UserRepository
     }
 
     /**
+     * Update password through forgotten password form
+     *
      * @param int    $id
      * @param string $password
      *
