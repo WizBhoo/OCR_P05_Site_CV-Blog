@@ -1,0 +1,80 @@
+{% extends 'layout.html.twig' %}
+
+{% block title "PIERRARD Adrien - Blog" %}
+
+{% block body %}
+
+    <!--================BlogHome Banner Area =================-->
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="container">
+                <div class="banner_content text-right">
+                    <h1>Mon Blog</h1>
+                    <div class="page_link">
+                        <a href="{{ path('site.home') }}">Accueil</a>
+                        <a href="{{ path('blog.home') }}">Blog</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End BlogHome Banner Area =================-->
+
+    <!--================Blog Area =================-->
+    <section class="section_gap blog_area">
+        <div class="container">
+            {% if flash('commentSuccess') %}
+                <div class="row justify-content-center">
+                    <div class="col-md-6 text-center">
+                        <div class="alert-success">
+                            {{ flash('commentSuccess') }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="row justify-content-center">
+                <div class="col-lg-12 text-center">
+                    <div class="main-title">
+                        <h1>Bienvenue<br>sur mon Blog !!!</h1>
+                        <p>
+                            Voici la liste de mes Articles du plus récent au plus ancien vous permettant d'en apprendre<br>
+                           d'avantage sur mes choix d'orientation professionnelle ainsi que sur mes souhaits d'évolution.<br>
+                            Bonne lecture !
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    {% for post in posts %}
+                        <article class="row blog_item">
+                            <div class="col-md-5">
+                                <div class="blog_info text-right">
+                                    <ul class="blog_meta list">
+                                        <li>{{ post.nameAuthor }}<i class="lnr lnr-user"></i></li>
+                                        <li>Modifié le {{ post.updatedAt|date("d/m/Y à H:i") }}<i class="lnr lnr-calendar-full"></i></li>
+                                        <li>Commenté {{ post.nbrComments }} fois<i class="lnr lnr-bubble"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="blog_post">
+                                    <div class="blog_details">
+                                        <a href="{{ path('blog.show', {slug: post.slug}) }}">
+                                            <h2>{{ post.title }}</h2>
+                                        </a>
+                                        <p class="text-justify">{{ post.extract | nl2br }}</p>
+                                        <a href="{{ path('blog.show', {slug: post.slug}) }}" class="primary-btn">Voir plus</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================Blog Area =================-->
+{% endblock %}

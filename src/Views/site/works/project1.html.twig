@@ -1,0 +1,86 @@
+{% extends 'layout.html.twig' %}
+
+{% block title "Adrien PIERRARD - Chalets & Caviar" %}
+
+{% block body %}
+
+    <!--================ Start portfolio Banner Area =================-->
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="container">
+                <div class="banner_content text-right">
+                    <h1>Chalets & Caviar</h1>
+                    <div class="page_link">
+                        <a href="{{ path('site.home') }}">Accueil Site</a>
+                        <a href="{{ path('site.portfolio') }}">Réalisations</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================ End Portfolio Banner Area =================-->
+
+    <!--================ Start Portfolio Details Area =================-->
+    <section class="portfolio_details_area section_gap">
+        <div class="container">
+            <div class="portfolio_details_inner">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="left_img">
+                            <img class="img-fluid" src="../img/works/project1.png" alt="Chalets & Caviar">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="portfolio_right_text mt-30">
+                            <h4>Projet : Chalets & Caviar</h4>
+                            <p>Ce projet s'est inscrit dans le cadre de mon parcours de formation pour devenir
+                                Développeur d'Application Web PHP / Symfony. L'objectif était d'intégrer un thème
+                                Wordpress pour un client.</p>
+                            <ul class="list">
+                                <li><span>Réalisation</span>: Décembre 2019</li>
+                                <li><span>Catégorie</span>: Projet de formation OCR</li>
+                                <li>
+                                    <span>Compétences</span>:
+                                    <i class="fab fa-wordpress"></i> /
+                                    <i class="fab fa-html5"></i> /
+                                    <i class="fab fa-css3"></i>
+                                </li>
+                                <li>
+                                    <span>Documents</span>:
+                                    <a href="../download/Doc_utilisation_site_Chalets-Caviar.pdf" target="_blank">
+                                        <i class="fas fa-file-pdf"></i> Notice Client
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="portfolio_right_btn col-xl-8 offset-xl-2 col-md-12 mt-25">
+                                <a href="https://chalets-caviar.adrien-pierrard.fr"
+                                   class="primary-btn" target="_blank">
+                                    Voir site
+                                </a>
+                                <a href="../download/project1_eval.pdf"
+                                   class="primary-btn" target="_blank">
+                                    Voir évaluation
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4>Attentes du projet</h4>
+                <p>L’agence immobilière "Chalets et caviar" de Courchevel possède une quinzaine de chalets de luxe
+                    à la vente et une vingtaine en location. Cependant, elle ne possède pas encore de site web pour
+                    promouvoir la vente et la location de ses chalets.
+                    Lors d’une première réunion, la directrice de l’agence exprime les attentes suivantes :<br>
+                    - Un site web WordPress administrable par ses soins.<br>
+                    - Un design clair et épuré mettant en avant la ligne de luxe de l'agence.<br>
+                    - Des catégories distinctes pour la présentation des chalets à vendre et à louer.<br>
+                    - Une page contenant les coordonnées de l'agence avec un formulaire de contact fonctionnel.<br>
+                    - 1 Compte Administrateur (plein accès) et 2 Editeurs (accès restrincts au C.R.U.D des chalets).
+                </p>
+            </div>
+        </div>
+    </section>
+    <!--================ Start Portfolio Details Area =================-->
+
+{% endblock %}

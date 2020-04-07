@@ -1,0 +1,113 @@
+{% extends 'adminLayout.html.twig' %}
+
+{% block title "Modification d'un Article" %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="overview-wrap">
+                <h1 class="title-1">Edition de l'Article</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center m-t-25">
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-header">
+                    <div class="text-center">
+                        {{ item.title }}
+                    </div>
+                    {% if item.image %}
+                        <div class="text-center">
+                            <img src="{{ item.thumb }}" alt="{{ item.image }}" style="width:40%;">
+                        </div>
+                    {% endif %}
+                </div>
+                <form action="{{ path('admin.post.edit', {slug: item.slug}) }}"
+                      method="post" enctype="multipart/form-data" class="form-horizontal">
+                    {{ csrf_input() }}
+                    <div class="card-body card-block">
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="title" class="form-control-label">
+                                    Titre
+                                </label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                {{ field('title', item.title) }}
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="user_id" class="form-control-label">
+                                    Auteur
+                                </label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                {{ field('user_id', item.user_id, {options: authors}) }}
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="publishedAt" class="form-control-label">
+                                    Date de création
+                                </label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                {{ field('publiDate', item.publishedAt|date("d/m/Y à H:i"), {disabled: 'disabled'}) }}
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="updatedAt" class="form-control-label">
+                                    Date de modification
+                                </label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                {{ field('modifDate', item.updatedAt|date("d/m/Y à H:i"), {disabled: 'disabled'}) }}
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="image" class="form-control-label">
+                                    Image
+                                </label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                {{ field('image', item.image, {type: 'file'}) }}
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="extract" class="form-control-label">
+                                    Extrait
+                                </label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                {{ field('extract', item.extract, {type: 'textarea'}) }}
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="content" class="form-control-label">
+                                    Contenu
+                                </label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                {{ field('content', item.content, {type: 'textarea'}) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="fa fa-dot-circle-o"></i> Enregistrer
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

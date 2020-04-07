@@ -1,0 +1,71 @@
+{% extends 'adminLayout.html.twig' %}
+
+{% block title "Administration des Articles" %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <!-- DATA TABLE -->
+            <div class="overview-wrap">
+                <h1 class="title-1 m-b-35">Edition des Articles</h1>
+            </div>
+            <div class="table-data__tool">
+                <div class="table-data__tool-right">
+                    <a href="{{ path('admin.post.create') }}">
+                        <button class="au-btn au-btn-icon au-btn--green au-btn--small">
+                            <i class="zmdi zmdi-plus"></i>Ajouter un Article
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <div class="table-responsive table-responsive-data2">
+                <table class="table table-data2">
+                    <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Auteur</th>
+                        <th>Modifié le</th>
+                        <th>Nbr Blabla</th>
+                        <th class="action">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% set token_input = csrf_input() %}
+                    {% for item in items %}
+                        <tr class="tr-shadow">
+                            <td>{{ item.title }}</td>
+                            <td>{{ item.nameAuthor }}</td>
+                            <td>{{ item.updatedAt|date("d/m/Y à H:i") }}</td>
+                            <td>{{ item.nbrComments }}</td>
+                            <td>
+                                <div class="table-data-feature">
+                                    <button class="item" data-toggle="tooltip"
+                                            data-placement="top" title="Modifier">
+                                        <a href="{{ path('admin.post.edit', {slug: item.slug}) }}">
+                                            <i class="zmdi zmdi-edit"></i>
+                                        </a>
+                                    </button>
+                                    <form action="{{ path('admin.post.delete', {slug: item.slug}) }}"
+                                          method="POST"
+                                          onsubmit="return confirm('Es tu sûr de ce que tu fais ?')">
+                                        <input type="hidden" name="_METHOD" value="DELETE">
+                                        <button class="item" data-toggle="tooltip"
+                                                data-placement="top" title="Supprimer">
+                                            <i class="zmdi zmdi-delete"></i>
+                                        </button>
+                                        {{ token_input | raw }}
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="spacer"></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- END DATA TABLE -->
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'adminLayout.html.twig' %}
+
+{% block title "404 - Error" %}
+
+{% block body %}
+
+    <div id="notfound">
+        <div class="notfound">
+            <div class="notfound-404">
+                <h1>Oops!</h1>
+            </div>
+            <h2>404 - Page non trouvée</h2>
+            <p>La page que tu cherches n'existe pas, a changé ou est temporairement indisponible.</p>
+            <a href="{{ path('admin.dashboard') }}">Retour Dashboard</a>
+        </div>
+    </div>
+
+{% endblock %}

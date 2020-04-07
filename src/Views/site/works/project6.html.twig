@@ -1,0 +1,139 @@
+{% extends 'layout.html.twig' %}
+
+{% block title "Adrien PIERRARD - ToDo & Co" %}
+
+{% block body %}
+
+    <!--================ Start portfolio Banner Area =================-->
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="container">
+                <div class="banner_content text-right">
+                    <h1>ToDo & Co</h1>
+                    <div class="page_link">
+                        <a href="{{ path('site.home') }}">Accueil Site</a>
+                        <a href="{{ path('site.portfolio') }}">Réalisations</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================ End Portfolio Banner Area =================-->
+
+    <!--================ Start Portfolio Details Area =================-->
+    <section class="portfolio_details_area section_gap">
+        <div class="container">
+            <div class="portfolio_details_inner">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="left_img">
+                            <img class="img-fluid" src="../img/works/project_on_going.jpg" alt="ToDo & Co">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="portfolio_right_text mt-30">
+                            <h4>Projet : ToDo & Co</h4>
+                            <p>Ce projet s'est inscrit dans le cadre de mon parcours de formation pour devenir
+                                Développeur d'Application Web PHP / Symfony. L'objectif était d'améliorer une
+                                application existante de ToDo & Co.</p>
+                            <ul class="list">
+                                <li><span>Réalisation</span>: Juin 2020</li>
+                                <li><span>Catégorie</span>: Projet de formation OCR</li>
+                                <li><span>Compétences</span>: <i class="fab fa-php"></i></li>
+                                <li><span>Framework</span>: <i class="fab fa-symfony"></i> Symfony</li>
+                                <li><span>Testing</span>: IC / Blackfire</li>
+                                <li>
+                                    <span>Documents</span>:
+                                    <a href="#" target="_blank">
+                                        <i class="fas fa-file-pdf"></i> Livrable en cours...
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="portfolio_right_btn col-xl-8 offset-xl-2 col-md-12 mt-25">
+                                <a href="#"
+                                   class="primary-btn" target="_blank">
+                                    Site à venir...
+                                </a>
+                                <a href="#"
+                                   class="primary-btn" target="_blank">
+                                    à venir...
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4>Contexte</h4>
+                <p>Vous venez d’intégrer une startup dont le cœur de métier est une application permettant de gérer ses
+                    tâches quotidiennes. L’entreprise vient tout juste d’être montée, et l’application a dû être
+                    développée à toute vitesse pour permettre de montrer à de potentiels investisseurs que le concept
+                    est viable (on parle de Minimum Viable Product ou MVP). Le choix du développeur précédent a été
+                    d’utiliser le framework PHP Symfony. Bonne nouvelle ! ToDo & Co a enfin réussi à lever des fonds
+                    pour permettre le développement de l’entreprise et surtout de l’application. Votre rôle ici est
+                    donc d’améliorer la qualité de l’application. La qualité est un concept qui englobe bon nombre
+                    de sujets : on parle souvent de qualité de code, mais il y a également la qualité perçue par
+                    l’utilisateur de l’application ou encore la qualité perçue par les collaborateurs de l’entreprise,
+                    et enfin la qualité que vous percevez lorsqu’il vous faut travailler sur le projet.
+                    Ainsi, pour ce projet de spécialisation, vous êtes dans la peau d’un développeur expérimenté
+                    en charge des tâches suivantes : l’implémentation de nouvelles fonctionnalités, la correction de
+                    quelques anomalies, et l’implémentation de tests automatisés.<br>
+                    Il vous est également demandé d’analyser le projet grâce à des outils vous permettant d’avoir
+                    une vision d’ensemble de la qualité du code et des différents axes de performance de l’application.
+                    Il ne vous est pas demandé de corriger les points remontés par l’audit de qualité de code et de
+                    performance. Cela dit, si le temps vous le permet, ToDo & Co sera ravi que vous réduisiez la
+                    dette technique de cette application.
+                </p>
+                <h4>Attentes du projet</h4>
+                <p>Corrections d'anomalies : <br>
+                    - Une tâche doit être attachée à un utilisateur. Actuellement, lorsqu’une tâche est créée,
+                    elle n’est pas rattachée à un utilisateur. Il vous est demandé d’apporter les corrections
+                    nécessaires afin qu’automatiquement, à la sauvegarde de la tâche, l’utilisateur authentifié soit
+                    rattaché à la tâche nouvellement créée. Lors de la modification de la tâche, l’auteur ne peut pas
+                    être modifié. Pour les tâches déjà créées, il faut qu’elles soient rattachées à un utilisateur
+                    “anonyme”.<br>
+                    - Choisir un rôle pour un utilisateur. Lors de la création d’un utilisateur, il doit être possible
+                    de choisir un rôle pour celui-ci. Les rôles listés sont les suivants : rôle utilisateur (ROLE_USER)
+                    et rôle administrateur (ROLE_ADMIN). Lors de la modification d’un utilisateur, il est également
+                    possible de changer le rôle d’un utilisateur.<br><br>
+
+                    Implémentation de nouvelles fonctionnalités :<br>
+                    - Autorisation. Seuls les utilisateurs ayant le rôle administrateur (ROLE_ADMIN) doivent pouvoir
+                    accéder aux pages de gestion des utilisateurs. Les tâches ne peuvent être supprimées que par les
+                    utilisateurs ayant créé les tâches en question. Les tâches rattachées à l’utilisateur “anonyme”
+                    peuvent être supprimées uniquement par les utilisateurs ayant le rôle administrateur (ROLE_ADMIN).<br>
+                    - Implémentation de tests automatisés. Il vous est demandé d’implémenter les tests automatisés
+                    (tests unitaires et fonctionnels) nécessaires pour assurer que le fonctionnement de l’application
+                    est bien en adéquation avec les demandes. Ces tests doivent être implémentés avec PHPUnit. Vous
+                    pouvez aussi utiliser Behat pour la partie fonctionnelle. Vous prévoirez des données de tests
+                    afin de pouvoir prouver le fonctionnement dans les cas explicités dans ce document. Il vous est
+                    demandé de fournir un rapport de couverture de code au terme du projet.
+                    Il faut que le taux de couverture soit supérieur à 70 %.
+                </p>
+                <h4>Documentation technique</h4>
+                <p>Il vous est demandé de produire une documentation expliquant comment l’implémentation de
+                    l'authentification a été faite. Cette documentation se destine aux prochains développeurs juniors
+                    qui rejoindront l’équipe dans quelques semaines. Dans cette documentation, il doit être possible
+                    pour un débutant avec le framework Symfony de : comprendre quel(s) fichier(s) il faut modifier et
+                    pourquoi, comment s’opère l’authentification et où sont stockés les utilisateurs. S’il vous semble
+                    important de mentionner d’autres informations, n’hésitez pas à le faire. Par ailleurs, vous ouvrez
+                    la marche en matière de collaboration à plusieurs sur ce projet. Il vous est également demandé de
+                    produire un document expliquant comment devront procéder tous les développeurs souhaitant apporter
+                    des modifications au projet. Ce document devra aussi détailler le processus de qualité à utiliser
+                    ainsi que les règles à respecter.
+                </p>
+                <h4> Audit de qualité du code & performance de l'application</h4>
+                <p>Les fondateurs souhaitent pérenniser le développement de l’application. Cela dit, ils souhaitent
+                    dans un premier temps faire un état des lieux de la dette technique de l’application. Au terme de
+                    votre travail effectué sur l’application, il vous est demandé de produire un audit de code sur les
+                    deux axes suivants : la qualité de code et la performance. Bien évidemment, il vous est fortement
+                    conseillé d’utiliser des outils vous permettant d’avoir des métriques pour appuyer vos propos.
+                    Concernant l’audit de performance, l’usage de Blackfire est obligatoire. Ce dernier vous permettra
+                    de produire des analyses précises et adaptées aux évolutions futures du projet.
+                </p>
+            </div>
+        </div>
+    </section>
+    <!--================ Start Portfolio Details Area =================-->
+
+{% endblock %}

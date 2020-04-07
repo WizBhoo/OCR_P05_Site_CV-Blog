@@ -1,0 +1,111 @@
+{% extends 'layout.html.twig' %}
+
+{% block title "Adrien PIERRARD - BileMo" %}
+
+{% block body %}
+
+    <!--================ Start portfolio Banner Area =================-->
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="container">
+                <div class="banner_content text-right">
+                    <h1>BileMo</h1>
+                    <div class="page_link">
+                        <a href="{{ path('site.home') }}">Accueil Site</a>
+                        <a href="{{ path('site.portfolio') }}">Réalisations</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================ End Portfolio Banner Area =================-->
+
+    <!--================ Start Portfolio Details Area =================-->
+    <section class="portfolio_details_area section_gap">
+        <div class="container">
+            <div class="portfolio_details_inner">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="left_img">
+                            <img class="img-fluid" src="../img/works/project_on_going.jpg" alt="BileMo">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="portfolio_right_text mt-30">
+                            <h4>Projet : BileMo</h4>
+                            <p>Ce projet s'est inscrit dans le cadre de mon parcours de formation pour devenir
+                                Développeur d'Application Web PHP / Symfony. L'objectif était de créer un service
+                                web exposant une API.</p>
+                            <ul class="list">
+                                <li><span>Réalisation</span>: Mai 2020</li>
+                                <li><span>Catégorie</span>: Projet de formation OCR</li>
+                                <li>
+                                    <span>Compétences</span>:
+                                    API REST /
+                                    <i class="fab fa-php"></i> /
+                                    <i class="fab fa-html5"></i> /
+                                    <i class="fab fa-css3"></i>
+                                </li>
+                                <li><span>Framework</span>: <i class="fab fa-symfony"></i> Symfony</li>
+                                <li><span>Méthodologie</span>: UML / Modèle de Richardson</li>
+                                <li>
+                                    <span>Documents</span>:
+                                    <a href="#" target="_blank">
+                                        <i class="fas fa-file-pdf"></i> Livrable en cours...
+                                    </a>
+                                </li>
+                                <li>
+                                    <span>Repository</span>:
+                                    <a href="#" target="_blank">
+                                        <i class="fab fa-github"></i> GitHub à venir
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="portfolio_right_btn col-xl-8 offset-xl-2 col-md-12 mt-25">
+                                <a href="#"
+                                   class="primary-btn" target="_blank">
+                                    Site à venir...
+                                </a>
+                                <a href="#"
+                                   class="primary-btn" target="_blank">
+                                    à venir...
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4>Contexte</h4>
+                <p>BileMo est une entreprise offrant toute une sélection de téléphones mobiles haut de gamme. Vous
+                    êtes en charge du développement de la vitrine de téléphones mobiles de l’entreprise BileMo.
+                    Le business modèle de BileMo n’est pas de vendre directement ses produits sur le site web, mais
+                    de fournir à toutes les plateformes qui le souhaitent l’accès au catalogue via une API
+                    (Application Programming Interface). Il s’agit donc de vente exclusivement en B2B
+                    (business to business). Il va falloir que vous exposiez un certain nombre d’API pour que les
+                    applications des autres plateformes web puissent effectuer des opérations.
+                    </p>
+                <h4>Attentes du projet</h4>
+                <p>Le premier client a enfin signé un contrat de partenariat avec BileMo ! C’est le branle-bas de
+                    combat pour répondre aux besoins de ce premier client qui va permettre de mettre en place
+                    l’ensemble des API et de les éprouver tout de suite. Après une réunion dense avec le client, il a
+                    été identifié un certain nombre d’informations. Il doit être possible de : consulter la liste des
+                    produits BileMo, consulter les détails d’un produit BileMo, consulter la liste des utilisateurs
+                    inscrits liés à un client sur le site web, consulter le détail d’un utilisateur inscrit lié à
+                    un client, ajouter un nouvel utilisateur lié à un client et supprimer un utilisateur ajouté
+                    par un client. Seuls les clients référencés peuvent accéder aux API. Les clients de l’API
+                    doivent être authentifiés via OAuth ou JWT. Vous avez le choix entre mettre en place un serveur
+                    OAuth et y faire appel (en utilisant le FOSOAuthServerBundle), et utiliser Facebook, Google ou
+                    LinkedIn. Si vous décidez d’utiliser JWT, il vous faudra vérifier la validité du token. L’usage
+                    d’une librairie est autorisé.<br>
+                    Présentation des données : Le premier partenaire de BileMo est très exigeant. Il requiert que
+                    vous exposiez vos données en suivant les règles des niveaux 1, 2 et 3 du modèle de Richardson.
+                    Il a demandé à ce que vous serviez les données en JSON. Si possible, le client souhaite que les
+                    réponses soient mises en cache afin d’optimiser les performances des requêtes en direction de l’API.
+                </p>
+            </div>
+        </div>
+    </section>
+    <!--================ Start Portfolio Details Area =================-->
+
+{% endblock %}

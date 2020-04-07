@@ -1,0 +1,79 @@
+{% extends 'layout.html.twig' %}
+
+{% block title "Adrien PIERRARD - Docker Stack" %}
+
+{% block body %}
+
+    <!--================ Start portfolio Banner Area =================-->
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="container">
+                <div class="banner_content text-right">
+                    <h1>Docker Stack</h1>
+                    <div class="page_link">
+                        <a href="{{ path('site.home') }}">Accueil Site</a>
+                        <a href="{{ path('site.portfolio') }}">Réalisations</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================ End Portfolio Banner Area =================-->
+
+    <!--================ Start Portfolio Details Area =================-->
+    <section class="portfolio_details_area section_gap">
+        <div class="container">
+            <div class="portfolio_details_inner">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="left_img">
+                            <img class="img-fluid" src="../img/works/project7.png" alt="Docker Stack">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="portfolio_right_text mt-30">
+                            <h4>Projet : Docker Stack</h4>
+                            <p>Ce projet s'est inscrit dans le cadre de la mise en place de mon environnement de
+                                travail personnel. L'objectif était pour moi d'acquérir le plus rapidement possible des
+                                compétences annexes me permettant de développer en local sur mon ordinateur dans des
+                                conditions flexibles et confortables sans rester dépendant de ce dernier.
+                                J'ai donc décidé d'apprendre à utiliser Docker pour créer des stacks adaptées à mes
+                                besoins. Ce travail a été réalisé avec l'aide de mon "Maître Jedi" - Yann LUCAS.
+                            </p>
+                            <ul class="list">
+                                <li><span>Catégorie</span>: Environnement de travail</li>
+                                <li><span>Compétences</span>: <i class="fab fa-docker"></i> / Docker-Compose</li>
+                                <li>
+                                    <span>Mes OS</span>:
+                                    <i class="fab fa-apple"></i> /
+                                    <i class="fab fa-ubuntu"></i>
+                                </li>
+                                <li><span>Terminal App</span>: iTerm2 / Tilix</li>
+                                <li>
+                                    <span>Support</span>:
+                                    <a href="https://github.com/drixs6o9" target="_blank">
+                                        <i class="fab fa-github"></i> GitHub Yann LUCAS
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="portfolio_right_btn col-xl-8 offset-xl-2 col-md-12 mt-25">
+                                <a href="https://github.com/WizBhoo/docker_php"
+                                   class="primary-btn" target="_blank">
+                                    PHP
+                                </a>
+                                <a href="https://github.com/WizBhoo/docker_sf3-sf4"
+                                   class="primary-btn" target="_blank">
+                                    Symfony 3-4
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================ Start Portfolio Details Area =================-->
+
+{% endblock %}

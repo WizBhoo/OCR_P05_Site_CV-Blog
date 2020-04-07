@@ -1,0 +1,66 @@
+{% extends 'adminLayout.html.twig' %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <div class="overview-wrap">
+                <h1 class="title-1">Bienvenue<br>{{ current_user().userName }}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row m-t-25">
+        <div class="col-sm-6 col-lg-4">
+            <div class="overview-item overview-item--c1">
+                <div class="overview__inner">
+                    <div class="overview-box clearfix">
+                        <a href="{{ path('admin.users') }}">
+                            <div class="icon">
+                                <i class="zmdi zmdi-account-o"></i>
+                            </div>
+                            <div class="text">
+                                <h2>Users</h2>
+                                <span>Admin Account</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            <div class="overview-item overview-item--c4">
+                <div class="overview__inner">
+                    <div class="overview-box clearfix">
+                        <a href="{{ path('admin.posts') }}">
+                            <div class="icon">
+                                <i class="zmdi zmdi-collection-item"></i>
+                            </div>
+                            <div class="text">
+                                <h2>Articles</h2>
+                                <span>Admin BlogPosts</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            <div class="overview-item overview-item--c3">
+                <div class="overview__inner">
+                    <div class="overview-box clearfix">
+                        <a href="{{ path('admin.comments') }}">
+                            <div class="icon">
+                                <i class="zmdi zmdi-comments"></i>
+                            </div>
+                            <div class="text">
+                                <h2>Blabla</h2>
+                                <span>Admin Comments</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

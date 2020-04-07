@@ -1,0 +1,111 @@
+{% extends 'layout.html.twig' %}
+
+{% block title post.title %}
+
+{% block body %}
+
+    <!--================ Start Single Blog Banner Area =================-->
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="container">
+                <div class="banner_content text-right">
+                    <h1>Article {{ post.id }}</h1>
+                    <div class="page_link">
+                        <a href="{{ path('site.home') }}">Accueil Site</a>
+                        <a href="{{ path('blog.home') }}">Blog</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================ End Single Blog Banner Area =================-->
+
+    <!--================Blog Area =================-->
+    <section class="blog_area single-post-area section_gap">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-12 posts-list">
+                    <div class="single-post row">
+                        <div class="col-lg-12">
+                            <div class="feature-img text-center">
+                                {% if post.image %}
+                                    <img class="img-fluid" src="{{ post.imageUrl }}" alt="{{ post.image }}">
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-5">
+                            <div class="blog_info text-right">
+                                <ul class="blog_meta list">
+                                    <li>{{ post.nameAuthor }}<i class="lnr lnr-user"></i></li>
+                                    <li>Modifié le {{ post.updatedAt|date("d/m/Y à H:i") }}<i class="lnr lnr-calendar-full"></i></li>
+                                    <li>Commenté {{ post.nbrComments }} fois<i class="lnr lnr-bubble"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 col-md-7 blog_details">
+                            <h2 class="text-center">{{ post.title }}</h2>
+                            <p class="excert text-justify">
+                                {{ post.content | nl2br }}
+                            </p>
+                        </div>
+                        {% if not current_user() %}
+                            <div class="col-lg-12">
+                                <div class="quotes text-center">
+                                    Cet article vous a plu ? Vous souhaitez laisser un commentaire ?<br>
+                                    Pour cela vous devez au préalable
+                                    <a href="{{ path('auth.login') }}">
+                                        vous connecter
+                                    </a>
+                                    sur mon site afin d'avoir accès au formulaire de commentaire en bas de cette page.
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="comments-area">
+                        <h4>Commenté {{ post.nbrComments }} fois</h4>
+                        {% for comment in comments %}
+                            {% if comment.commentStatus %}
+                                <div class="comment-list">
+                                    <div class="single-comment justify-content-between d-flex">
+                                        <div class="user justify-content-between d-flex">
+                                            <div class="desc">
+                                                <h5>{{ comment.nameAuthor }}</h5>
+                                                <p class="date">Le {{ comment.commentedAt|date("d/m/Y à H:i") }}</p>
+                                                <p class="comment text-justify">
+                                                    {{ comment.content | nl2br }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% if current_user() %}
+                        <div class="comment-form">
+                            <h4>Laisser un commentaire</h4>
+                            <form action="{{ path('blog.show', {slug: slug}) }}"
+                                  method="post" enctype="multipart/form-data" class="form-horizontal">
+                                {{ csrf_input() }}
+                                <div class="form-group">
+                                    <label for="content" class="form-control-label">
+                                        Votre commentaire sera contrôlé par l'administrateur avant d'être publié.
+                                    </label>
+                                    <textarea class="form-control mb-10" rows="5" id="content" name="content"
+                                              placeholder="Commentaire..." onfocus="this.placeholder = ''"
+                                              onblur="this.placeholder = 'Commentaire...'" required=""></textarea>
+                                    <small class="form-text text-muted">{{ errors }}</small>
+                                </div>
+                                <button type="submit" class="primary-btn primary_btn">
+                                    <span>Commenter</span>
+                                </button>
+                            </form>
+                        </div>
+                    {%  endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================Blog Area =================-->
+
+{% endblock %}

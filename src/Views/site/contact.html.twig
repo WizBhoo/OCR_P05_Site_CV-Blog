@@ -1,0 +1,102 @@
+{% extends 'layout.html.twig' %}
+
+{% block title "Adrien PIERRARD - Contact" %}
+
+{% block body %}
+
+    <!--================ Start Contact Banner Area =================-->
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="container">
+                <div class="banner_content text-right">
+                    <h1>Me Contacter</h1>
+                    <div class="page_link">
+                        <a href="{{ path('site.home') }}">Accueil</a>
+                        <a href="{{ path('site.contact') }}">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================ End Contact Banner Area =================-->
+
+    <!--================Contact Area =================-->
+    <section class="contact_area section_gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="contact_info">
+                        <div class="info_item">
+                            <i class="lnr lnr-home"></i>
+                            <h6>Rhône, FRANCE</h6>
+                            <p>32 Rue Crépet - 69007 Lyon</p>
+                        </div>
+                        <div class="info_item">
+                            <i class="lnr lnr-phone-handset"></i>
+                            <h6>+33 (6) 85 21 60 46</h6>
+                            <p>Merci de laisser un message avec vos coordonnées ;-)</p>
+                        </div>
+                        <div class="info_item">
+                            <i class="lnr lnr-envelope"></i>
+                            <h6>adrien.pierrard@gmail.com</h6>
+                            <p>Me contacter via le formulaire</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="main-title">
+                        <h1>Formulaire de contact</h1>
+                    </div>
+                    <form class="row contact_form" action="{{ path('site.contact') }}" method="post" id="contactForm">
+                        {{ csrf_input() }}
+                        <div class="col-md-5 offset-md-1">
+                            <div class="form-group">
+                                <label for="name">Nom & Prénom :</label>
+                                {{ field('name', contact.name, {class: 'form-control'}) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Adresse e-mail :</label>
+                                {{ field('email', contact.email, {type: 'email', class: 'form-control'}) }}
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-6 offset-lg-1">
+                            <div class="form-group">
+                                <label for="subject">Sujet :</label>
+                                {{ field('subject', contact.subject, {class: 'form-control'}) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message :</label>
+                                {{ field('message', contact.message, {type: 'textarea', class: 'form-control'}) }}
+                            </div>
+                        </div>
+                        <div class="col-md-12 text-right">
+                            {% if flash('success') %}
+                                <div class="row">
+                                    <div class="col-lg-5 col-md-6 offset-lg-7 offset-md-6 text-center">
+                                        <div class="alert-success">
+                                            {{ flash('success') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if flash('error') %}
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-9 offset-lg-4 offset-md-3 text-center">
+                                        <div class="alert-danger">
+                                            {{ flash('error') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <button type="submit" value="submit" class="primary-btn">
+                                <span>Envoyer</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Contact Area =================-->
+
+{% endblock %}

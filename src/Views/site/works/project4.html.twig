@@ -1,0 +1,117 @@
+{% extends 'layout.html.twig' %}
+
+{% block title "Adrien PIERRARD - SnowTricks" %}
+
+{% block body %}
+
+    <!--================ Start portfolio Banner Area =================-->
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="container">
+                <div class="banner_content text-right">
+                    <h1>SnowTrick</h1>
+                    <div class="page_link">
+                        <a href="{{ path('site.home') }}">Accueil Site</a>
+                        <a href="{{ path('site.portfolio') }}">Réalisations</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================ End Portfolio Banner Area =================-->
+
+    <!--================ Start Portfolio Details Area =================-->
+    <section class="portfolio_details_area section_gap">
+        <div class="container">
+            <div class="portfolio_details_inner">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="left_img">
+                            <img class="img-fluid" src="../img/works/project_on_going.jpg" alt="SnowTricks">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="portfolio_right_text mt-30">
+                            <h4>Projet : SnowTricks</h4>
+                            <p>Ce projet s'est inscrit dans le cadre de mon parcours de formation pour devenir
+                                Développeur d'Application Web PHP / Symfony. L'objectif était de développer de A à Z
+                                le site communautaire SnowTricks à l'aide du Framework Symfony.</p>
+                            <ul class="list">
+                                <li><span>Réalisation</span>: Avril 2020</li>
+                                <li><span>Catégorie</span>: Projet de formation OCR</li>
+                                <li>
+                                    <span>Compétences</span>:
+                                    <i class="fab fa-html5"></i> /
+                                    <i class="fab fa-css3"></i> /
+                                    MySQL /
+                                    <i class="fab fa-php"></i>
+                                </li>
+                                <li><span>Framework</span>: <i class="fab fa-symfony"></i> Symfony</li>
+                                <li><span>Méthodologie</span>: UML / POO / SOLID</li>
+                                <li>
+                                    <span>Documents</span>:
+                                    <a href="#" target="_blank">
+                                        <i class="fas fa-file-pdf"></i> Livrable en cours...
+                                    </a>
+                                </li>
+                                <li>
+                                    <span>Repository</span>:
+                                    <a href="#" target="_blank">
+                                        <i class="fab fa-github"></i> GitHub à venir
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="portfolio_right_btn col-xl-8 offset-xl-2 col-md-12 mt-25">
+                                <a href="#"
+                                   class="primary-btn" target="_blank">
+                                    Site à venir...
+                                </a>
+                                <a href="#"
+                                   class="primary-btn" target="_blank">
+                                    à venir...
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4>Attentes du projet</h4>
+                <p>Jimmy Sweat est un entrepreneur ambitieux passionné de snowboard. Son objectif est la création d'un
+                    site collaboratif pour faire connaître ce sport auprès du grand public et aider à l'apprentissage
+                    des figures (tricks). Il souhaite capitaliser sur du contenu apporté par les internautes afin de
+                    développer un contenu riche et suscitant l’intérêt des utilisateurs du site. Par la suite, Jimmy
+                    souhaite développer un business de mise en relation avec les marques de snowboard grâce au trafic
+                    que le contenu aura généré.<br>
+                    Pour ce projet, il faut se concentrer sur la création technique du site pour Jimmy.<br>
+                    Etant chargé de développer le site répondant aux besoins de Jimmy. Vous devez ainsi implémenter
+                    les fonctionnalités suivantes :<br>
+                    - Un annuaire des figures de snowboard. Contentez-vous d'intégrer 10 figures,
+                    le reste sera saisi par les internautes.<br>
+                    - La gestion des figures (création, modification, consultation).<br>
+                    - Un espace de discussion commun à toutes les figures.<br><br>
+                    Pour implémenter ces fonctionnalités, vous devez créer les pages suivantes :<br>
+                    - La page d’accueil où figurera la liste des figures<br>
+                    - La page de création d'une nouvelle figure<br>
+                    - La page de modification d'une figure<br>
+                    - La page de présentation d’une figure (contenant l’espace de discussion commun autour
+                    d’une figure).<br>
+                    L’ensemble des spécifications détaillées pour les pages à développer est fourni.<br>
+                </p>
+                <h4>Nota Bene</h4>
+                <p>Il faut que les URL de page permettent une compréhension rapide de ce que la page représente et que
+                    le référencement naturel soit facilité. L’utilisation de bundles tiers est interdite sauf pour les
+                    données initiales. Il faut se baser principalement sur la documentation officielle afin de remplir
+                    les objectifs donnés. Le design du site web est laissé complètement libre, attention cependant à
+                    respecter les wireframes fournis pour le gabarit des pages. Il faudra que le site soit Responsive
+                    Design. En premier lieu, il faudra écrire l’ensemble des issues/tickets afin de découper le
+                    travail méthodiquement pour s'assurer que l’ensemble du besoin client est bien compris.
+                    Les tickets/issues seront écrits dans un repository GitHub créé au préalable. L’ensemble des
+                    figures de snowboard doivent être présentes à l’initialisation de l’application web.
+                    Vous utiliserez un bundle externe pour charger ces données. </p>
+            </div>
+        </div>
+    </section>
+    <!--================ Start Portfolio Details Area =================-->
+
+{% endblock %}

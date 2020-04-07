@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="dashboard theme template">
+    <meta name="author" content="Hau Nguyen adapted for personnal use by WizBhoo">
+
+    <!-- Title Page -->
+    <link rel="icon" href="../../img/favicon.png" type="image/png">
+    <title>{% block title "APi Admin Dashboard" %}</title>
+
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <!-- Material Design Icon CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+
+    <!-- libs CSS -->
+    <link rel="stylesheet" href="../../libs/dashboard/animsition/animsition.min.css">
+    <link rel="stylesheet" href="../../libs/dashboard/wow/animate.css">
+    <link rel="stylesheet" href="../../libs/dashboard/slick/slick.css">
+    <link rel="stylesheet" href="../../libs/dashboard/perfect-scrollbar/perfect-scrollbar.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../../css/adminStyle.css">
+</head>
+
+<body class="animsition">
+
+<div class="page-wrapper">
+    <!-- MENU SIDEBAR -->
+    <aside class="menu-sidebar2">
+        <div class="logo">
+            <a href="{{ path('admin.dashboard') }}">
+                <img src="../../img/logoadmin.png" alt="APi" />
+            </a>
+        </div>
+        <div class="menu-sidebar2__content js-scrollbar1">
+            <div class="account2">
+                <div class="image img-cir img-120">
+                    <img src="../../img/avatar_api.png" alt="Adrien PIERRARD" />
+                </div>
+                <h4 class="name">{{ current_user().userName }}</h4>
+                <form class="sign-out" method="post" action="{{ path('auth.logout') }}">
+                    {{ csrf_input() }}
+                    <button id="sign-out">
+                        Sign out
+                    </button>
+                </form>
+            </div>
+            <nav class="navbar-sidebar2">
+                <ul class="list-unstyled navbar__list">
+                    <li class="has-sub">
+                        <a class="js-arrow" href="#">
+                            <i class="fas fa-tachometer-alt"></i>Blog
+                            <span class="arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </span>
+                        </a>
+                        <ul class="list-unstyled navbar__sub-list js-sub-list">
+                            <li>
+                                <a href="{{ path('admin.posts') }}">
+                                    <i class="fas fa-copy"></i>Articles
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('admin.comments') }}">
+                                    <i class="fas fa-comments"></i>Comments
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a class="js-arrow" href="#">
+                            <i class="fas fa-user"></i>Users
+                            <span class="arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </span>
+                        </a>
+                        <ul class="list-unstyled navbar__sub-list js-sub-list">
+                            <li>
+                                <a href="{{ path('account.profile') }}">
+                                    <i class="fas fa-user"></i>My Account
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('admin.users') }}">
+                                    <i class="fas fa-unlock-alt"></i>Admin Account
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
+    <!-- END MENU SIDEBAR -->
+
+    <!-- PAGE CONTAINER -->
+    <div class="page-container2">
+        <!-- HEADER DESKTOP -->
+        <header class="header-desktop2">
+            <div class="section__content section__content--p30">
+                <div class="container-fluid">
+                    <div class="header-wrap2">
+                        <div class="logo d-block d-lg-none">
+                            <a href="{{ path('admin.dashboard') }}">
+                                <img src="../../img/logoadmin.png" alt="Api" />
+                            </a>
+                        </div>
+                        <div class="header-button2">
+                            <div class="header-button-item mr-0 js-sidebar-btn">
+                                <i class="zmdi zmdi-menu"></i>
+                            </div>
+                            <div class="setting-menu js-right-sidebar d-none d-lg-block">
+                                <div class="account-dropdown__body">
+                                    <div class="account-dropdown__item">
+                                        <a href="{{ path('site.home') }}">
+                                            <i class="zmdi zmdi-home"></i>Go APi Site
+                                        </a>
+                                    </div>
+                                    <div class="account-dropdown__item">
+                                        <a href="{{ path('account.profile') }}">
+                                            <i class="zmdi zmdi-account"></i>My Account
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none">
+            <div class="logo">
+                <a href="{{ path('admin.dashboard') }}">
+                    <img src="../../img/logo.png" alt="APi" />
+                </a>
+            </div>
+            <div class="menu-sidebar2__content js-scrollbar2">
+                <div class="account2">
+                    <div class="image img-cir img-120">
+                        <img src="../../img/avatar_api.png" alt="Adrien PIERRARD" />
+                    </div>
+                    <h4 class="name">{{ current_user().userName }}</h4>
+                    <form class="sign-out" method="post" action="{{ path('auth.logout') }}">
+                        {{ csrf_input() }}
+                        <button id="sign-out">
+                            Sign out
+                        </button>
+                    </form>
+                </div>
+                <nav class="navbar-sidebar2">
+                    <ul class="list-unstyled navbar__list">
+                        <li class="has-dub">
+                            <a href="{{ path('site.home') }}">
+                                <i class="zmdi zmdi-home"></i>Go APi Site
+                            </a>
+                        </li>
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-tachometer-alt"></i>Blog
+                                <span class="arrow">
+                                        <i class="fas fa-angle-down"></i>
+                                    </span>
+                            </a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                    <a href="{{ path('admin.posts') }}">
+                                        <i class="fas fa-copy"></i>Articles
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('admin.comments') }}">
+                                        <i class="fas fa-comments"></i>Comments
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-user"></i>Users
+                                <span class="arrow">
+                                        <i class="fas fa-angle-down"></i>
+                                    </span>
+                            </a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                    <a href="{{ path('account.profile') }}">
+                                        <i class="fas fa-user"></i>My Account
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('admin.users') }}">
+                                        <i class="fas fa-unlock-alt"></i>Admin Account
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        <!-- END HEADER DESKTOP-->
+        <div class="main-content">
+            <div class="section__content section__content--p30">
+                <div class="container-fluid">
+                    {% if flash('success') %}
+                        <div class="row justify-content-center">
+                            <div class="col-md-4 text-center">
+                                <div class="au-alert-success">
+                                    {{ flash('success') }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if flash('error') %}
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <div class="au-alert-danger">
+                                    {{ flash('error') }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div>
+        <!-- FOOTER AREA -->
+        <footer>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="copyright">
+                            <p>Copyright © 2018 Colorlib. All rights reserved. Template by
+                                <a href="https://colorlib.com">Colorlib</a><br>
+                                Adapted for personnal use by
+                                <a href="https://github.com/WizBhoo" target="_blank">WizBhoo</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- END FOOTER AREA -->
+    </div>
+    <!-- END PAGE CONTAINER-->
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous">
+</script>
+<script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous">
+</script>
+<!-- Font-Awesome cdn js -->
+<script src="https://kit.fontawesome.com/58f30e32b1.js" crossorigin="anonymous"></script>
+<!-- libs JS -->
+<script src="../../libs/dashboard/slick/slick.min.js"></script>
+<script src="../../libs/dashboard/wow/wow.min.js"></script>
+<script src="../../libs/dashboard/animsition/animsition.min.js"></script>
+<script src="../../libs/dashboard/wow/wow.min.js"></script>
+<script src="../../libs/dashboard/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+<!-- Main JS-->
+<script src="../../js/dashboard/main.js"></script>
+
+</body>
+
+</html>
+<!-- end document-->
