@@ -17,7 +17,6 @@ use MyWebsite\Controller\LogoutController;
 use MyWebsite\Controller\ResetPasswordController;
 use MyWebsite\Controller\SignUpController;
 use MyWebsite\Controller\SiteController;
-use MyWebsite\Utils\Middleware\CallableMiddleware;
 use MyWebsite\Utils\Middleware\LoggedInMiddleware;
 use Psr\Container\ContainerInterface;
 

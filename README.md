@@ -4,7 +4,7 @@ My WebSite is Online and you can visit it : [APi - Site CV](https://adrien-pierr
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/79a2760fdd9e4e08828d5e2b7a33b6e4)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=WizBhoo/OCR_P05_Site_CV-Blog&amp;utm_campaign=Badge_Grade)
 
-## Version 1.0.1 - April 2020
+## Version 1.0.2 - April 2020
 
 *   This file explains how to install and run the project.
 *   IDE used : PhpStorm.
@@ -41,12 +41,10 @@ https://github.com/WizBhoo/OCR_P05_Site_CV-Blog.git
 *   If you prefer you can copy the ".env" file and setup your credentials in a ".env.local" file.
 *   Launch your local environment and create the database following UML schemas (only OCR Evaluators have access to my DB file (see project renderings) with a set of data for demo).
 *   From your terminal, go to the project directory.
-*   I used some package with composer so don't forget to tape those command lines in you terminal :
+*   I used some package with composer so don't forget to tape this command line in you terminal :
 
 ```
 composer install
-composer update
-composer dump-autoload
 ```
 
 *   Well done ! The project is installed so you just have to go to your localhost home page.
@@ -85,12 +83,10 @@ You can also use "make help" to see what "make" command are available.
 
 *   Go to [pma.localhost](http://pma.localhost) to access to PHPMyAdmin and create the database following UML schemas (only OCR Evaluators have access to my DB file (see project renderings) with a set of data for demo).
 *   From your terminal, go to the php_project directory.
-*   I used some package with composer so don't forget to tape those command lines in you terminal :
+*   I used some package with composer so don't forget to tape this command line in you terminal :
 
 ```
 composer install
-composer update
-composer dump-autoload
 ```
 
 *   Well done ! The project is installed so you just have to go to [mon-site.localhost](http://mon-site.localhost) home page.

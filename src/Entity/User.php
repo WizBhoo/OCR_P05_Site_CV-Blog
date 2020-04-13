@@ -6,7 +6,6 @@
 
 namespace MyWebsite\Entity;
 
-use Cassandra\Date;
 use DateTime;
 use Exception;
 use MyWebsite\Utils\Auth\UserInterface;
