@@ -3,6 +3,7 @@
 /**
  * (c) Adrien PIERRARD
  */
+
 namespace MyWebsite\Utils\Auth;
 
 /**

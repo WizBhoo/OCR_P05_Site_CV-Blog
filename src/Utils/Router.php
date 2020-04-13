@@ -21,7 +21,7 @@ use \Mezzio\Router\Route as MezzioRoute;
 class Router
 {
     /**
-     * An instance of FastRouteRouter
+     * A Mezzio RouterInterface injection
      *
      * @var RouterInterface
      */
