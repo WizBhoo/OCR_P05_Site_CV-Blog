@@ -81,7 +81,7 @@ class MessageMailer
                 $this->renderer->renderView('email/contactHtml', $params),
                 'text/html'
             )
-            ->setTo(['adrien.pierrard@gmail.com'])
+            ->setTo(['apierrard.contact@gmail.com'])
             ->setFrom([$params['email'] => 'Contact Site CV APi'])
         ;
         $this->mailer->send($message);
