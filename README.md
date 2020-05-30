@@ -4,7 +4,7 @@ My WebSite is Online and you can visit it : [APi - Site CV](https://adrien-pierr
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/79a2760fdd9e4e08828d5e2b7a33b6e4)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=WizBhoo/OCR_P05_Site_CV-Blog&amp;utm_campaign=Badge_Grade)
 
-## Version 1.0.2 - April 2020
+## Version 1.0.3 - Mai 2020
 
 *   This file explains how to install and run the project.
 *   IDE used : PhpStorm.
@@ -14,9 +14,11 @@ My WebSite is Online and you can visit it : [APi - Site CV](https://adrien-pierr
 
 -------------------------------------------------------------------------------------------------------------------------------------
 
-Realized by Adrien PIERRARD - [adrien.pierrard@gmail.com](mailto:adrien.pierrard@gmail.com)<br>
-Supported by Antoine De Conto - OCR Mentor<br>
-Special thanks to Yann LUCAS for PR Reviews</br>
+Realized by Adrien PIERRARD - [(see GitHub)](https://github.com/WizBhoo)
+
+Supported by Antoine De Conto - OCR Mentor
+
+Special thanks to Yann LUCAS for PR Reviews
 
 -------------------------------------------------------------------------------------------------------------------------------------
 
@@ -122,4 +124,4 @@ Thanks in advance for Star contribution
 
 Any question / trouble ?
 
-Please send me an e-mail ;-) - [adrien.pierrard@gmail.com](mailto:adrien.pierrard@gmail.com)
+Please send me an [e-mail](mailto:apierrard.contact@gmail.com) ;-)
