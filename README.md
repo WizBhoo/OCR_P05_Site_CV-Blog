@@ -34,7 +34,7 @@ Follow each following steps :
 
 *   First clone this repository from your terminal in your preferred project directory.
 
-```
+```console
 https://github.com/WizBhoo/OCR_P05_Site_CV-Blog.git
 ```
 
@@ -45,7 +45,7 @@ https://github.com/WizBhoo/OCR_P05_Site_CV-Blog.git
 *   From your terminal, go to the project directory.
 *   I used some package with composer so don't forget to tape this command line in you terminal :
 
-```
+```console
 composer install
 ```
 
@@ -65,7 +65,7 @@ Once you have well installed my Docker Stack, follow each following steps :
 *   From your terminal go to the php_project directory created by docker.
 *   Clone this repository in this directory.
 
-```
+```console
 https://github.com/WizBhoo/OCR_P05_Site_CV-Blog.git
 ```
 
@@ -74,7 +74,7 @@ https://github.com/WizBhoo/OCR_P05_Site_CV-Blog.git
 *   If you prefer you can copy the ".env" file and setup your credentials in a ".env.local" file.
 *   From your terminal go to the Docker directory and launch Docker using those command lines :
 
-```
+```console
 make build
 make start or make up
 ```
@@ -87,7 +87,7 @@ You can also use "make help" to see what "make" command are available.
 *   From your terminal, go to the php_project directory.
 *   I used some package with composer so don't forget to tape this command line in you terminal :
 
-```
+```console
 composer install
 ```
 
