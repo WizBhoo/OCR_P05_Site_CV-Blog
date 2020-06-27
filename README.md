@@ -1,16 +1,18 @@
 # OCR_P05_Create_Your_First_Site/Blog_in_PHP
-OpenClassrooms - Training Course DA PHP/Symfony - Project P05<br>
-My WebSite is Online and you can visit it : [APi - Site CV](https://adrien-pierrard.fr)
+
+OpenClassrooms - Training Course DA PHP/Symfony - Project P05
+
+My WebSite is Online, and you can visit it : [APi - Site CV](https://adrien-pierrard.fr)
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/79a2760fdd9e4e08828d5e2b7a33b6e4)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=WizBhoo/OCR_P05_Site_CV-Blog&amp;utm_campaign=Badge_Grade)
 
-## Version 1.0.3 - Mai 2020
+## Version 1.0.4 - June 2020
 
 *   This file explains how to install and run the project.
 *   IDE used : PhpStorm.
-*   I use a Docker Stack as personal local development environment but you can use your own environment.
-*   Both method to install the project are described bellow.
-*   NOTE that only OCR Evaluators have access to my DB file (see project renderings) with a set of data for demo.
+*   I use a Docker Stack as personal local development environment, but you can use your own environment.
+*   Both method to install the project are the described bellow.
+*   NOTE that only OCR Evaluators have access to my DB file (see project renderings) with a set of data for the demo.
 
 -------------------------------------------------------------------------------------------------------------------------------------
 
@@ -38,10 +40,10 @@ Follow each following steps :
 https://github.com/WizBhoo/OCR_P05_Site_CV-Blog.git
 ```
 
-*   You need to edit the ".env" file to setup your DB environment variables for connection.
-*   You need also to setup inside ENV variables for SwiftMailer to allow sending contact message or use the forgotten password form to send a reset password email for user account.
+*   You need to edit the ".env" file to set up your DB environment variables for connection.
+*   You need also to set up inside ENV variables for SwiftMailer to allow sending contact message or use the forgotten password form to send a reset password email for user account.
 *   If you prefer you can copy the ".env" file and setup your credentials in a ".env.local" file.
-*   Launch your local environment and create the database following UML schemas (only OCR Evaluators have access to my DB file (see project renderings) with a set of data for demo).
+*   Launch your local environment and create the database following UML schemas (only OCR Evaluators have access to my DB file (see project renderings) with a set of data for the demo).
 *   From your terminal, go to the project directory.
 *   I used some package with composer so don't forget to tape this command line in you terminal :
 
@@ -49,7 +51,7 @@ https://github.com/WizBhoo/OCR_P05_Site_CV-Blog.git
 composer install
 ```
 
-*   Well done ! The project is installed so you just have to go to your localhost home page.
+*   Well done ! Project installed ! So you just have to go to your localhost home page.
 
 -------------------------------------------------------------------------------------------------------------------------------------
 
@@ -62,15 +64,15 @@ composer install
 
 Once you have well installed my Docker Stack, follow each following steps :
 
-*   From your terminal go to the php_project directory created by docker.
+*   From your terminal go to the php_project directory created by Docker.
 *   Clone this repository in this directory.
 
 ```console
 https://github.com/WizBhoo/OCR_P05_Site_CV-Blog.git
 ```
 
-*   You need to edit the ".env" file to setup the Docker DB environment variables for connection.
-*   You need also to setup inside ENV variables for SwiftMailer to allow sending contact message or use the forgotten password form to send a reset password email for user account.
+*   You need to edit the ".env" file to set up the Docker DB environment variables for connection.
+*   You need also to set up inside ENV variables for SwiftMailer to allow sending contact message or use the forgotten password form to send a reset password email for user account.
 *   If you prefer you can copy the ".env" file and setup your credentials in a ".env.local" file.
 *   From your terminal go to the Docker directory and launch Docker using those command lines :
 
@@ -83,7 +85,7 @@ make start or make up
 You can also use "make help" to see what "make" command are available.
 </blockquote>
 
-*   Go to [pma.localhost](http://pma.localhost) to access to PHPMyAdmin and create the database following UML schemas (only OCR Evaluators have access to my DB file (see project renderings) with a set of data for demo).
+*   Go to [pma.localhost](http://pma.localhost) to access to PHPMyAdmin and create the database following UML schemas (only OCR Evaluators have access to my DB file (see project renderings) with a set of data for the demo).
 *   From your terminal, go to the php_project directory.
 *   I used some package with composer so don't forget to tape this command line in you terminal :
 
@@ -91,13 +93,13 @@ You can also use "make help" to see what "make" command are available.
 composer install
 ```
 
-*   Well done ! The project is installed so you just have to go to [mon-site.localhost](http://mon-site.localhost) home page.
+*   Well done ! Project installed ! So you just have to go to [mon-site.localhost](http://mon-site.localhost) home page.
 
 -------------------------------------------------------------------------------------------------------------------------------------
 
 ### What you can do on this WebSite
 
-*   This project was the occasion for me to realize a CV Portfolio so it contains my personal background information.
+*   This project was the occasion for me to realize a CV Portfolio, so it contains my personal background information.
 
 <blockquote> 
 Please don't use it for personal uses !
