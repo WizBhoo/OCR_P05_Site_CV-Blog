@@ -6,7 +6,7 @@ My WebSite is Online, and you can visit it : [APi - Site CV](https://adrien-pier
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/79a2760fdd9e4e08828d5e2b7a33b6e4)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=WizBhoo/OCR_P05_Site_CV-Blog&amp;utm_campaign=Badge_Grade)
 
-## Version 1.0.5 - July 2020
+## Version 1.0.6 - July 2020
 
 *   This file explains how to install and run the project.
 *   IDE used : PhpStorm.
